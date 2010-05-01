@@ -1,4 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;ssb-riot&apos;" deleteContents="true" description="Delete resource &apos;ssb-riot&apos;" element1="/ssb-riot" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1272668207878"/>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;ssb-riot&apos;" deleteContents="true" description="Delete resource &apos;ssb-riot&apos;" element1="/ssb-riot" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1272668207878"/>&#x0A;<refactoring comment="Delete resource &apos;jgame-sample&apos;" deleteContents="false" description="Delete resource &apos;jgame-sample&apos;" element1="/jgame-sample" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1272671296646"/>
 </session>

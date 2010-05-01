@@ -1,0 +1,18 @@
+package riot;
+
+import jgame.platform.JGEngine;
+
+public class Riot extends JGEngine {
+
+	public static void main(String[] args) {
+		System.out.println("Hi thar.");
+	}
+
+	public void initCanvas() {
+		
+	}
+	
+	public void initGame() {
+		
+	}
+}
