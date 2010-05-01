@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 3 element(s) from project &apos;jgame-sample&apos;&#x0D;&#x0A;- Original project: &apos;jgame-sample&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     jgame-sample/src/jgame&#x0D;&#x0A;     jgame-sample/src/jgame.impl&#x0D;&#x0A;     jgame-sample/src/jgame.platform&#x0D;&#x0A;- Delete subpackages" description="Delete elements" element1="/src&lt;jgame.platform" element2="/src&lt;jgame.impl" element3="/src&lt;jgame" elements="3" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1272671083364" subPackages="true" version="1.0"/>
+</session>
