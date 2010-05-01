@@ -7,6 +7,7 @@ public class Riot extends JGEngine {
 
 	public static void main(String[] args) {
 		System.out.println("Hello, world! OHWEMGOEFWE");
+		System.out.println("test");
 	}
 
 	public void initCanvas() {
