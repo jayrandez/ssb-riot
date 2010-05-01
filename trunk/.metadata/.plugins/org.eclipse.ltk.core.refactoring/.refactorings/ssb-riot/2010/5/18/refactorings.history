@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring accessors="true" comment="Delete 3 element(s) from project &apos;ssb-riot&apos;&#x0D;&#x0A;- Original project: &apos;ssb-riot&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     jgame-eclipse-sample.zip&#x0D;&#x0A;     mina-1.1.7.zip&#x0D;&#x0A;     xstream-1.3.1-bin.zip" description="Delete elements" element1="libraries/jgame-eclipse-sample.zip" element2="libraries/xstream-1.3.1-bin.zip" element3="libraries/mina-1.1.7.zip" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="3" stamp="1272681677690" subPackages="false" version="1.0"/>
-</session>
