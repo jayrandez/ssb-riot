@@ -10,20 +10,16 @@ import org.apache.mina.filter.logging.*;
 import org.apache.mina.transport.socket.*;
 import org.apache.mina.transport.socket.nio.NioDatagramAcceptor;
 
-public class DatagramReceiver implements IoHandler {
+public abstract class DatagramReceiver implements IoHandler {
 	
 	private NioDatagramAcceptor acceptor;
 	private int port;
-	private long last;
 	
 	public DatagramReceiver(int port) {
 		this.port = port;
 		this.acceptor = new NioDatagramAcceptor();
-		this.last = 0;
 		
 		acceptor.setHandler(this);
-		//DefaultIoFilterChainBuilder chain = acceptor.getFilterChain();
-		//chain.addLast("logger", new LoggingFilter());
 		DatagramSessionConfig dcfg = acceptor.getSessionConfig();
 		dcfg.setReuseAddress(true);
 	}
@@ -43,27 +39,15 @@ public class DatagramReceiver implements IoHandler {
 		if(message instanceof IoBuffer) {
 			IoBuffer buffer = (IoBuffer)message;
 			long current = buffer.getLong();
-			if(current > last + 1) {
-				System.out.println("Failure to receive packet #" + (last+1));
-			}
-			last = current;
-			if(last == 10000) {
-				System.out.println("Done.");
-				System.exit(0);
-			}
+			dispatch(new Datagram(current, session.getRemoteAddress().toString()));
 		}
 	}
 
-	public void sessionClosed(IoSession session) throws Exception {
-		SocketAddress remoteAddress = session.getRemoteAddress();
-		System.out.println("Receiver: Session closed.");
-	}
-
-	public void sessionCreated(IoSession session) throws Exception {
-		SocketAddress remoteAddress = session.getRemoteAddress();
-		System.out.println("Receiver: Session created.");
-	}
+	// THIS FUNCTION MUST BE **FAST** (Faster execution than 3 Millis)
+	public abstract void dispatch(Datagram datagram);
 	
+	public void sessionClosed(IoSession session) throws Exception {}
+	public void sessionCreated(IoSession session) throws Exception {}
 	public void exceptionCaught(IoSession arg0, Throwable arg1) throws Exception {}
 	public void messageSent(IoSession arg0, Object arg1) throws Exception {}
 	public void sessionIdle(IoSession arg0, IdleStatus arg1) throws Exception {}
