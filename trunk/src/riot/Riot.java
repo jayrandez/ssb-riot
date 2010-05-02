@@ -1,19 +1,15 @@
 package riot;
 
-import jgame.platform.JGEngine;
-
-public class Riot extends JGEngine {
-	private static final long serialVersionUID = -6417663999978098545L;
-
+public class Riot {
 	public static void main(String[] args) {
+		GameWindow window = new GameWindow();
+		GameNetwork network = new GameNetwork();
+		GameEngine engine = new GameEngine(window, network);
 		
-	}
-
-	public void initCanvas() {
+		engine.gameLoop();
 		
-	}
-	
-	public void initGame() {
-		
+		window.dispose();
+		network.suspend();
+		System.exit(0);
 	}
 }
