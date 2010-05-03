@@ -13,14 +13,14 @@ import javax.swing.JFrame;
 import jgame.JGColor;
 import jgame.platform.JGEngine;
 
-public class GameWindow extends JFrame {
+public class ClientWindow extends JFrame {
 	private static final long serialVersionUID = -6417663999978098545L;
 	
 	private GraphicsEnvironment environment;
 	private GraphicsDevice screen;
 	private BufferStrategy strategy;
 	
-	public GameWindow() {
+	public ClientWindow() {
 		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = environment.getDefaultScreenDevice();
 		strategy = this.getBufferStrategy();

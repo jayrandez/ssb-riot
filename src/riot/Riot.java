@@ -2,8 +2,8 @@ package riot;
 
 public class Riot {
 	public static void main(String[] args) {
-		GameWindow window = new GameWindow();
-		GameNetwork network = new GameNetwork();
+		ClientWindow window = new ClientWindow();
+		ClientNetwork network = new ClientNetwork();
 		GameEngine engine = new GameEngine(window, network);
 		
 		engine.gameLoop();

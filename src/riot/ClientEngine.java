@@ -9,14 +9,14 @@ import java.util.ArrayList;
 
 public class ClientEngine {
 	
-	private GameNetwork network;
+	private ClientNetwork network;
 	private GameWindow window;
 	private boolean gameFinished;
 	private ArrayList<GameObject> gameObjects;
 	private ArrayList<GameObject> overlayGameObjects;
 	private Image backgroundImage;
 	
-	public ClientEngine(GameWindow window, GameNetwork network) {
+	public ClientEngine(ClientWindow window) {
 		this.window = window;
 		this.network = network;
 		
