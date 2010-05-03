@@ -1,6 +1,6 @@
 package riot;
 
-public class GameNetwork {
+public class ClientNetwork {
 
 	private DatagramReceiver reciever;
 	private DatagramSender sender;
