@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel layout="borderlayout">
+	<panel layout="GridLayout(0,2,10,10)" id="vbxPatronView" constraints="BorderLayout.CENTER" visible="false">
+		<vbox>
+			<panel layout="FlowLayout(FlowLayout.LEFT)">
+				<label font="ARIAL-BOLD-20" id="lblName"></label>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.LEFT)" id="pnlPhone">
+				<label font="ARIAL-BOLD-14" preferredsize="105, 30">Phone</label>
+				<label></label>
+				<textfield preferredsize="200, 30" visible="false"></textfield>
+				<linklabel>change</linklabel>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.LEFT)" id="pnlEmail">
+				<label font="ARIAL-BOLD-14" preferredsize="105, 30">Email</label>
+				<label></label>
+				<textfield preferredsize="200, 30" visible="false"></textfield>
+				<linklabel>change</linklabel>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.LEFT)" id="pnlBarcode">
+				<label font="ARIAL-BOLD-14" preferredsize="105, 30">Barcode</label>
+				<label></label>
+				<textfield preferredsize="200, 30" visible="false"></textfield>
+				<linklabel>change</linklabel>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.LEFT)" id="pnlStreet">
+				<label font="ARIAL-BOLD-14" preferredsize="105, 30">Street</label>
+				<label></label>
+				<autocomplete id="autStreet" preferredsize="200, 30" visible="false"></autocomplete>
+				<linklabel>change</linklabel>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.LEFT)" id="pnlCity">
+				<label font="ARIAL-BOLD-14" preferredsize="105, 30">City</label>
+				<label></label>
+				<autocomplete id="autCity" preferredsize="200, 30" visible="false"></autocomplete>
+				<linklabel>change</linklabel>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.LEFT)" id="pnlZip">
+				<label font="ARIAL-BOLD-14" preferredsize="105, 30">Zip</label>
+				<label></label>
+				<autocomplete id="autZip" preferredsize="200, 30" visible="false"></autocomplete>
+				<linklabel>change</linklabel>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.LEFT)" id="pnlState">
+				<label font="ARIAL-BOLD-14" preferredsize="105, 30">State</label>
+				<label></label>
+				<combobox preferredsize="200, 30" visible="false" id="cbbState"></combobox>
+				<linklabel>change</linklabel>
+			</panel>
+		</vbox>
+		<panel layout="BorderLayout">
+			<mediatable id="tblMedia" constraints="BorderLayout.CENTER"></mediatable>
+			<panel layout="FlowLayout(FlowLayout.LEFT)" background="Color.GRAY" constraints="BorderLayout.SOUTH">
+				<label font="Arial-BOLD-18">Total Dues:   </label>			
+				<label id="lblDues" foreground="red" font="Arial-BOLD-18" >$15.00</label>
+			</panel>
+		</panel>
+	</panel>
+</panel>

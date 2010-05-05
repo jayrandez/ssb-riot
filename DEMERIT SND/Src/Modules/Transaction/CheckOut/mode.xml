@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel constraints="FlowLayout(FlowLayout.LEFT)" background="Color.GRAY">
+	<label>Patron ID:</label>
+	<textfield id="txtPatronID" preferredsize="200, 30"></textfield>
+	<linklabel id="lnkChange">change</linklabel>
+</panel>

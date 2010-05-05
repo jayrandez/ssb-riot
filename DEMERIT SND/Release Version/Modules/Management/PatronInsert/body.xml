@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel layout="GridLayout(0,2,10,10)">
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">First Name:</label>
+		<textfield id="txtFirstName" preferredsize="200,25"></textfield>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Last Name:</label>
+		<textfield id="txtLastName" preferredsize="200,25"></textfield>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Street:</label>
+		<autocomplete preferredsize="200,25" id="autStreet"></autocomplete>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">City:</label>
+		<autocomplete preferredsize="200,25" id="autCity"></autocomplete>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Zip:</label>
+		<autocomplete id="autZip" preferredsize="200,25"></autocomplete>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">State:</label>
+		<combobox id="cbbState"></combobox>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Phone:</label>
+		<textfield id="txtPhone" preferredsize="200,25"></textfield>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Email:</label>
+		<textfield id="txtEmail" preferredsize="200,25"></textfield>
+	</panel>
+
+</panel>

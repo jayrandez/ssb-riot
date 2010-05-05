@@ -1,0 +1,31 @@
+<panel layout="GridLayout(0,2,10,10)" constraints="BorderLayout.CENTER">
+	<panel layout="BorderLayout">
+		<panel layout="FlowLayout(FlowLayout.LEFT)" constraints="BorderLayout.NORTH">
+			<label font="ARIAL-BOLD-16">Library Users</label>
+		</panel>
+		<panel layout="BorderLayout" constraints="BorderLayout.CENTER">
+			<mediatable id="tblUsers" constraints="BorderLayout.CENTER"></mediatable>
+			<vbox constraints="BorderLayout.SOUTH">
+				<panel layout="FlowLayout(FlowLayout.LEFT)">
+					<label font="ARIAL-BOLD-16" preferredsize="200, 30">New User</label>
+				</panel>
+				<panel layout="FlowLayout(FlowLayout.LEFT)">
+					<label preferredsize="85, 30">Username</label>
+					<textfield id="txtUser"  preferredsize="200, 30"></textfield>
+				</panel>
+				<panel layout="FlowLayout(FlowLayout.LEFT)">
+					<label preferredsize="85, 30">Password</label>
+					<passwordfield id="txtPass" preferredsize="200, 30"></passwordfield>
+					<label preferredsize="40, 30"> </label>
+					<checkbox id="chkAdmin">Administrator</checkbox>
+				</panel>
+			</vbox>
+		</panel>
+	</panel>
+	<panel layout="BorderLayout">
+		<panel layout="FlowLayout(FlowLayout.LEFT)" constraints="BorderLayout.NORTH">
+			<label font="ARIAL-BOLD-16">Enabled Modules</label>
+		</panel>
+		<mediatable id="tblModules" constraints="BorderLayout.CENTER"></mediatable>
+	</panel>
+</panel>

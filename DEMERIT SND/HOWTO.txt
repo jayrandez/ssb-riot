@@ -1,0 +1,27 @@
+The first time you run the software (double click the Demerit.BAT batch file to run on windows),
+the installer will run because the software hasn't been configured yet.
+
+The installer is used to gather information about the database.
+Currently, the data we used to test the system is stored on my private server.
+
+Host Name: 	devmonger.com
+Port: 		3306
+Database Name:	bpa2010
+Username:	bpa2010-general
+Password:	1q2w3e4r5t
+
+Library Name:	Leet County Public Library
+Username:	administrator
+Password:	1q2w3e4r5t
+
+Finish the installation, and run the program once more and it will be set up with a login screen available.
+
+You can log in as an administrator:
+
+Username:	administrator
+Password:	1q2w3e4r5t
+
+Or as an underprivileged user:
+
+Username:	librarian
+Password:	1q2w3e4r5t

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel layout="BorderLayout">
+	<panel layout="GridBagLayout" constraints="BorderLayout.NORTH">
+		<panel layout="BorderLayout">
+			<gridbagconstraints gridx="0" gridy="0" fill="GridBagConstraints.HORIZONTAL" weightx="1" />
+			<textarea focusable="false" background="Color.WHITE" font="Tahoma, 18" wrapstyleword="true" linewrap="true" constraints="BorderLayout.NORTH">
+It appears this is the first time Demerit has been run on this system. Also, it is possible that the settings file has been deleted. In order to use Demerit you will need to provide some basic access settings. Demerit must connect to a MySQL database that has been properly configured in order to make transactions and perform other operations on library media.
+
+Please take a moment to set up this database connection. Note that in order to complete the installation you will need to provide administrative credentials associated with this library that must have been previously set up on the database server you will be connecting to.
+			</textarea>
+		</panel>
+	</panel>
+</panel>

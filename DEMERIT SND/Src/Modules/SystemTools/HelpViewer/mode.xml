@@ -1,0 +1,4 @@
+<panel layout="FlowLayout(FlowLayout.LEFT)" background="Color.GRAY">
+	<label>Help Context</label>
+	<combobox id="cbbHelp"></combobox>
+</panel>
