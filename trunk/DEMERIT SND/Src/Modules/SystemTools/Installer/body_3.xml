@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<panel layout="BorderLayout">
+	<panel layout="GridBagLayout" constraints="BorderLayout.NORTH">
+		<panel layout="BorderLayout">
+			<gridbagconstraints gridx="0" gridy="0" fill="GridBagConstraints.HORIZONTAL" weightx="1" />
+			<textarea focusable="false" background="Color.WHITE" font="Tahoma-18" wrapstyleword="true" linewrap="true">
+				Please choose from the list of libraries connected to this network. If the library does not exist it must be set up on the database server to ensure data security.
+			</textarea>
+		</panel>
+		<panel layout="FlowLayout(FlowLayout.LEFT)">
+			<gridbagconstraints gridx="0" gridy="1" fill="GridBagConstraints.HORIZONTAL" weightx="1" />
+			<label font="Tahoma-16" preferredsize="150, 30">Library Name</label>
+			<combobox id="cbbLibrary" preferredsize="200, 30"></combobox>
+		</panel>
+		<vbox>
+			<gridbagconstraints gridx="0" gridy="2" fill="GridBagConstraints.HORIZONTAL" weightx="1" />
+			<panel layout="BorderLayout" id="txtExistant" visible="false">
+			<textarea focusable="false" background="Color.WHITE" font="Tahoma-18" wrapstyleword="true" linewrap="true" constraints="BorderLayout.NORTH">
+				Please enter the username and password of an administrator that is set up to manage this library's Demerit system.
+			</textarea>
+			</panel>
+			<panel layout="BorderLayout" id="txtNonexistant" visible="false">
+			<textarea focusable="false" background="Color.WHITE" font="Tahoma-18" wrapstyleword="true" linewrap="true" constraints="BorderLayout.NORTH">
+				Please enter a new username and password of an administrator which will be set up to manage this new library's Demerit system.
+			</textarea>
+			</panel>
+		</vbox>
+		<panel id="pnlUserouter" visible="false" layout="FlowLayout(FlowLayout.LEFT)">
+			<gridbagconstraints gridx="0" gridy="3" fill="GridBagConstraints.HORIZONTAL" weightx="1" />
+			<label font="Tahoma-16" preferredsize="150, 30">Username</label>
+			<textfield id="txtUser" preferredsize="200, 30"></textfield>
+		</panel>
+		<panel id="pnlPassouter" visible="false" layout="FlowLayout(FlowLayout.LEFT)">
+			<gridbagconstraints gridx="0" gridy="4" fill="GridBagConstraints.HORIZONTAL" weightx="1" />
+			<label font="Tahoma-16" preferredsize="150, 30">Password</label>
+			<passwordfield id="pssPass" preferredsize="200, 30"></passwordfield>
+		</panel>
+		<panel layout="FlowLayout(FlowLayout.LEFT)">
+			<gridbagconstraints gridx="0" gridy="5" fill="GridBagConstraints.HORIZONTAL" weightx="1" />
+			<label font="Tahoma-16" preferredsize="150, 30"></label>
+			<label font="Tahoma-18" foreground="FF0000" id="lblError"></label>
+		</panel>
+	</panel>
+</panel>

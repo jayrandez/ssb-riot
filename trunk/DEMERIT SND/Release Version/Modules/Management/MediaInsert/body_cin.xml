@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel layout="GridLayout(0,2,10,10)">
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Format:</label>
+		<combobox id="cbbFormat"></combobox>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Title:</label>
+		<textfield id="txtTitle" preferredsize="200,25"></textfield>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Length:</label>
+		<textfield id="txtLength" preferredsize="200,25"></textfield>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Copyright:</label>
+		<textfield id="txtCopyright" preferredsize="200,25"></textfield>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Directors:</label>
+		<autocompletescroll id="scrAuthors" preferredsize="300, 70"></autocompletescroll>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Genre:</label>
+		<combobox id="cbbGenre"></combobox>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Categories:</label>
+		<autocompletescroll id="scrCategories" preferredsize="300, 70"></autocompletescroll>
+		
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Actors:</label>
+		<autocompletescroll id="scrActors" preferredsize="300, 70"></autocompletescroll>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Producers:</label>
+		<autocompletescroll id="scrProducers" preferredsize="300, 70"></autocompletescroll>
+	</panel>
+	
+	<panel layout="FlowLayout(FlowLayout.LEFT)">
+		<label preferredsize="70,25">Description:</label>
+		<textarea id="tarDescription" preferredsize="250,80"></textarea>
+	</panel>
+
+</panel>

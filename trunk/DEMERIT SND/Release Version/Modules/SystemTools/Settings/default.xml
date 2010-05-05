@@ -1,0 +1,3 @@
+<panel background="Color.GRAY">
+	<button id="btnSave">Save Settings</button>
+</panel>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel layout="BorderLayout">
+	<panel layout="FlowLayout" constraints="BorderLayout.SOUTH">
+		<vbox>
+			<panel layout="FlowLayout">
+				<label preferredsize="85, 30">Username</label>
+				<textfield preferredsize="200, 30" id="username"></textfield>
+			</panel>
+			<panel layout="FlowLayout">
+				<label preferredsize="85, 30">Password</label>
+				<passwordfield preferredsize="200, 30" id="password"></passwordfield>
+			</panel>
+			<panel layout="FlowLayout" id="codeholder" visible="false">
+				<label preferredsize="85, 30">Access Code</label>
+				<passwordfield preferredsize="200, 30" id="code"></passwordfield>
+			</panel>
+			<panel layout="FlowLayout">
+				<label foreground="FF0000" id="error"></label>
+			</panel>
+		</vbox>
+	</panel>
+</panel>

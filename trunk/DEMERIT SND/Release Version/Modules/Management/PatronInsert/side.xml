@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel layout="GridLayout(0,1,10,10)" background="Color.LIGHT_GRAY">
+
+	<vbox>
+		<panel background="Color.LIGHT_GRAY">
+			<vbox>
+			<panel layout="FlowLayout(FlowLayout.CENTER)" background="Color.LIGHT_GRAY">
+				<label>Barcode:</label>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.CENTER)" background="Color.LIGHT_GRAY">
+				<textfield id="txtBarcode" preferredsize="200,25"></textfield>
+			</panel>
+			<panel layout="FlowLayout(FlowLayout.CENTER " background="Color.LIGHT_GRAY">
+				<button id="btnGenerateBarcode">Generate Barcode</button>
+			</panel>
+			</vbox>
+		</panel>
+	</vbox>
+
+</panel>

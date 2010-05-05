@@ -1,0 +1,4 @@
+<panel background="Color.GRAY">
+	<button id="btnAdd">Add User</button>
+	<button id="btnRemove">Remove Selected</button>
+</panel>

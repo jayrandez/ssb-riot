@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel constraints="FlowLayout" background="Color.GRAY">
+	<label>Barcode:</label>
+	<textfield id="txtBarcode" preferredsize="200, 30"></textfield>
+</panel>

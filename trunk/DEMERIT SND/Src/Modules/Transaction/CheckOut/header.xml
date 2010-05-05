@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<panel layout="BorderLayout" background="Color.GRAY">
+	<panel constraints="BorderLayout.WEST" background="Color.GRAY">
+		<vbox>
+			<panel constraints="FlowLayout(FlowLayout.CENTER)" background="Color.GRAY">
+				<linklabel foreground="black" font="Arial-BOLD-23" id="lnkPatron">[PatronName]</linklabel>
+			</panel>
+			<panel layout="BorderLayout" constraints="FlowLayout(FlowLayout.LEFT)" background="Color.GRAY">
+				<label id="lblStatus" font="Arial-BOLD-18" >1 checked out, 0 overdue.</label>
+			</panel>
+		</vbox>
+	</panel>
+	<panel constraints="BorderLayout.EAST" background="Color.GRAY">
+		<vbox>
+			<panel layout="BorderLayout" constraints="FlowLayout(FlowLayout.LEFT)" background="Color.GRAY">
+				<label font="Arial-BOLD-18">Total Dues:</label>			
+			</panel>
+			<panel constraints="FlowLayout(FlowLayout.CENTER)" background="Color.GRAY">
+				<label id="lblDues" foreground="white" font="Arial-BOLD-18" >$15.00</label>
+			</panel>
+		</vbox>
+	</panel>
+</panel>
