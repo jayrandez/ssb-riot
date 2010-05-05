@@ -4,7 +4,7 @@ public class Riot {
 	public static void main(String[] args) {
 		ClientWindow window = new ClientWindow();
 		ClientNetwork network = new ClientNetwork();
-		GameEngine engine = new GameEngine(window, network);
+		GameEngine engine = new ClientEngine(window);
 		
 		engine.gameLoop();
 		
