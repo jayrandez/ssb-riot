@@ -1,5 +1,5 @@
 package riot;
 
-public class Physics {
-
+public abstract class Physics {
+	public abstract void step();
 }

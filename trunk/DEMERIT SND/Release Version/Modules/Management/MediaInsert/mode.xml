@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<panel constraints="FlowLayout" background="Color.GRAY">
-	<label>Media Type:</label>
-	<combobox id="cbbType"></combobox>
-</panel>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<panel background="Color.GRAY">
-	<button id="btnCheckIn">Check In Selected</button>
-	<button id="btnPaid">Fees Paid</button>
-</panel>

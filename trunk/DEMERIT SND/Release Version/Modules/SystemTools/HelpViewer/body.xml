@@ -1,5 +1,0 @@
-<panel layout="BorderLayout">
-	<scrollpane constraints="BorderLayout.CENTER">
-		<textpane id="tpnViewer"></textpane>
-	</scrollpane>
-</panel>
