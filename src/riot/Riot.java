@@ -1,15 +1,23 @@
 package riot;
 
 public class Riot {
+	
+	public static void debug(String message) {
+		System.out.println(message);
+	}
+	
 	public static void main(String[] args) {
-		ClientWindow window = new ClientWindow();
+		SheetManager manager = new SheetManager();
+		manager.getSheetsFromDirectory("sheets");
+		/*ClientWindow window = new ClientWindow();
 		ClientNetwork network = new ClientNetwork();
-		GameEngine engine = new ClientEngine(window);
 		
-		engine.gameLoop();
+		ConnectionWindow view = new ConnectionWindow(window);
+		
+		view.gameLoop();
 		
 		window.dispose();
 		network.suspend();
-		System.exit(0);
+		System.exit(0);*/
 	}
 }

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<panel background="Color.GRAY">
-	<button id="btnRemove">Remove Account</button>
-	<button id="btnUpdate">Update Information</button>
-</panel>

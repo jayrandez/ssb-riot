@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +16,6 @@ import java.awt.image.MemoryImageSource;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import jgame.JGColor;
-import jgame.platform.JGEngine;
 
 public class ClientWindow extends JFrame {
 	private static final long serialVersionUID = -6417663999978098545L;

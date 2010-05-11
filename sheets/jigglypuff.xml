@@ -1,0 +1,28 @@
+<SheetDescriptor>
+	<sheetName>JigglyPuff</sheetName>
+	<imageFile>jigglypuff2.png</imageFile>
+	<sprites>
+		<AnimationDescriptor>
+			<spriteName>idle</spriteName>
+			<originX>53</originX>
+			<originY>110</originY>
+			<width>29</width>
+			<height>26</height>
+			<centerX>16</centerX>
+			<centerY>16</centerY>
+			<frames>10</frames>
+			<speed>50</speed>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<spriteName>walk</spriteName>
+			<originX>55</originX>
+			<originY>167</originY>
+			<width>29</width>
+			<height>27</height>
+			<centerX>16</centerX>
+			<centerY>16</centerY>
+			<frames>5</frames>
+			<speed>50</speed>
+		</AnimationDescriptor>
+	</sprites>
+</SheetDescriptor>

@@ -1,17 +1,27 @@
 package riot;
 
-import java.awt.Graphics2D;
-
 public abstract class GameObject {
 	private Physics objectPhysics;
+	
+	public GameObject() {
+		this.objectPhysics = null;
+	}
 	
 	public GameObject(Physics objectPhysics) {
 		this.objectPhysics = objectPhysics;
 	}
 	
-	public void getPhysics() {
+	public void setPhysics(Physics objectPhysics) {
+		this.objectPhysics = objectPhysics;
 	}
 	
-	abstract public void step();
-	abstract public void draw(Graphics2D g2d);
+	public Physics getPhysics() {
+		return objectPhysics;
+	}
+	
+	public void step() {
+		if(objectPhysics != null) {
+			objectPhysics.step();
+		}
+	}
 }

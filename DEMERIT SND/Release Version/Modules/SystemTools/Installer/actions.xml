@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<panel background="Color.GRAY">
-	<button id="btnCancel">Cancel</button>
-	<button id="btnPrevious" enabled="false">Previous</button>
-</panel>
