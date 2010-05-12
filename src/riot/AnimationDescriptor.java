@@ -3,7 +3,7 @@ package riot;
 import java.io.Serializable;
 
 public class AnimationDescriptor implements Serializable {
-	String spriteName;
+	String animationName;
 	int originX;
 	int originY;
 	int width;
@@ -14,6 +14,6 @@ public class AnimationDescriptor implements Serializable {
 	int speed;
 	
 	public String toString() {
-		return spriteName;
+		return animationName;
 	}
 }

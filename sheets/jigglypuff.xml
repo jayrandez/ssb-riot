@@ -1,9 +1,9 @@
 <SheetDescriptor>
 	<sheetName>JigglyPuff</sheetName>
 	<imageFile>jigglypuff2.png</imageFile>
-	<sprites>
+	<animations>
 		<AnimationDescriptor>
-			<spriteName>idle</spriteName>
+			<animationName>idle</animationName>
 			<originX>53</originX>
 			<originY>110</originY>
 			<width>29</width>
@@ -14,7 +14,7 @@
 			<speed>50</speed>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<spriteName>walk</spriteName>
+			<animationName>walk</animationName>
 			<originX>55</originX>
 			<originY>167</originY>
 			<width>29</width>
@@ -24,5 +24,5 @@
 			<frames>5</frames>
 			<speed>50</speed>
 		</AnimationDescriptor>
-	</sprites>
+	</animations>
 </SheetDescriptor>

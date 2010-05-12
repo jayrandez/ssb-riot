@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class SheetDescriptor implements Serializable {
 	String sheetName;
 	String imageFile;
-	ArrayList<AnimationDescriptor> sprites;
+	ArrayList<AnimationDescriptor> animations;
 	
 	public String toString() {
 		return " > " + sprites.toString();
