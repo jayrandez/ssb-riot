@@ -9,6 +9,6 @@ public class SheetDescriptor implements Serializable {
 	ArrayList<AnimationDescriptor> animations;
 	
 	public String toString() {
-		return " > " + sprites.toString();
+		return " > " + animations.toString();
 	}
 }
