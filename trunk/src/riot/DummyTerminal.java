@@ -19,9 +19,11 @@ public class DummyTerminal {
 	private ArrayList<GameObject> gameObjects;
 	private ArrayList<GameObject> overlayGameObjects;
 	private Image backgroundImage;
+	private SceneProvider sceneProvider;
 	
 	public DummyTerminal(ClientWindow window) {
 		this.window = window;
+		sceneProvider = new ConnectionScreen();
 		exit = false;
 	}
 	
