@@ -38,7 +38,7 @@ public class Sprite {
 		// Create buffered image of text
 	}
 	
-	public void drawOn(BufferedImage destination) {
+	public void drawOn(Graphics2D g2d) {
 		// Affine Transform Blit Here
 	}
 }
