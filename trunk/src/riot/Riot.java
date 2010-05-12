@@ -7,8 +7,7 @@ public class Riot {
 	}
 	
 	public static void main(String[] args) {
-		SpriteManager manager = new SpriteManager();
-		manager.getSheetsFromDirectory("sheets");
+		SpriteManager manager = new SpriteManager("sheets");
 		/*ClientWindow window = new ClientWindow();
 		ClientNetwork network = new ClientNetwork();
 		
