@@ -4,6 +4,7 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 public class DummyTerminal {
 	
 	private ClientWindow window;
-	private ClientNetwork network;
 	
 	private boolean exit;
 	private ArrayList<GameObject> gameObjects;
@@ -30,7 +30,7 @@ public class DummyTerminal {
 		while(!exit) {
 			Graphics2D g2d = (Graphics2D)strategy.getDrawGraphics();
 			
-			byte[] sceneData = network.getSceneData();
+			byte[] sceneData = null;/*network.getSceneData();*/
 			Scene scene = new Scene(sceneData);
 			renderScene(g2d, scene);
 		    
@@ -40,12 +40,24 @@ public class DummyTerminal {
 	}
 	
 	public void renderScene(Graphics2D g2d, Scene scene) {
-		BufferedImage buffer = new BufferedImage(1024, 768, BufferedImage.TYPE_4BYTE_ABGR);
-		// get size of map from scene
-		// BufferedImage buffer = new BufferedImage(size, size, BufferedImage.TYPE_4BYTE_ABGR);
-		// use scene to draw world elements
-		// get clipping rectangle from scene
-		// drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, ImageObserver observer) 
-		// use scene to draw overlay elements
+		Dimension worldSize = scene.getWorldSize();
+		BufferedImage world = new BufferedImage(worldSize.width, worldSize.height, BufferedImage.TYPE_4BYTE_ABGR);
+
+		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
+		for(Sprite sprite: worldSprites) {
+			sprite.drawOn(world.getGraphics());
+		}
+		
+		Rectangle worldView = scene.getWorldView();
+		int x1 = (int)worldView.getMinX();
+		int y1 = (int)worldView.getMinY();
+		int x2 = (int)worldView.getMaxX();
+		int y2 = (int)worldView.getMaxY();
+		g2d.drawImage(world, 0, 0, 1024, 769, x1, y1, x2, y2, null);
+		
+		ArrayList<Sprite> overlaySprites = scene.getOverlaySprites();
+		for(Sprite sprite: overlaySprites) {
+			sprite.drawOn(g2d);
+		}
 	}
 }
