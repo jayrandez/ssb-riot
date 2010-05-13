@@ -14,13 +14,19 @@ public class Scene {
 	public Scene(ArrayList<GameObject> gameObjects) {
 		for(GameObject object: gameObjects) {
 			Physics physics = object.getPhysics();
-			// if physics instanceof gravity... etc...
 			worldSprites.add(physics.getSprite());
 		}
 	}
 	
 	public Scene(byte[] rawData) {
 		
+	}
+	
+	public Scene() {
+		worldSprites = new ArrayList<Sprite>();
+		overlaySprites = new ArrayList<Sprite>();
+		worldSize = new Dimension(1024, 768);
+		worldView = new Rectangle(0, 0, 1023, 767);
 	}
 	
 	public byte[] serialize() {

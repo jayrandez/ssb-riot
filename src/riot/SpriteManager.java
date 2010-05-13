@@ -54,8 +54,8 @@ public class SpriteManager {
 			parser.alias("AnimationDescriptor", riot.AnimationDescriptor.class);
 			SheetDescriptor sheet = (SheetDescriptor)parser.fromXML(reader);
 			
-			Riot.debug("Found sheet descriptor: " + descriptor.getName());
-			Riot.debug("" + sheet);
+			System.out.println("Found sheet descriptor: " + descriptor.getName());
+			System.out.println("" + sheet);
 			
 			return sheet;
 		}
