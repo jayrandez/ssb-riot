@@ -1,29 +1,11 @@
 package riot;
 
-import java.awt.MouseInfo;
-import java.awt.*;
-import java.awt.Cursor;
-import java.awt.event.*;
-import java.awt.Dimension;
-import java.awt.DisplayMode;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.awt.image.MemoryImageSource;
-import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.util.*;
+import javax.swing.*;
 
 public class SceneWindow extends JFrame implements KeyListener, MouseListener {
 	private static final long serialVersionUID = -6417663999978098545L;
@@ -37,6 +19,7 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener {
 		this.provider = provider;
 		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = environment.getDefaultScreenDevice();
+		this.createBufferStrategy(1);
 		strategy = this.getBufferStrategy();
 		
 		addKeyListener(this);
@@ -107,11 +90,11 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener {
     }
     
     public void keyPressed(KeyEvent e) {
-    	provider.receivePress(e.getKeyChar(), true);
+    	provider.receivePress(e.getKeyCode(), true);
     }
     
     public void keyReleased(KeyEvent e) {
-    	provider.receivePress(e.getKeyChar(), false);
+    	provider.receivePress(e.getKeyCode(), false);
     }
     
     public void keyTyped(KeyEvent e) {}

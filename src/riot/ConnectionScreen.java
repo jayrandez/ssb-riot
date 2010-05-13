@@ -1,7 +1,7 @@
 package riot;
 
-import java.util.ArrayList;
 import java.awt.event.*;
+import java.io.Serializable;
 
 public class ConnectionScreen implements SceneProvider {
 	SpriteManager manager;
@@ -14,14 +14,15 @@ public class ConnectionScreen implements SceneProvider {
 	}
 	
 	public SceneProvider nextProvider() {
-		if(exit == true) {
+		if(exit) {
+			System.exit(0);
 			return null;
 		}
 		return this;
 	}
 
 	public Scene nextScene() {
-		return new Scene(new ArrayList<GameObject>());
+		return new Scene();
 	}
 	
 	public void receiveLocation(int x, int y) {
@@ -32,5 +33,9 @@ public class ConnectionScreen implements SceneProvider {
 		if(code == KeyEvent.VK_ESCAPE) {
 			exit = true;
 		}
+	}
+
+	public void debug(Serializable message) {
+		System.out.println(message);
 	}
 }

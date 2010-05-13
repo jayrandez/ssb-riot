@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
@@ -19,7 +20,7 @@ public class SpriteManager {
 	private HashMap<String, HashMap<String, ArrayList<BufferedImage>>> sprites;
 	
 	public SpriteManager(String path) {
-		ArrayList<SheetDescriptor> sheets = new ArrayList<SheetDescriptor>();
+		ArrayList<SpriteSheet> sheets = new ArrayList<SpriteSheet>();
 		
 		File directory = new File(path);
 		File[] contents = directory.listFiles();
@@ -27,7 +28,7 @@ public class SpriteManager {
 			File file = contents[i];
 			String name = file.getName();
 			if(file.isFile() && name.contains(".xml")) {
-				SheetDescriptor sheet = parse(file);
+				SpriteSheet sheet = parse(file);
 				if(sheet != null) {
 					sheets.add(sheet);
 				}
@@ -46,13 +47,13 @@ public class SpriteManager {
 		return sprites.get(sheet).get(animation).get(index);
 	}
 	
-	private SheetDescriptor parse(File descriptor) {
+	private SpriteSheet parse(File descriptor) {
 		try {
 			FileReader reader = new FileReader(descriptor);
 			XStream parser = new XStream();
-			parser.alias("SheetDescriptor", riot.SheetDescriptor.class);
+			parser.alias("SheetDescriptor", riot.SpriteManager.SpriteSheet.class);
 			parser.alias("AnimationDescriptor", riot.AnimationDescriptor.class);
-			SheetDescriptor sheet = (SheetDescriptor)parser.fromXML(reader);
+			SpriteSheet sheet = (SpriteSheet)parser.fromXML(reader);
 			
 			System.out.println("Found sheet descriptor: " + descriptor.getName());
 			System.out.println("" + sheet);
@@ -65,9 +66,9 @@ public class SpriteManager {
 		}
 	}
 	
-	private HashMap<String, HashMap<String, ArrayList<BufferedImage>>> getSpritesFrom(ArrayList<SheetDescriptor> sheets, File directory) {
+	private HashMap<String, HashMap<String, ArrayList<BufferedImage>>> getSpritesFrom(ArrayList<SpriteSheet> sheets, File directory) {
 		HashMap<String, HashMap<String, ArrayList<BufferedImage>>> sheetMap = new HashMap<String, HashMap<String, ArrayList<BufferedImage>>>();
-		for(SheetDescriptor sheet: sheets) {
+		for(SpriteSheet sheet: sheets) {
 			HashMap<String, ArrayList<BufferedImage>> animationMap = new HashMap<String, ArrayList<BufferedImage>>();
 			Image sheetImage = openImage(directory, sheet.imageFile);
 			for(AnimationDescriptor animation: sheet.animations) {
@@ -75,7 +76,7 @@ public class SpriteManager {
 				for(int i = 0; i < animation.frames; i++) {
 					int offsetX = animation.originX + (i * animation.width);
 					int offsetY = animation.originY;
-					BufferedImage spriteImage = getTransparentSubimage(sheetImage, offsetX, offsetY, animation.width, animation.height);
+					BufferedImage spriteImage = getSubimage(sheetImage, offsetX, offsetY, animation.width, animation.height, animation.transparent);
 					sprites.add(spriteImage);
 				}
 				animationMap.put(animation.animationName, sprites);
@@ -85,9 +86,9 @@ public class SpriteManager {
 		return sheetMap;
 	}
 
-	private HashMap<String, HashMap<String, AnimationDescriptor>> getAnimationsFrom(ArrayList<SheetDescriptor> sheets) {
+	private HashMap<String, HashMap<String, AnimationDescriptor>> getAnimationsFrom(ArrayList<SpriteSheet> sheets) {
 		HashMap<String, HashMap<String, AnimationDescriptor>> sheetMap = new HashMap<String, HashMap<String, AnimationDescriptor>>();
-		for(SheetDescriptor sheet: sheets) {
+		for(SpriteSheet sheet: sheets) {
 			HashMap<String, AnimationDescriptor> animationMap = new HashMap<String, AnimationDescriptor>();
 			for(AnimationDescriptor animation: sheet.animations) {
 				animationMap.put(animation.animationName, animation);
@@ -113,8 +114,21 @@ public class SpriteManager {
 		return null;
 	}
 	
-	private BufferedImage getTransparentSubimage(Image source, int offsetX, int offsetY, int width, int height) {
+	private BufferedImage getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) {
 		// DEAN MAKE THIS FUNCTION!!!
 		return null;
 	}
+	
+	private class SpriteSheet implements Serializable {
+		private static final long serialVersionUID = 8569167703952176877L;
+		
+		String sheetName;
+		String imageFile;
+		ArrayList<AnimationDescriptor> animations;
+		
+		public String toString() {
+			return " > " + animations.toString();
+		}
+	}
+
 }
