@@ -12,6 +12,7 @@
 			<centerY>16</centerY>
 			<frames>10</frames>
 			<speed>50</speed>
+			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>walk</animationName>
@@ -23,6 +24,7 @@
 			<centerY>16</centerY>
 			<frames>5</frames>
 			<speed>50</speed>
+			<transparent>true</transparent>
 		</AnimationDescriptor>
 	</animations>
 </SheetDescriptor>
