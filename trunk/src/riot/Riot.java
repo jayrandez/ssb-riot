@@ -1,22 +1,22 @@
 package riot;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 public class Riot {
-	
-	public static void debug(String message) {
-		System.out.println(message);
-	}
-	
+
 	public static void main(String[] args) {
 		SpriteManager manager = new SpriteManager("sheets");
-		/*ClientWindow window = new ClientWindow();
-		ClientNetwork network = new ClientNetwork();
+		SceneProvider startScreen = new ConnectionScreen(manager);
+		SceneWindow window = new SceneWindow(startScreen);
 		
-		ConnectionWindow view = new ConnectionWindow(window);
-		
-		view.gameLoop();
+		window.gameLoop();
 		
 		window.dispose();
-		network.suspend();
-		System.exit(0);*/
+		System.exit(0);
 	}
 }
