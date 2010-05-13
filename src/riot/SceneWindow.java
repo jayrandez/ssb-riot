@@ -1,6 +1,9 @@
 package riot;
 
+import java.awt.MouseInfo;
+import java.awt.*;
 import java.awt.Cursor;
+import java.awt.event.*;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.FlowLayout;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class SceneWindow extends JFrame {
+public class SceneWindow extends JFrame implements KeyListener, MouseListener {
 	private static final long serialVersionUID = -6417663999978098545L;
 	
 	private SceneProvider provider;
@@ -35,6 +38,9 @@ public class SceneWindow extends JFrame {
 		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = environment.getDefaultScreenDevice();
 		strategy = this.getBufferStrategy();
+		
+		addKeyListener(this);
+		addMouseListener(this);
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int[] pixels = new int[16 * 16];
@@ -54,6 +60,9 @@ public class SceneWindow extends JFrame {
 	public void gameLoop() {
 		while(provider != null) {
 			Graphics2D g2d = (Graphics2D)strategy.getDrawGraphics();
+			
+			Point mouse = MouseInfo.getPointerInfo().getLocation();
+			provider.receiveLocation(mouse.x, mouse.y);
 			
 			Scene scene = provider.nextScene();
 			renderScene(g2d, scene);
@@ -88,4 +97,25 @@ public class SceneWindow extends JFrame {
 			sprite.drawOn(g2d);
 		}
 	}
+	
+	public void mousePressed(MouseEvent e) {
+    	provider.receivePress(e.getButton(), true);
+    }
+    
+    public void mouseReleased(MouseEvent e) {
+    	provider.receivePress(e.getButton(), false);
+    }
+    
+    public void keyPressed(KeyEvent e) {
+    	provider.receivePress(e.getKeyChar(), true);
+    }
+    
+    public void keyReleased(KeyEvent e) {
+    	provider.receivePress(e.getKeyChar(), false);
+    }
+    
+    public void keyTyped(KeyEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
 }
