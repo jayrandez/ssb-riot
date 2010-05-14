@@ -73,7 +73,7 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener {
 		int y1 = (int)worldView.getMinY();
 		int x2 = (int)worldView.getMaxX();
 		int y2 = (int)worldView.getMaxY();
-		g2d.drawImage(world, 0, 0, 1024, 769, x1, y1, x2, y2, null);
+		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
 		
 		ArrayList<Sprite> overlaySprites = scene.getOverlaySprites();
 		for(Sprite sprite: overlaySprites) {

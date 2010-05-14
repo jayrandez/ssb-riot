@@ -1,5 +1,7 @@
 package riot;
 
+import riot.sceneprovider.CharacterSandbox;
+
 public class Riot {
 	
 	// Client > Server
@@ -32,7 +34,7 @@ public class Riot {
 
 	public static void main(String[] args) {
 		SpriteManager manager = new SpriteManager("sheets");
-		SceneProvider startScreen = new ConnectionScreen(manager);
+		SceneProvider startScreen = new CharacterSandbox(manager);
 		SceneWindow window = new SceneWindow(startScreen);
 		
 		window.gameLoop();

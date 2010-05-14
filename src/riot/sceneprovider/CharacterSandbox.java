@@ -1,16 +1,26 @@
-package riot;
+package riot.sceneprovider;
 
 import java.awt.event.*;
 import java.io.Serializable;
 
-public class ConnectionScreen implements SceneProvider {
+import riot.*;
+import riot.gameobject.*;
+import java.util.*;
+import riot.Scene;
+import riot.SceneProvider;
+import riot.SpriteManager;
+
+public class CharacterSandbox implements SceneProvider {
 	SpriteManager manager;
+	ArrayList<GameObject> gameObjects;
 	
 	boolean exit;
 	
-	public ConnectionScreen(SpriteManager manager) {
+	public CharacterSandbox(SpriteManager manager) {
 		this.manager = manager;
 		exit = false;
+		gameObjects = new ArrayList<GameObject>();
+		gameObjects.add(new Jigglypuff(manager));
 	}
 	
 	public SceneProvider nextProvider() {
@@ -22,7 +32,7 @@ public class ConnectionScreen implements SceneProvider {
 	}
 
 	public Scene nextScene() {
-		return new Scene();
+		return new Scene(gameObjects);
 	}
 	
 	public void receiveLocation(int x, int y) {
