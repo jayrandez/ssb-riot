@@ -76,7 +76,7 @@ public class SpriteManager {
 				for(int i = 0; i < animation.frames; i++) {
 					int offsetX = animation.originX + (i * animation.width);
 					int offsetY = animation.originY;
-					BufferedImage spriteImage = getSubimage(sheetImage, offsetX, offsetY, animation.width, animation.height, animation.transparent);
+					BufferedImage spriteImage = getSubimage(sheetImage, offsetX, offsetY, animation.width, animation.height);
 					sprites.add(spriteImage);
 				}
 				animationMap.put(animation.animationName, sprites);
@@ -114,7 +114,7 @@ public class SpriteManager {
 		return null;
 	}
 	
-	private BufferedImage getTransparentSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
+	private BufferedImage getSubimage(Image source, int offsetX, int offsetY, int width, int height) 
 	{
 		BufferedImage image = (BufferedImage) source;
 		int color = image.getRGB(0, 0);
