@@ -92,6 +92,7 @@ public class SpriteManager {
 			HashMap<String, AnimationDescriptor> animationMap = new HashMap<String, AnimationDescriptor>();
 			for(AnimationDescriptor animation: sheet.animations) {
 				animationMap.put(animation.animationName, animation);
+				//Jason was here! :D
 			}
 			sheetMap.put(sheet.sheetName, animationMap);
 		}
