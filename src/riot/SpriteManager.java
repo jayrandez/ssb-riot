@@ -114,9 +114,22 @@ public class SpriteManager {
 		return null;
 	}
 	
-	private BufferedImage getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) {
-		// DEAN MAKE THIS FUNCTION!!!
-		return null;
+	private BufferedImage getTransparentSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
+	{
+		BufferedImage image = (BufferedImage) source;
+		int color = image.getRGB(0, 0);
+		image = image.getSubimage(80, 80, 80, 80);
+
+		for (int i = 0; i < image.getHeight(); i++)
+		{
+			for (int j = 0; j < image.getWidth(); j++)
+			{
+				if (image.getRGB(j, i) == color)
+					image.setRGB(j, i, 0x8F1C1C);
+			}
+		}
+
+		return image;  
 	}
 	
 	private class SpriteSheet implements Serializable {
