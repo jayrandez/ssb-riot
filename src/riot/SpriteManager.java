@@ -36,6 +36,15 @@ public class SpriteManager {
 		}
 
 		animations = getAnimationsFrom(sheets);
+		System.out.println("--------------");
+		for(String key: animations.keySet()) {
+			System.out.println(key);
+			HashMap<String, AnimationDescriptor> descriptors = animations.get(key);
+			for(String key2: descriptors.keySet()) {
+				System.out.println(key2);
+			}
+		}
+		getAnimation("jigglypuff", "idle");
 		sprites = getSpritesFrom(sheets, directory);
 	}
 	
@@ -76,7 +85,7 @@ public class SpriteManager {
 				for(int i = 0; i < animation.frames; i++) {
 					int offsetX = animation.originX + (i * animation.width);
 					int offsetY = animation.originY;
-					BufferedImage spriteImage = getSubimage(sheetImage, offsetX, offsetY, animation.width, animation.height);
+					BufferedImage spriteImage = getSubimage(sheetImage, offsetX, offsetY, animation.width, animation.height, animation.transparent);
 					sprites.add(spriteImage);
 				}
 				animationMap.put(animation.animationName, sprites);
@@ -89,10 +98,11 @@ public class SpriteManager {
 	private HashMap<String, HashMap<String, AnimationDescriptor>> getAnimationsFrom(ArrayList<SpriteSheet> sheets) {
 		HashMap<String, HashMap<String, AnimationDescriptor>> sheetMap = new HashMap<String, HashMap<String, AnimationDescriptor>>();
 		for(SpriteSheet sheet: sheets) {
+			System.out.println(sheet.sheetName);
 			HashMap<String, AnimationDescriptor> animationMap = new HashMap<String, AnimationDescriptor>();
 			for(AnimationDescriptor animation: sheet.animations) {
+				System.out.println("   " + animation.animationName);
 				animationMap.put(animation.animationName, animation);
-				//Jason was here! :D
 			}
 			sheetMap.put(sheet.sheetName, animationMap);
 		}
@@ -115,12 +125,15 @@ public class SpriteManager {
 		return null;
 	}
 	
-	private BufferedImage getSubimage(Image source, int offsetX, int offsetY, int width, int height) 
+	private BufferedImage getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
 	{
-		BufferedImage image = (BufferedImage) source;
-		int color = image.getRGB(0, 0);
-		image = image.getSubimage(80, 80, 80, 80);
-
+		BufferedImage bufferedSource = (BufferedImage)source;
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		
+		System.out.println(width);
+		image = bufferedSource.getSubimage(offsetX, offsetY, width, height);
+		
+		/*int color = image.getRGB(0, 0);
 		for (int i = 0; i < image.getHeight(); i++)
 		{
 			for (int j = 0; j < image.getWidth(); j++)
@@ -128,7 +141,7 @@ public class SpriteManager {
 				if (image.getRGB(j, i) == color)
 					image.setRGB(j, i, 0x8F1C1C);
 			}
-		}
+		}*/
 
 		return image;  
 	}
