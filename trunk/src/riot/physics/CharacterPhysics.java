@@ -48,6 +48,8 @@ public class CharacterPhysics extends Physics {
 	public void setAnimation(String sheet, String animation) {
 		steps = 0;
 		frame = 0;
+		this.sheet = sheet;
+		this.animation = animation;
 		this.descriptor = manager.getAnimation(sheet, animation);
 	}
 }

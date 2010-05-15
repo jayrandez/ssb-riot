@@ -32,6 +32,9 @@ public class CharacterSandbox implements SceneProvider {
 	}
 
 	public Scene nextScene() {
+		for(GameObject gameObject: gameObjects) {
+			gameObject.step();
+		}
 		return new Scene(gameObjects);
 	}
 	
