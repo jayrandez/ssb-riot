@@ -1,6 +1,6 @@
 package riot;
 
-import riot.sceneprovider.CharacterSandbox;
+import riot.sceneprovider.DummyTerminal;
 
 public class Riot {
 	
@@ -34,7 +34,7 @@ public class Riot {
 
 	public static void main(String[] args) {
 		SpriteManager manager = new SpriteManager("sheets");
-		SceneProvider startScreen = new CharacterSandbox(manager);
+		SceneProvider startScreen = new DummyTerminal(manager);
 		SceneWindow window = new SceneWindow(startScreen);
 		
 		window.gameLoop();

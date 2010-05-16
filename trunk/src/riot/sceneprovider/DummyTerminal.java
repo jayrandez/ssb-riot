@@ -10,13 +10,13 @@ import riot.Scene;
 import riot.SceneProvider;
 import riot.SpriteManager;
 
-public class CharacterSandbox implements SceneProvider {
+public class DummyTerminal implements SceneProvider {
 	SpriteManager manager;
 	ArrayList<GameObject> gameObjects;
 	
 	boolean exit;
 	
-	public CharacterSandbox(SpriteManager manager) {
+	public DummyTerminal(SpriteManager manager) {
 		this.manager = manager;
 		exit = false;
 		gameObjects = new ArrayList<GameObject>();

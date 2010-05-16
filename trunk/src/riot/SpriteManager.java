@@ -36,15 +36,6 @@ public class SpriteManager {
 		}
 
 		animations = getAnimationsFrom(sheets);
-		System.out.println("--------------");
-		for(String key: animations.keySet()) {
-			System.out.println(key);
-			HashMap<String, AnimationDescriptor> descriptors = animations.get(key);
-			for(String key2: descriptors.keySet()) {
-				System.out.println(key2);
-			}
-		}
-		getAnimation("jigglypuff", "idle");
 		sprites = getSpritesFrom(sheets, directory);
 	}
 	
@@ -98,10 +89,8 @@ public class SpriteManager {
 	private HashMap<String, HashMap<String, AnimationDescriptor>> getAnimationsFrom(ArrayList<SpriteSheet> sheets) {
 		HashMap<String, HashMap<String, AnimationDescriptor>> sheetMap = new HashMap<String, HashMap<String, AnimationDescriptor>>();
 		for(SpriteSheet sheet: sheets) {
-			System.out.println(sheet.sheetName);
 			HashMap<String, AnimationDescriptor> animationMap = new HashMap<String, AnimationDescriptor>();
 			for(AnimationDescriptor animation: sheet.animations) {
-				System.out.println("   " + animation.animationName);
 				animationMap.put(animation.animationName, animation);
 			}
 			sheetMap.put(sheet.sheetName, animationMap);
@@ -128,9 +117,8 @@ public class SpriteManager {
 	private BufferedImage getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
 	{
 		BufferedImage bufferedSource = (BufferedImage)source;
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 		
-		System.out.println(width);
 		image = bufferedSource.getSubimage(offsetX, offsetY, width, height);
 		
 		/*int color = image.getRGB(0, 0);
@@ -139,9 +127,10 @@ public class SpriteManager {
 			for (int j = 0; j < image.getWidth(); j++)
 			{
 				if (image.getRGB(j, i) == color)
-					image.setRGB(j, i, 0x8F1C1C);
+					image.setRGB(j, i, image.getRGB(j, i) & 0x00FFFFFF);
 			}
 		}*/
+		
 
 		return image;  
 	}

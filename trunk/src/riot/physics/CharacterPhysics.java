@@ -19,6 +19,8 @@ public class CharacterPhysics extends Physics {
 		this.manager = manager;
 		animation = null;
 		steps = 0;
+		x = 250;
+		y = 250;
 	}
 
 	public Sprite getSprite() {
@@ -37,6 +39,7 @@ public class CharacterPhysics extends Physics {
 		if(animation != null) {
 			if(steps > descriptor.speed) {
 				frame++;
+				steps = 0;
 				if(frame == descriptor.frames) {
 					frame = 0;
 				}

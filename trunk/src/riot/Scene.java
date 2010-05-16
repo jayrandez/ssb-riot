@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import org.apache.mina.core.buffer.IoBuffer;
+
 public class Scene {
 
 	ArrayList<Sprite> worldSprites;
