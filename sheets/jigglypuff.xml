@@ -6,12 +6,12 @@
 			<animationName>idle</animationName>
 			<originX>53</originX>
 			<originY>110</originY>
-			<width>26</width>
-			<height>26</height>
+			<width>28</width>
+			<height>30</height>
 			<centerX>16</centerX>
 			<centerY>16</centerY>
 			<frames>10</frames>
-			<speed>5</speed>
+			<speed>2</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
@@ -19,7 +19,7 @@
 			<originX>55</originX>
 			<originY>167</originY>
 			<width>29</width>
-			<height>27</height>
+			<height>30</height>
 			<centerX>16</centerX>
 			<centerY>16</centerY>
 			<frames>5</frames>
