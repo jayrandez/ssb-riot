@@ -61,8 +61,8 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener {
 	
 	public void renderScene(Graphics2D g2d, Scene scene) {
 		Dimension worldSize = scene.getWorldSize();
-		BufferedImage world = new BufferedImage(worldSize.width, worldSize.height, BufferedImage.TYPE_4BYTE_ABGR);
-
+		BufferedImage world = new BufferedImage(worldSize.width, worldSize.height, BufferedImage.TYPE_INT_ARGB);
+		
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
 		for(Sprite sprite: worldSprites) {
 			sprite.drawOn((Graphics2D)world.getGraphics());
