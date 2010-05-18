@@ -1,5 +1,14 @@
 package riot.gameobject;
 
-public class Mario extends Character{
+import riot.*;
+import riot.physics.*;
+
+public class Mario extends GameObject{
+	
+	public Mario(SpriteManager manager) {
+		super(new CharacterPhysics(manager));
+		CharacterPhysics physics = (CharacterPhysics)getPhysics();
+		physics.setAnimation("mario", "idle");
+	}
 
 }
