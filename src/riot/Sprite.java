@@ -65,8 +65,6 @@ public class Sprite {
 	}
 	
 	public void drawOn(Graphics2D g2d) {
-		int width = image.getWidth();
-		int height = image.getHeight();
 		g2d.drawImage(image, x-centerX, y-centerY, null);
 	}
 }

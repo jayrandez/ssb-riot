@@ -143,8 +143,8 @@ public class Scene {
 			
 			// Write Screen Layout Information
 			writer.writeByte(Riot.ScreenLayout);
-			writer.writeShort(worldSize.height);
 			writer.writeShort(worldSize.width);
+			writer.writeShort(worldSize.height);
 			writer.writeShort((int)worldView.getMinX());
 			writer.writeShort((int)worldView.getMinY());
 			writer.writeShort((int)worldView.getWidth());
