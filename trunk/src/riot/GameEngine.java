@@ -36,7 +36,7 @@ public class GameEngine {
 					Scene scene = new Scene("Local Test Server", players, worldObjects, overlayObjects);
 					byte[] data = scene.serialize();
 					communicator.sendData(data);
-					try {Thread.sleep(100);}
+					try {Thread.sleep(50);}
 					catch(InterruptedException ex){}
 				}
 			}

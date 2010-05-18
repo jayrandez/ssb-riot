@@ -71,7 +71,7 @@ public class Scene {
 	private Rectangle getBestFitView(ArrayList<Character> characters, Dimension worldSize) {
 		int worldWidth = (int)worldSize.getWidth();
 		int worldHeight = (int)worldSize.getHeight();
-		return new Rectangle(0, 0, worldWidth, worldHeight);
+		return new Rectangle(0, 0, 640, 480);
 	}
 	
 	// Assembly of the Scene on the Client Side
