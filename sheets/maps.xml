@@ -6,8 +6,8 @@
 			<animationName>firstmap</animationName>
 			<originX>0</originX>
 			<originY>0</originY>
-			<width>1024</width>
-			<height>768</height>
+			<width>640</width>
+			<height>480</height>
 			<centerX>0</centerX>
 			<centerY>0</centerY>
 			<frames>1</frames>

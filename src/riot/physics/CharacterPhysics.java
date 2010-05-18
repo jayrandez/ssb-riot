@@ -6,18 +6,18 @@ public class CharacterPhysics extends Physics {
 	
 	SpriteManager manager;
 	int animationSteps;
-	
 	AnimationDescriptor descriptor;
 	String sheet;
 	String animation;
 	int frame;
+
 	double speedX;
 	double speedY;
-	double gravity;
-	int time;
-	
 	double x;
 	double y;
+	int time;
+	
+	double gravity;
 	
 	public CharacterPhysics(SpriteManager manager) {
 		this.manager = manager;
@@ -26,9 +26,6 @@ public class CharacterPhysics extends Physics {
 		x = (int)(Math.random() * 200);
 		y = 300;
 		time = 0;
-		speedX = 1;
-		speedY = 0;
-		gravity = .2;
 	}
 
 	public Sprite getSprite() {
@@ -53,10 +50,12 @@ public class CharacterPhysics extends Physics {
 				}
 			}
 		}
-		x += speedX;
-		//y += speedY + (time * gravity);
 		animationSteps++;
+		
 		time++;
+		// account for x, y, x speed, y speed, gravity, time passed (maybe wind resistance future)
+		// update the x and y location
+		
 	}
 	
 	public void setAnimation(String sheet, String animation) {
@@ -65,5 +64,9 @@ public class CharacterPhysics extends Physics {
 		this.sheet = sheet;
 		this.animation = animation;
 		this.descriptor = manager.getAnimation(sheet, animation);
+	}
+	
+	void setDirection(int degrees, double speed) {
+		// update x and y velocity based on degrees, speed
 	}
 }

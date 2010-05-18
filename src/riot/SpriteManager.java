@@ -136,16 +136,17 @@ public class SpriteManager {
 	private BufferedImage getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
 	{
 		BufferedImage bufferedSource = (BufferedImage)source;
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		
 		image = bufferedSource.getSubimage(offsetX, offsetY, width, height);
-
+		int transcolor = image.getRGB(0,0);
+		
 		for (int i = 0; i < image.getHeight(); i++)
 		{
 			for (int j = 0; j < image.getWidth(); j++)
 			{
-				if (image.getRGB(j, i) == color.getRGB())
-					//image.setRGB(j, i, 0x8F1C1C);
+				if (image.getRGB(j, i) == transcolor)
+					image.setRGB(j, i, 0x8F1C1C);
 			}
 		}  
 
