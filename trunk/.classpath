@@ -7,17 +7,6 @@
 	<classpathentry kind="lib" path="libraries/jdom-1.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jettison-1.0.1.jar"/>
 	<classpathentry kind="lib" path="libraries/joda-time-1.6.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-core-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-filter-compression-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-integration-beans-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-integration-jmx-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-integration-ognl-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-integration-xbean-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-statemachine-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-transport-apr-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/mina-transport-serial-2.0.0-RC1.jar"/>
-	<classpathentry kind="lib" path="libraries/slf4j-api-1.5.11.jar"/>
-	<classpathentry kind="lib" path="libraries/slf4j-jdk14-1.5.11.jar"/>
 	<classpathentry kind="lib" path="libraries/stax-1.2.0.jar"/>
 	<classpathentry kind="lib" path="libraries/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="libraries/wstx-asl-3.2.7.jar"/>

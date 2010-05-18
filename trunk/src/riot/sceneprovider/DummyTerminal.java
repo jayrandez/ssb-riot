@@ -4,7 +4,6 @@ import java.awt.event.*;
 import java.io.Serializable;
 
 import riot.*;
-import riot.gameobject.*;
 import java.util.*;
 import riot.Scene;
 import riot.SceneProvider;
@@ -14,13 +13,18 @@ public class DummyTerminal implements SceneProvider {
 	SpriteManager manager;
 	ArrayList<GameObject> gameObjects;
 	
+	Communicator communicator;
+	
 	boolean exit;
 	
-	public DummyTerminal(SpriteManager manager) {
+	public DummyTerminal(SpriteManager manager, String hostname) {
 		this.manager = manager;
 		exit = false;
-		gameObjects = new ArrayList<GameObject>();
-		gameObjects.add(new Jigglypuff(manager));
+		
+		communicator = new Communicator();
+		if(!communicator.addOutgoing(hostname)) {
+			exit = true;
+		}
 	}
 	
 	public SceneProvider nextProvider() {
@@ -32,19 +36,20 @@ public class DummyTerminal implements SceneProvider {
 	}
 
 	public Scene nextScene() {
-		for(GameObject gameObject: gameObjects) {
-			gameObject.step();
-		}
-		return new Scene(gameObjects);
+		Message message = communicator.receiveData();
+		return new Scene(manager, message.data);
 	}
 	
 	public void receiveLocation(int x, int y) {
-		
+		// Send Location to Server
 	}
 	
 	public void receivePress(int code, boolean pressed) {
 		if(code == KeyEvent.VK_ESCAPE) {
 			exit = true;
+		}
+		else {
+			// Send Press to Server
 		}
 	}
 
