@@ -1,0 +1,18 @@
+<SheetDescriptor>
+	<sheetName>maps</sheetName>
+	<imageFile>maps.png</imageFile>
+	<animations>
+		<AnimationDescriptor>
+			<animationName>firstmap</animationName>
+			<originX>0</originX>
+			<originY>0</originY>
+			<width>1024</width>
+			<height>768</height>
+			<centerX>0</centerX>
+			<centerY>0</centerY>
+			<frames>1</frames>
+			<speed>1</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+	</animations>
+</SheetDescriptor>

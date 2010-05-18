@@ -16,10 +16,15 @@ import javax.imageio.ImageIO;
 import com.thoughtworks.xstream.XStream;
 
 public class SpriteManager {
-	private HashMap<String, HashMap<String, AnimationDescriptor>> animations;
-	private HashMap<String, HashMap<String, ArrayList<BufferedImage>>> sprites;
+	private ArrayList<AnimationDescriptor> animations;
+	private ArrayList<ArrayList<BufferedImage>> images;
+	private HashMap<String, Integer> associations;
 	
 	public SpriteManager(String path) {
+		animations = new ArrayList<AnimationDescriptor>();
+		images = new ArrayList<ArrayList<BufferedImage>>();
+		associations = new HashMap<String, Integer>();
+		
 		ArrayList<SpriteSheet> sheets = new ArrayList<SpriteSheet>();
 		
 		File directory = new File(path);
@@ -35,16 +40,32 @@ public class SpriteManager {
 			}
 		}
 
-		animations = getAnimationsFrom(sheets);
-		sprites = getSpritesFrom(sheets, directory);
+		populateData(sheets, directory);
 	}
 	
 	public AnimationDescriptor getAnimation(String sheet, String animation) {
-		return animations.get(sheet).get(animation);
+		int index = getIndex(sheet, animation);
+		return getAnimation(index);
+	}
+	
+	public AnimationDescriptor getAnimation(int index) {
+		return animations.get(index);
 	}
 
-	public BufferedImage getImage(String sheet, String animation, int index) {
-		return sprites.get(sheet).get(animation).get(index);
+	public BufferedImage getImage(String sheet, String animation, int frame) {
+		int index = getIndex(sheet, animation);
+		return getImage(index, frame);
+	}
+	
+	public BufferedImage getImage(int index, int frame) {
+		return images.get(index).get(frame);
+	}
+	
+	public int getIndex(String sheet, String animation) {
+		Integer index = associations.get(sheet + "|" + animation);
+		if(index == null)
+			return 0;
+		return index;
 	}
 	
 	private SpriteSheet parse(File descriptor) {
@@ -66,36 +87,34 @@ public class SpriteManager {
 		}
 	}
 	
-	private HashMap<String, HashMap<String, ArrayList<BufferedImage>>> getSpritesFrom(ArrayList<SpriteSheet> sheets, File directory) {
-		HashMap<String, HashMap<String, ArrayList<BufferedImage>>> sheetMap = new HashMap<String, HashMap<String, ArrayList<BufferedImage>>>();
+	private void populateData(ArrayList<SpriteSheet> sheets, File directory) {
+		int index = 0;
+		
 		for(SpriteSheet sheet: sheets) {
-			HashMap<String, ArrayList<BufferedImage>> animationMap = new HashMap<String, ArrayList<BufferedImage>>();
 			Image sheetImage = openImage(directory, sheet.imageFile);
-			for(AnimationDescriptor animation: sheet.animations) {
-				ArrayList<BufferedImage> sprites = new ArrayList<BufferedImage>();
+			String sheetName = sheet.sheetName;
+			ArrayList<AnimationDescriptor> animationDescriptors = sheet.animations;
+			
+			for(AnimationDescriptor animation: animationDescriptors) {
+				String animationName = animation.animationName;
+				ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
+				
 				for(int i = 0; i < animation.frames; i++) {
-					int offsetX = animation.originX + (i * animation.width);
+					int offsetX = animation.originX + (i*animation.width);
 					int offsetY = animation.originY;
-					BufferedImage spriteImage = getSubimage(sheetImage, offsetX, offsetY, animation.width, animation.height, animation.transparent);
-					sprites.add(spriteImage);
+					int width = animation.width;
+					int height = animation.height;
+					boolean transparent = animation.transparent;
+					BufferedImage subImage = getSubimage(sheetImage, offsetX, offsetY, width, height, transparent);
+					frames.add(subImage);
 				}
-				animationMap.put(animation.animationName, sprites);
+				
+				associations.put(sheetName + "|" + animationName, index);
+				animations.add(animation);
+				images.add(frames);
+				index++;
 			}
-			sheetMap.put(sheet.sheetName, animationMap);
 		}
-		return sheetMap;
-	}
-
-	private HashMap<String, HashMap<String, AnimationDescriptor>> getAnimationsFrom(ArrayList<SpriteSheet> sheets) {
-		HashMap<String, HashMap<String, AnimationDescriptor>> sheetMap = new HashMap<String, HashMap<String, AnimationDescriptor>>();
-		for(SpriteSheet sheet: sheets) {
-			HashMap<String, AnimationDescriptor> animationMap = new HashMap<String, AnimationDescriptor>();
-			for(AnimationDescriptor animation: sheet.animations) {
-				animationMap.put(animation.animationName, animation);
-			}
-			sheetMap.put(sheet.sheetName, animationMap);
-		}
-		return sheetMap;
 	}
 	
 	private Image openImage(File directory, String file) {
@@ -120,18 +139,6 @@ public class SpriteManager {
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 		
 		image = bufferedSource.getSubimage(offsetX, offsetY, width, height);
-		
-		/*int color = image.getRGB(0, 0);
-		for (int i = 0; i < image.getHeight(); i++)
-		{
-			for (int j = 0; j < image.getWidth(); j++)
-			{
-				if (image.getRGB(j, i) == color)
-					image.setRGB(j, i, image.getRGB(j, i) & 0x00FFFFFF);
-			}
-		}*/
-		
-
 		return image;  
 	}
 	

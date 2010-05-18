@@ -19,8 +19,8 @@ public class CharacterPhysics extends Physics {
 		this.manager = manager;
 		animation = null;
 		steps = 0;
-		x = 250;
-		y = 250;
+		x = (int)(Math.random() * 200);
+		y = 300 + (int)(Math.random() * 300);
 	}
 
 	public Sprite getSprite() {
@@ -43,9 +43,11 @@ public class CharacterPhysics extends Physics {
 				if(frame == descriptor.frames) {
 					frame = 0;
 				}
+				x += 5;
 			}
 		}
 		steps++;
+		
 	}
 	
 	public void setAnimation(String sheet, String animation) {
