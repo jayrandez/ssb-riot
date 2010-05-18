@@ -56,12 +56,6 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener {
 		    if(provider.nextProvider() != provider) {
 		    	provider = provider.nextProvider();
 		    }
-		    
-		    try {
-		    	Thread.sleep(10);
-		    }
-		    catch(Exception ex) {
-		    }
 		}
 	}
 	

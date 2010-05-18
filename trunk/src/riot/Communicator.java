@@ -47,12 +47,11 @@ public class Communicator {
 				Socket socket = sockets.get(i);
 				try {
 					DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
-					stream.write(data.length);
+					stream.writeInt(data.length);
 					stream.write(data);
-					System.out.println("Sent data");
 				}
 				catch(IOException ex) {
-					System.out.println("Failed to write data to a socket.");
+					System.out.println("Failed to write data to a socket." + socket.getLocalAddress().toString());
 					sockets.remove(socket);
 					i--;
 					result = false;
@@ -72,10 +71,9 @@ public class Communicator {
 				
 				try {
 					DataInputStream stream = new DataInputStream(socket.getInputStream());
-					int size = stream.read();
+					int size = stream.readInt();
 					byte[] data = new byte[size];
 					stream.read(data);
-					System.out.println("Received data.");
 					readIndex++;
 					return new Message(socket, data);
 				}
