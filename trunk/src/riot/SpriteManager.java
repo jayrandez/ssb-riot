@@ -139,6 +139,16 @@ public class SpriteManager {
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
 		
 		image = bufferedSource.getSubimage(offsetX, offsetY, width, height);
+
+		for (int i = 0; i < image.getHeight(); i++)
+		{
+			for (int j = 0; j < image.getWidth(); j++)
+			{
+				if (image.getRGB(j, i) == color.getRGB())
+					//image.setRGB(j, i, 0x8F1C1C);
+			}
+		}  
+
 		return image;  
 	}
 	
