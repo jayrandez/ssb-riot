@@ -11,11 +11,11 @@
 			<centerX>16</centerX>
 			<centerY>16</centerY>
 			<frames>10</frames>
-			<speed>2</speed>
+			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>walk</animationName>
+			<animationName>shortWalk</animationName>
 			<originX>55</originX>
 			<originY>167</originY>
 			<width>29</width>
@@ -23,7 +23,67 @@
 			<centerX>16</centerX>
 			<centerY>16</centerY>
 			<frames>5</frames>
-			<speed>5</speed>
+			<speed>50</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>walk</animationName>
+			<originX>50</originX>
+			<originY>222</originY>
+			<width>27</width>
+			<height>28</height>
+			<centerX>64</centerX>
+			<centerY>236</centerY>
+			<frames>7</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>run</animationName>
+			<originX>45</originX>
+			<originY>268</originY>
+			<width>51</width>
+			<height>30</height>
+			<centerX>70</centerX>
+			<centerY>286</centerY>
+			<frames>7</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>jump</animationName>
+			<originX>53</originX>
+			<originY>1037</originY>
+			<width>27</width>
+			<height>28</height>
+			<centerX>67</centerX>
+			<centerY>1051</centerY>
+			<frames>10</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>doubleJump</animationName>
+			<originX>50</originX>
+			<originY>1110</originY>
+			<width>27</width>
+			<height>28</height>
+			<centerX>64</centerX>
+			<centerY>1124</centerY>
+			<frames>14</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>punch</animationName>
+			<originX>47</originX>
+			<originY>387</originY>
+			<width>27</width>
+			<height>28</height>
+			<centerX>60</centerX>
+			<centerY>401</centerY>
+			<frames>8</frames>
+			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 	</animations>
