@@ -66,7 +66,11 @@ public class CharacterPhysics extends Physics {
 		this.descriptor = manager.getAnimation(sheet, animation);
 	}
 	
-	void setDirection(int degrees, double speed) {
+	public void setMovement(int degrees, double speed) {
 		// update x and y velocity based on degrees, speed
+	}
+	
+	public void makeImpulse(int degrees, double speed) {
+		// increase x and y velocity based on degrees, speed
 	}
 }

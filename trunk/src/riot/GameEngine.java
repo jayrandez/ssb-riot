@@ -26,7 +26,7 @@ public class GameEngine {
 		players.add("Solidpenguin");
 		
 		worldObjects.add(new Map(manager, "firstmap"));
-		worldObjects.add(new Character(manager));
+		worldObjects.add(new Character(manager, "jigglypuff"));
 	}
 	
 	public void gameLoop() {
