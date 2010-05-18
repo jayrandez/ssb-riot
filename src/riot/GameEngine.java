@@ -27,24 +27,29 @@ public class GameEngine {
 		
 		worldObjects.add(new Map(manager, "firstmap"));
 		worldObjects.add(new Character(manager));
-		worldObjects.add(new Character(manager));
 	}
 	
 	public void gameLoop() {
+		new Thread() {
+			public void run() {
+				while(true) {
+					Scene scene = new Scene("Local Test Server", players, worldObjects, overlayObjects);
+					byte[] data = scene.serialize();
+					communicator.sendData(data);
+					try {Thread.sleep(100);}
+					catch(InterruptedException ex){}
+				}
+			}
+		}.start();
+		
 		while(true) {
 			for(GameObject object: worldObjects) {
 				object.step();
 			}
-			
 			for(GameObject object: overlayObjects) {
 				object.step();
 			}
-			
-			Scene scene = new Scene("Local Test Server", players, worldObjects, overlayObjects);
-			byte[] data = scene.serialize();
-			communicator.sendData(data);
-			
-			try {Thread.sleep(32);}
+			try {Thread.sleep(10);}
 			catch(InterruptedException ex){}
 		}
 	}

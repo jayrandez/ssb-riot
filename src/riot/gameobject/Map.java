@@ -2,6 +2,7 @@ package riot.gameobject;
 
 import riot.GameObject;
 import riot.SpriteManager;
+import riot.physics.MapPhysics;
 
 public class Map extends GameObject {
 

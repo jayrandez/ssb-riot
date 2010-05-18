@@ -41,7 +41,6 @@ public class Riot {
 			}
 		}.start();
 		
-		Thread.sleep(1000);
 		
 		SceneProvider startScreen = new ConnectionScreen(manager);
 		SceneWindow window = new SceneWindow(startScreen);
