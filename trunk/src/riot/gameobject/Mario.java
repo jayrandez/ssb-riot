@@ -10,5 +10,4 @@ public class Mario extends GameObject{
 		CharacterPhysics physics = (CharacterPhysics)getPhysics();
 		physics.setAnimation("mario", "idle");
 	}
-
 }
