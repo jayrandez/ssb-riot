@@ -31,10 +31,13 @@ public class Riot {
 	// Hardware Input
 	public static byte LeftMouse;
 	public static byte RightMouse;
+	
+	// Non-Message
+	public static int Port = 48123;
 
 	public static void main(String[] args) {
 		SpriteManager manager = new SpriteManager("sheets");
-		SceneProvider startScreen = new DummyTerminal(manager);
+		SceneProvider startScreen = new DummyTerminal(manager, "localhost");
 		SceneWindow window = new SceneWindow(startScreen);
 		
 		window.gameLoop();

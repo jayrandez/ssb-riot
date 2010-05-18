@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import org.apache.mina.core.buffer.IoBuffer;
 
 public class Scene {
 
@@ -28,8 +27,14 @@ public class Scene {
 		}
 	}
 	
-	public Scene(byte[] rawData) {
+	public Scene(SpriteManager manager, byte[] rawData) {
+		worldSprites = new ArrayList<Sprite>();
+		overlaySprites = new ArrayList<Sprite>();
 		
+		worldSize = new Dimension(640, 480);
+		worldView = new Rectangle(0, 0, 639, 479);
+		
+		worldSprites.add(new Sprite(manager, "jigglypuff", "idle", 0, 200, 200, 0));
 	}
 	
 	public Scene() {
