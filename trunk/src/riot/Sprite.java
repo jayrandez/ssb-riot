@@ -47,7 +47,6 @@ public class Sprite {
 		this.centerY = desc.centerY;
 
 		this.image = manager.getImage(sheet, animation, frame);
-		
 	}
 	
 	public Sprite(SpriteManager manager, int index, int frame, int x, int y, int rotation) {

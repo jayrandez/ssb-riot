@@ -71,60 +71,7 @@ public class Scene {
 	private Rectangle getBestFitView(ArrayList<Character> characters, Dimension worldSize) {
 		int worldWidth = (int)worldSize.getWidth();
 		int worldHeight = (int)worldSize.getHeight();
-		if(characters.size() > 0) {
-			int farLeft = characters.get(0).getPhysics().getX();
-			int farRight = characters.get(0).getPhysics().getX();
-			int farTop = characters.get(0).getPhysics().getY();
-			int farBottom = characters.get(0).getPhysics().getY();
-			for(int i = 1; i < characters.size(); i++) {
-				int x = characters.get(i).getPhysics().getX();
-				int y = characters.get(i).getPhysics().getY();
-				if(x < farLeft)
-					farLeft = x;
-				if(x > farRight)
-					farRight = x;
-				if(y > farBottom)
-					farBottom = y;
-				if(y < farTop)
-					farTop = y;
-			}
-			farLeft -= 100;
-			farRight += 100;
-			farTop -= 100;
-			farBottom += 100;
-			
-			if(farRight > worldWidth)
-				farRight = worldWidth;
-			if(farLeft < 0)
-				farLeft = 0;
-			if(farBottom > worldHeight)
-				farBottom = worldHeight;
-			if(farTop < 0)
-				farTop = 0;
-			
-			int width = farRight - farLeft;
-			int height = farBottom - farTop;
-			int centerX = farLeft + (width / 2);
-			int centerY = farTop + (height / 2);
-			
-			int resultingWidth = height * 4 / 3;
-			if(resultingWidth >= width) {
-				farLeft = centerX - (resultingWidth / 2);
-				farRight = centerX + (resultingWidth / 2);
-				width = resultingWidth;
-			}
-			else {
-				int resultingHeight = width * 3 / 4;
-				farTop = centerY - (resultingHeight / 2);
-				farBottom = centerY + (resultingHeight / 2);
-				height = resultingHeight;
-			}
-			
-			return new Rectangle(farLeft, farTop, width, height);
-		}
-		else {
-			return new Rectangle(0, 0, 640, 480);
-		}
+		return new Rectangle(0, 0, worldWidth, worldHeight);
 	}
 	
 	// Assembly of the Scene on the Client Side
@@ -144,27 +91,27 @@ public class Scene {
 						break;
 					}
 					case Riot.PlayerNames: {
-						int count = reader.readInt();
+						int count = reader.readShort();
 						for(int i = 0; i < count; i++)
 							playerNames.add(reader.readUTF());
 						break;
 					}
 					case Riot.ScreenLayout:
-						worldSize = new Dimension(reader.readInt(), reader.readInt());
-						worldView = new Rectangle(reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
+						worldSize = new Dimension(reader.readShort(), reader.readShort());
+						worldView = new Rectangle(reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
 						break;
 					case Riot.WorldSprites: {
-						int count = reader.readInt();
+						int count = reader.readShort();
 						for(int i = 0; i < count; i++) {
-							Sprite sprite = new Sprite(manager, reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
+							Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
 							worldSprites.add(sprite);
 						}
 						break;
 					}
 					case Riot.OverlaySprites: {
-						int count = reader.readInt();
+						int count = reader.readShort();
 						for(int i = 0; i < count; i++) {
-							Sprite sprite = new Sprite(manager, reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
+							Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
 							overlaySprites.add(sprite);
 						}
 						break;
@@ -183,46 +130,46 @@ public class Scene {
 		DataOutputStream writer = new DataOutputStream(stream);
 		
 		try {
-			// Write Server Name Information
+			/*// Write Server Name Information
 			writer.writeByte(Riot.ServerName);
 			writer.writeUTF(serverName);
 			
 			// Write Player Name Information
 			writer.writeByte(Riot.PlayerNames);
-			writer.writeInt(playerNames.size());
+			writer.writeShort(playerNames.size());
 			for(String playerName: playerNames) {
 				writer.writeUTF(playerName);
-			}
+			}*/
 			
 			// Write Screen Layout Information
 			writer.writeByte(Riot.ScreenLayout);
-			writer.writeInt(worldSize.height);
-			writer.writeInt(worldSize.width);
-			writer.writeInt((int)worldView.getMinX());
-			writer.writeInt((int)worldView.getMinY());
-			writer.writeInt((int)worldView.getWidth());
-			writer.writeInt((int)worldView.getHeight());
+			writer.writeShort(worldSize.height);
+			writer.writeShort(worldSize.width);
+			writer.writeShort((int)worldView.getMinX());
+			writer.writeShort((int)worldView.getMinY());
+			writer.writeShort((int)worldView.getWidth());
+			writer.writeShort((int)worldView.getHeight());
 			
 			// Write World Sprite Information
 			writer.writeByte(Riot.WorldSprites);
-			writer.writeInt(worldSprites.size());
+			writer.writeShort(worldSprites.size());
 			for(Sprite sprite: worldSprites) {
-				writer.writeInt(sprite.index);
-				writer.writeInt(sprite.frame);
-				writer.writeInt(sprite.x);
-				writer.writeInt(sprite.y);
-				writer.writeInt(sprite.rotation);
+				writer.writeShort(sprite.index);
+				writer.writeShort(sprite.frame);
+				writer.writeShort(sprite.x);
+				writer.writeShort(sprite.y);
+				writer.writeShort(sprite.rotation);
 			}
 			
 			// Write Overlay Sprite Information
 			writer.writeByte(Riot.OverlaySprites);
-			writer.writeInt(overlaySprites.size());
+			writer.writeShort(overlaySprites.size());
 			for(Sprite sprite: overlaySprites) {
-				writer.writeInt(sprite.index);
-				writer.writeInt(sprite.frame);
-				writer.writeInt(sprite.x);
-				writer.writeInt(sprite.y);
-				writer.writeInt(sprite.rotation);
+				writer.writeShort(sprite.index);
+				writer.writeShort(sprite.frame);
+				writer.writeShort(sprite.x);
+				writer.writeShort(sprite.y);
+				writer.writeShort(sprite.rotation);
 			}
 			
 			return stream.toByteArray();
