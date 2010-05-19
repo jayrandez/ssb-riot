@@ -10,8 +10,8 @@
 			<height>30</height>
 			<centerX>16</centerX>
 			<centerY>16</centerY>
-			<frames>10</frames>
-			<speed>50</speed>
+			<frames>2</frames>
+			<speed>30</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>

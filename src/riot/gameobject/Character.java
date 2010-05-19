@@ -1,5 +1,7 @@
 package riot.gameobject;
 
+import java.awt.event.KeyEvent;
+
 import riot.*;
 import riot.physics.*;
 
@@ -12,30 +14,42 @@ public class Character extends GameObject {
 		super(new CharacterPhysics(manager));
 		this.sheetName = sheetName;
 		this.physics = (CharacterPhysics)getPhysics();
-		physics.setAnimation(sheetName, "idle");
+		idle();
 	}
-	
+
 	public void idle() {
 		physics.setAnimation(sheetName, "idle");
-		physics.setMovement(0, 0);
 	}
 	
-	public void walk(int direction) {
-		physics.setAnimation(sheetName, "walk");
+	public void move(int degrees) {
+		if(degrees == -1)
+			idle();
+		else
+			physics.setAnimation(sheetName, "shortWalk");
 	}
-	
+
 	public void attack() {
-		physics.setAnimation(sheetName, "attack");
+		// TODO Auto-generated method stub
+		
 	}
-	
-	public void smash(int direction) {
-		physics.setAnimation(sheetName, "smash");
+
+	public void dodge() {
+		// TODO Auto-generated method stub
+		
 	}
-	
+
 	public void jump() {
-		physics.setAnimation(sheetName, "jump");
-		physics.makeImpulse(90, 10);
+		// TODO Auto-generated method stub
+		
 	}
-	
-	/* ... ETC for whatever functions a generic character can perform */
+
+	public void special() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void shield() {
+		// TODO Auto-generated method stub
+		
+	}
 }

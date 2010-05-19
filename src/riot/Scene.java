@@ -71,7 +71,7 @@ public class Scene {
 	private Rectangle getBestFitView(ArrayList<Character> characters, Dimension worldSize) {
 		int worldWidth = (int)worldSize.getWidth();
 		int worldHeight = (int)worldSize.getHeight();
-		return new Rectangle(0, 0, 640, 480);
+		return new Rectangle(0, 0, worldWidth, worldHeight);
 	}
 	
 	// Assembly of the Scene on the Client Side
@@ -223,7 +223,7 @@ public class Scene {
 		for(int j = 0; j < 150; j++) {
 			ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 			for(int i = 0; i < 75; i++) {
-				gameObjects.add(new Character(manager));
+				gameObjects.add(new Character(manager, "jigglypuff"));
 			}
 			ArrayList<String> players = new ArrayList<String>();
 			players.add("Zapata");

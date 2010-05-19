@@ -23,7 +23,7 @@ public class CharacterPhysics extends Physics {
 		this.manager = manager;
 		animation = null;
 		animationSteps = 0;
-		x = (int)(Math.random() * 200);
+		x = (int)(Math.random() * 500);
 		y = 300;
 		time = 0;
 	}

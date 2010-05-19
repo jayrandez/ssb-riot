@@ -1,21 +1,23 @@
 package riot;
 
 import riot.sceneprovider.ConnectionScreen;
+import riot.sceneprovider.DummyTerminal;
 
 public class Riot {
 	
 	// Client > Server
-	public static final byte Connect 		= 1;
+	public static final byte Connect		= 1;
 	public static final byte Disconnect		= 2;
 	public static final byte Establish		= 3;
+	public static final byte Control		= 4;
+	
 	public static final byte Attack			= 4;
 	public static final byte Special		= 5;
 	public static final byte Jump			= 6;
 	public static final byte Dodge			= 7;
 	public static final byte Shield			= 8;
+	
 	public static final byte Direction		= 9;
-	public static final byte Position		= 10;
-	public static final byte Smash			= 11;
 	
 	// Server > Client
 	public static final byte WorldSprites	= 12;
@@ -32,6 +34,7 @@ public class Riot {
 	public static final int Port 			= 48123;
 
 	public static void main(String[] args) throws Exception {
+		new RepeatingReleasedEventsFixer().install();
 		final SpriteManager manager = new SpriteManager("sheets");
 		
 		// For now we'll be testing the game using a locally run server.
@@ -41,8 +44,12 @@ public class Riot {
 			}
 		}.start();
 		
+		new DummyTerminal(manager, "localhost");
+		new DummyTerminal(manager, "localhost");
+		new DummyTerminal(manager, "localhost");
+		new DummyTerminal(manager, "localhost");
 		
-		SceneProvider startScreen = new ConnectionScreen(manager);
+		SceneProvider startScreen = new DummyTerminal(manager, "localhost");
 		SceneWindow window = new SceneWindow(startScreen);
 		
 		window.gameLoop();
