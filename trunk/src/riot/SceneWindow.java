@@ -6,8 +6,9 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.Timer;
 
-public class SceneWindow extends JFrame implements KeyListener, MouseListener {
+public class SceneWindow extends JFrame implements KeyListener, MouseListener, ActionListener {
 	private static final long serialVersionUID = -6417663999978098545L;
 	
 	private SceneProvider provider;
@@ -15,8 +16,15 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener {
 	private GraphicsDevice screen;
 	private BufferStrategy strategy;
 	
+	private Timer pressTimer;
+	private Timer releaseTimer;
+	
+	private ArrayList<Integer> pressedKeys;
+	
 	public SceneWindow(SceneProvider provider) {
 		this.provider = provider;
+		
+		pressedKeys = new ArrayList<Integer>();
 		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = environment.getDefaultScreenDevice();
 		this.createBufferStrategy(1);
@@ -90,15 +98,30 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener {
     }
     
     public void keyPressed(KeyEvent e) {
-    	provider.receivePress(e.getKeyCode(), true);
+    	if(!pressedKeys.contains(e.getKeyCode())) {
+    		pressedKeys.add(e.getKeyCode());
+    		provider.receivePress(e.getKeyCode(), true);
+    	}
     }
     
     public void keyReleased(KeyEvent e) {
     	provider.receivePress(e.getKeyCode(), false);
+    	for(int i = 0; i < pressedKeys.size(); i++) {
+    		if(pressedKeys.get(i) == e.getKeyCode()) {
+    			pressedKeys.remove(i);
+    			break;
+    		}
+    	}
     }
     
     public void keyTyped(KeyEvent e) {}
 	public void mouseClicked(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

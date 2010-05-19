@@ -50,32 +50,6 @@
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
-<<<<<<< .mine
-		<AnimationDescriptor>
-			<animationName>fireBall</animationName>
-			<originX>10</originX>
-			<originY>370</originY>
-			<width>27</width>
-			<height>33</height>
-			<centerX>24</centerX>
-			<centerY>387</centerY>
-			<frames>11</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-		<AnimationDescriptor>
-			<animationName>winDance</animationName>
-			<originX>16</originX>
-			<originY>1569</originY>
-			<width>20</width>
-			<height>36</height>
-			<centerX>26</centerX>
-			<centerY>1587</centerY>
-			<frames>15</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-=======
 		<AnimationDescriptor>
 			<animationName>fireBall</animationName>
 			<originX>10</originX>
@@ -148,6 +122,5 @@
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
->>>>>>> .r43
 	</animations>
 </SheetDescriptor>

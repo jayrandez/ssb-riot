@@ -62,31 +62,26 @@ public class Communicator {
 	}
 	
 	public Message receiveData() {
-		synchronized(sockets) {
-			if(!sockets.isEmpty()) {
-				if(readIndex >= sockets.size()) {
-					readIndex = 0;
-				}
-				Socket socket = sockets.get(readIndex);
-				
-				try {
-					DataInputStream stream = new DataInputStream(socket.getInputStream());
-					int size = stream.readInt();
-					byte[] data = new byte[size];
-					stream.read(data);
-					readIndex++;
-					return new Message(socket, data);
-				}
-				catch(IOException ex) {
-					System.out.println("Failed to read data from socket.");
-					sockets.remove(socket);
-					return receiveData();
-				}
+		while(sockets.isEmpty());
+		if(readIndex >= sockets.size()) {
+			readIndex = 0;
+		}
+		Socket socket = sockets.get(readIndex);
+		
+		try {
+			DataInputStream stream = new DataInputStream(socket.getInputStream());
+			int size = stream.readInt();
+			byte[] data = new byte[size];
+			stream.read(data);
+			readIndex++;
+			return new Message(socket, data);
+		}
+		catch(IOException ex) {
+			System.out.println("Failed to read data from socket.");
+			synchronized(sockets) {
+				sockets.remove(socket);
 			}
-			else {
-				System.out.println("No sockets available to read.");
-				return null;
-			}
+			return receiveData();
 		}
 	}
 	
@@ -96,7 +91,7 @@ public class Communicator {
 				try {
 					Socket incoming = serverSocket.accept();
 					synchronized(sockets) {
-						System.out.println("Incoming connection received");
+						System.out.println("Incoming connection : " + incoming.getLocalAddress().toString());
 						sockets.add(incoming);
 					}
 				}

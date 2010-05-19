@@ -1,6 +1,12 @@
 package riot;
 
+import java.awt.event.KeyEvent;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import riot.gameobject.Character;
 import riot.gameobject.Map;
@@ -9,8 +15,9 @@ public class GameEngine {
 	Communicator communicator;
 	ArrayList<GameObject> worldObjects;
 	ArrayList<GameObject> overlayObjects;
-	ArrayList<String> players;
+	ArrayList<String> playerNames;
 	SpriteManager manager;
+	HashMap<Socket, Character> players;
 	
 	public GameEngine(SpriteManager manager) {
 		this.manager = manager;
@@ -20,28 +27,69 @@ public class GameEngine {
 		
 		worldObjects = new ArrayList<GameObject>();
 		overlayObjects = new ArrayList<GameObject>();
-		players = new ArrayList<String>();
+		playerNames = new ArrayList<String>();
+		players = new HashMap<Socket, Character>();
 		
-		players.add("Zapata");
-		players.add("Solidpenguin");
+		playerNames.add("Zapata");
+		playerNames.add("Solidpenguin");
 		
 		worldObjects.add(new Map(manager, "firstmap"));
-		worldObjects.add(new Character(manager, "jigglypuff"));
 	}
 	
 	public void gameLoop() {
 		new Thread() {
 			public void run() {
 				while(true) {
-					Scene scene = new Scene("Local Test Server", players, worldObjects, overlayObjects);
-					byte[] data = scene.serialize();
-					communicator.sendData(data);
-					try {Thread.sleep(50);}
-					catch(InterruptedException ex){}
+					Message message = communicator.receiveData();
+					Character referral = players.get(message.sender);
+					
+					byte[] data = message.data;
+					ByteArrayInputStream stream = new ByteArrayInputStream(data);
+					DataInputStream reader = new DataInputStream(stream);
+					
+					try {
+						while(reader.available() > 0) {
+							switch(reader.readByte()) {
+								case Riot.Connect:
+									Character character = new Character(manager, "jigglypuff");
+									players.put(message.sender, character);
+									worldObjects.add(character);
+									System.out.println("Created new character.");
+									break;
+								case Riot.Disconnect:
+									players.remove(message.sender);
+									worldObjects.remove(referral);
+									break;
+								case Riot.Direction:
+									int degrees = reader.readInt();
+									referral.move(degrees);
+									break;
+								case Riot.Attack:
+									referral.attack();
+									break;
+								case Riot.Dodge:
+									referral.dodge();
+									break;
+								case Riot.Jump:
+									referral.jump();
+									break;
+								case Riot.Special:
+									referral.special();
+									break;
+								case Riot.Shield:
+									referral.shield();
+									break;
+							}
+						}
+					}
+					catch(IOException ex) {
+						System.out.println("Couldn't get client's message.");
+					}
 				}
 			}
 		}.start();
 		
+		int steps = 0;
 		while(true) {
 			for(GameObject object: worldObjects) {
 				object.step();
@@ -49,8 +97,15 @@ public class GameEngine {
 			for(GameObject object: overlayObjects) {
 				object.step();
 			}
+			if(steps == 5) {
+				Scene scene = new Scene("Local Test Server", playerNames, worldObjects, overlayObjects);
+				byte[] data = scene.serialize();
+				communicator.sendData(data);
+				steps = 0;
+			}
 			try {Thread.sleep(10);}
 			catch(InterruptedException ex){}
+			steps++;
 		}
 	}
 }
