@@ -61,16 +61,6 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 
 	public Scene nextScene() {
 		Message message = communicator.receiveData();
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		DataOutputStream writer = new DataOutputStream(stream);
-		try {
-			writer.writeByte(Riot.KeepAlive);
-			communicator.sendData(stream.toByteArray());
-		}
-		catch(IOException ex) {
-			System.out.println("Couldn't send control data.");
-		}
-		System.out.println("KEEPALIVE");
 		return new Scene(manager, message.data);
 	}
 	
