@@ -9,7 +9,7 @@
 			<width>78</width>
 			<height>63</height>
 			<centerX>59</centerX>
-			<centerY>153.5</centerY>
+			<centerY>154</centerY>
 			<frames>6</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
@@ -20,8 +20,8 @@
 			<originY>212</originY>
 			<width>67</width>
 			<height>67</height>
-			<centerX>100.5</centerX>
-			<centerY>245.5</centerX>
+			<centerX>101</centerX>
+			<centerY>246</centerX>
 			<frames>6</frames>
 			<speed>50</speed>
 		</AnimationDescriptor>
@@ -32,7 +32,7 @@
 			<width>68</width>	
 			<height>61</height>
 			<centerX>58</centerX>
-			<centerY>338.5</centerY>
+			<centerY>339</centerY>
 			<frames>6</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
