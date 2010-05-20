@@ -36,70 +36,60 @@ public class GameEngine {
 		worldObjects.add(new Map(manager, "firstmap"));
 	}
 	
+	private void handleMessage(DataInputStream reader, Character referral, Message message) throws IOException {
+		switch(reader.readByte()) {
+			case Riot.Connect:
+				Character character = new Character(manager, "jigglypuff");
+				players.put(message.sender, character);
+				worldObjects.add(character);
+				System.out.println("Created new character.");
+				break;
+			case Riot.Disconnect:
+				players.remove(message.sender);
+				worldObjects.remove(referral);
+				break;
+			case Riot.Direction:
+				int degrees = reader.readInt();
+				referral.move(degrees);
+				break;
+			case Riot.Attack:
+				referral.attack();
+				break;
+			case Riot.Dodge:
+				referral.dodge();
+				break;
+			case Riot.Jump:
+				referral.jump();
+				break;
+			case Riot.Special:
+				referral.special();
+				break;
+			case Riot.Shield:
+				referral.shield();
+				break;
+		}
+	}
+	
 	public void gameLoop() {
-		new Thread() {
-			public void run() {
-				while(true) {
-					
-				}
-			}
-		}.start();
-		
-		
 		int steps = 0;
 		int frameNum = 0;
 		while(true) {
 			
-			Message message = communicator.receiveData();
-			Character referral = players.get(message.sender);
-			
-			byte[] data = message.data;
-			ByteArrayInputStream stream = new ByteArrayInputStream(data);
-			DataInputStream reader = new DataInputStream(stream);
-			
 			try {
+				Message message = communicator.receiveData();
+				Character referral = players.get(message.sender);
+				byte[] data = message.data;
+				ByteArrayInputStream stream = new ByteArrayInputStream(data);
+				DataInputStream reader = new DataInputStream(stream);
 				while(reader.available() > 0) {
-					switch(reader.readByte()) {
-						case Riot.Connect:
-							Character character = new Character(manager, "jigglypuff");
-							players.put(message.sender, character);
-							worldObjects.add(character);
-							System.out.println("Created new character.");
-							break;
-						case Riot.Disconnect:
-							players.remove(message.sender);
-							worldObjects.remove(referral);
-							break;
-						case Riot.Direction:
-							int degrees = reader.readInt();
-							referral.move(degrees);
-							break;
-						case Riot.Attack:
-							referral.attack();
-							break;
-						case Riot.Dodge:
-							referral.dodge();
-							break;
-						case Riot.Jump:
-							referral.jump();
-							break;
-						case Riot.Special:
-							referral.special();
-							break;
-						case Riot.Shield:
-							referral.shield();
-							break;
-					}
+					handleMessage(reader, referral, message);
 				}
 			}
-			catch(IOException ex) {
-				System.out.println("Couldn't get client's message.");
-			}
+			catch(IOException ex) {System.out.println("Couldn't get client's message.");}
 			
 			for(GameObject object: worldObjects) {
 				object.step();
 			}
-			
 			for(GameObject object: overlayObjects) {
 				object.step();
 			}
