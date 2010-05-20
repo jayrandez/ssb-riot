@@ -47,6 +47,8 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 		}
 		
 		keepAliveTimer = new javax.swing.Timer(20, this);
+		keepAliveTimer.setRepeats(true);
+		keepAliveTimer.start();
 	}
 	
 	public SceneProvider nextProvider() {
@@ -167,5 +169,6 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 		catch(IOException ex) {
 			System.out.println("Couldn't send control data.");
 		}
+		System.out.println("KEEPALIVE");
 	}
 }
