@@ -59,4 +59,9 @@ public class Character extends GameObject {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void death(int speed, int direction)//speed of flying away and 
+	{											//direction of flying
+		// TODO Auto-generated method stub
+	}
 }
