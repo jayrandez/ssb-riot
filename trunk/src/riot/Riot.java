@@ -2,8 +2,6 @@ package riot;
 
 import java.io.BufferedReader;
 import java.util.Scanner;
-
-import riot.sceneprovider.ConnectionScreen;
 import riot.sceneprovider.DummyTerminal;
 
 public class Riot {
