@@ -4,4 +4,23 @@
 	<animations>
 		<AnimationDescriptor>
 			<animationName>idle</animationName>
-			<originX>
+			<originX>20</originX>
+			<originY>122</originY>
+			<width>78</width>
+			<height>63</height>
+			<centerX>59</centerX>
+			<centerY>153.5</centerY>
+			<frames>6</frames>
+			<speed>20</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>walk</animationName>
+			<originX>67</originX>
+			<originY>212</originY>
+			<width>67</width>
+			<height>67</height>
+			<centerX>100.5</centerX>
+			<centerY>245.5</centerX>
+			<frames>6</frames>
+			
