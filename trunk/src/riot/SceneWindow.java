@@ -97,7 +97,7 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 			sprite.drawOn(g2d);
 		}
 		
-		g2d.drawString(scene.getServerName(), 10, 10);
+		g2d.drawString("" + scene.getServerName(), 10, 10);
 	}
 	
 	public void mousePressed(MouseEvent e) {

@@ -8,10 +8,12 @@ public class Communicator {
 	ArrayList<Socket> sockets;
 	ServerSocket serverSocket;
 	int readIndex;
+	boolean sendKeepAlives;
 	
-	public Communicator() {
+	public Communicator(boolean sendKeepAlives) {
 		sockets = new ArrayList<Socket>();
 		readIndex = 0;
+		this.sendKeepAlives = sendKeepAlives;
 	}
 	
 	public boolean addOutgoing(String hostname) {
@@ -67,10 +69,9 @@ public class Communicator {
 		
 		try {
 			DataInputStream stream = new DataInputStream(socket.getInputStream());
-			if(stream.available() == 0) {
+			if(stream.available() == 0 && sendKeepAlives == true) {
 				byte[] data = {Riot.KeepAlive};
 				return new Message(socket, data);
-				//return receiveData();
 			}
 			int size = stream.readInt();
 			byte[] data = new byte[size];

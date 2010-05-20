@@ -76,20 +76,23 @@ public class Scene {
 	
 	// Assembly of the Scene on the Client Side
 	public Scene(SpriteManager manager, byte[] rawData) {
-		ByteArrayInputStream stream = new ByteArrayInputStream(rawData);
-		DataInputStream reader = new DataInputStream(stream);
-		
+		serverName = "";
 		playerNames = new ArrayList<String>();
 		worldSprites = new ArrayList<Sprite>();
 		overlaySprites = new ArrayList<Sprite>();
 		
-		boolean test = false;
-		boolean test2 = false;
+		if(rawData[0] == Riot.KeepAlive){ 
+			System.out.println("Keepalive received");
+		}
+		ByteArrayInputStream stream = new ByteArrayInputStream(rawData);
+		DataInputStream reader = new DataInputStream(stream);
+		
+		
+		
 		try {
 			while(reader.available() > 0) {
 				switch(reader.readByte()) {
 					case Riot.ServerName: {
-						test = true;
 						serverName = "";
 						int count = reader.readShort();
 						for(int i = 0; i < count; i++)
@@ -107,7 +110,6 @@ public class Scene {
 						worldView = new Rectangle(reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
 						break;
 					case Riot.WorldSprites: {
-						test2 = true;
 						int count = reader.readShort();
 						for(int i = 0; i < count; i++) {
 							Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
@@ -128,13 +130,7 @@ public class Scene {
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
-		}
-		if(test == false) {
-			System.out.println("NO SERVERNAME MESSAGE");
-		}
-		if(test2 == false) {
-			System.out.println("NO SPRITE MESSAGE");
-		}
+		}//}
 	}
 	
 	// Serialization of the Scene for Transmittance

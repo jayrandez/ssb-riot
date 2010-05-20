@@ -22,7 +22,7 @@ public class GameEngine {
 	public GameEngine(SpriteManager manager) {
 		this.manager = manager;
 		
-		communicator = new Communicator();
+		communicator = new Communicator(true);
 		communicator.acceptIncoming();
 		
 		worldObjects = new ArrayList<GameObject>();
@@ -44,6 +44,7 @@ public class GameEngine {
 				}
 			}
 		}.start();
+		
 		
 		int steps = 0;
 		int frameNum = 0;

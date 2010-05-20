@@ -32,7 +32,7 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 		for(int i = 0; i < 4; i++)
 			directions[i] = false;
 		
-		communicator = new Communicator();
+		communicator = new Communicator(false);
 		if(!communicator.addOutgoing(hostname)) {
 			exit = true;
 		}
@@ -46,9 +46,6 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 			System.out.println("Couldn't send control data.");
 		}
 		
-		/*keepAliveTimer = new javax.swing.Timer(20, this);
-		keepAliveTimer.setRepeats(true);
-		keepAliveTimer.start();*/
 	}
 	
 	public SceneProvider nextProvider() {
@@ -62,11 +59,11 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 	public Scene nextScene() {
 		Message message = null;
 		boolean send = false;
-		while(!send) {
+		//while(!send) {
 			message = communicator.receiveData();
-			if(message.data[0] != Riot.KeepAlive)
-				send = true;
-		}
+		//	if(message.data[0] != Riot.KeepAlive)
+		//		send = true;
+		//}
 		return new Scene(manager, message.data);
 	}
 	
