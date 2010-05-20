@@ -92,6 +92,10 @@ public class SpriteManager {
 		
 		for(SpriteSheet sheet: sheets) {
 			Image sheetImage = openImage(directory, sheet.imageFile);
+			if(sheetImage == null) {
+				System.out.println("Couldn't find source image " + sheet.imageFile);
+			}
+			
 			String sheetName = sheet.sheetName;
 			ArrayList<AnimationDescriptor> animationDescriptors = sheet.animations;
 			

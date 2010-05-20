@@ -21,7 +21,7 @@
 			<width>67</width>
 			<height>67</height>
 			<centerX>101</centerX>
-			<centerY>246</centerX>
+			<centerY>246</centerY>
 			<frames>6</frames>
 			<speed>50</speed>
 		</AnimationDescriptor>

@@ -1,6 +1,6 @@
 <SheetDescriptor>
 	<sheetName>captainfalcon</sheetName>
-	<imageFile>captainfalcon1.png</imageFile>
+	<imageFile>captainfalcon1.gif</imageFile>
 	<animations>
 		<AnimationDescriptor>
 			<animationName>stand</animationName>
