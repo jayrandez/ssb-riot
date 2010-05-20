@@ -14,6 +14,8 @@ public class Sprite {
 	public int centerX;
 	public int centerY;
 	public int rotation;
+	public int width;
+	public int height;
 	
 	public BufferedImage image;
 	
@@ -45,8 +47,8 @@ public class Sprite {
 		AnimationDescriptor desc = manager.getAnimation(sheet, animation);
 		this.centerX = desc.centerX;
 		this.centerY = desc.centerY;
-
-		this.image = manager.getImage(sheet, animation, frame);
+		this.width = desc.width;
+		this.height = desc.height;
 	}
 	
 	public Sprite(SpriteManager manager, int index, int frame, int x, int y, int rotation) {
@@ -59,6 +61,8 @@ public class Sprite {
 		AnimationDescriptor desc = manager.getAnimation(index);
 		this.centerX = desc.centerX;
 		this.centerY = desc.centerY;
+		this.width = desc.width;
+		this.height = desc.height;
 
 		this.image = manager.getImage(index, frame);
 		

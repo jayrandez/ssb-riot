@@ -1,6 +1,5 @@
 package riot;
 
-import java.io.BufferedReader;
 import java.util.Scanner;
 import riot.sceneprovider.DummyTerminal;
 
@@ -12,13 +11,11 @@ public class Riot {
 	public static final byte Establish		= 3;
 	public static final byte Control		= 4;
 	public static final byte KeepAlive		= 5;
-	
 	public static final byte Attack			= 6;
 	public static final byte Special		= 7;
 	public static final byte Jump			= 8;
 	public static final byte Dodge			= 9;
 	public static final byte Shield			= 10;
-	
 	public static final byte Direction		= 11;
 	
 	// Server > Client
@@ -27,10 +24,6 @@ public class Riot {
 	public static final byte ScreenLayout	= 14;
 	public static final byte PlayerNames	= 15;
 	public static final byte ServerName		= 16;
-	
-	// Hardware Input
-	public static final byte LeftMouse		= 17;
-	public static final byte RightMouse		= 18;
 	
 	// General
 	public static final int Port 			= 48123;

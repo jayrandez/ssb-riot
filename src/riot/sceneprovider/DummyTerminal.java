@@ -33,9 +33,8 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 			directions[i] = false;
 		
 		communicator = new Communicator(false);
-		if(!communicator.addOutgoing(hostname)) {
-			exit = true;
-		}
+		communicator.addOutgoing(hostname);
+		
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		DataOutputStream writer = new DataOutputStream(stream);
 		try {
@@ -61,64 +60,58 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 		return new Scene(manager, message.data);
 	}
 	
-	public void receiveLocation(int x, int y) {
-		// Send Location to Server
-	}
-	
 	public void receivePress(int code, boolean pressed) {
-		if(code == KeyEvent.VK_ESCAPE) {
-			exit = true;
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		DataOutputStream writer = new DataOutputStream(stream);
+		try {
+			switch(code) {
+				case KeyEvent.VK_RIGHT:
+					directions[0] = !directions[0];
+					writeDirection(writer);
+					break;
+				case KeyEvent.VK_UP:
+					directions[1] = !directions[1];
+					writeDirection(writer);
+					break;
+				case KeyEvent.VK_LEFT:
+					directions[2] = !directions[2];
+					writeDirection(writer);
+					break;
+				case KeyEvent.VK_DOWN:
+					directions[3] = !directions[3];
+					writeDirection(writer);
+					break;
+				case KeyEvent.VK_SPACE:
+					if(pressed)
+						writer.writeByte(Riot.Jump);
+					break;
+				case KeyEvent.VK_F:
+					if(pressed)
+						writer.writeByte(Riot.Attack);
+					break;
+				case KeyEvent.VK_D:
+					if(pressed)
+						writer.writeByte(Riot.Special);
+					break;
+				case KeyEvent.VK_S:
+					if(pressed)
+						writer.writeByte(Riot.Dodge);
+					break;
+				case KeyEvent.VK_A:
+					writer.writeByte(Riot.Shield);
+					break;
+			}
+			byte[] data = stream.toByteArray();
+			if(data.length > 0)
+				communicator.sendData(data);
 		}
-		else {
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			DataOutputStream writer = new DataOutputStream(stream);
-			try {
-				switch(code) {
-					case KeyEvent.VK_RIGHT:
-						directions[0] = !directions[0];
-						writeDirection(writer);
-						break;
-					case KeyEvent.VK_UP:
-						directions[1] = !directions[1];
-						writeDirection(writer);
-						break;
-					case KeyEvent.VK_LEFT:
-						directions[2] = !directions[2];
-						writeDirection(writer);
-						break;
-					case KeyEvent.VK_DOWN:
-						directions[3] = !directions[3];
-						writeDirection(writer);
-						break;
-					case KeyEvent.VK_SPACE:
-						if(pressed)
-							writer.writeByte(Riot.Jump);
-						break;
-					case KeyEvent.VK_F:
-						if(pressed)
-							writer.writeByte(Riot.Attack);
-						break;
-					case KeyEvent.VK_D:
-						if(pressed)
-							writer.writeByte(Riot.Special);
-						break;
-					case KeyEvent.VK_S:
-						if(pressed)
-							writer.writeByte(Riot.Dodge);
-						break;
-					case KeyEvent.VK_A:
-						writer.writeByte(Riot.Shield);
-						break;
-				}
-				communicator.sendData(stream.toByteArray());
-			}
-			catch(IOException ex) {
-				System.out.println("Couldn't send control data.");
-			}
+		catch(IOException ex) {
+			System.out.println("Couldn't send control data.");
 		}
 	}
 	
 	private void writeDirection(DataOutputStream writer) throws IOException {
+		// I'm sure there's a better way to do this mathematically.
 		int degrees = 0;
 		if(directions[0] && directions[1]) {
 			degrees = 45;
@@ -155,7 +148,6 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 		System.out.println(message);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
 	}
