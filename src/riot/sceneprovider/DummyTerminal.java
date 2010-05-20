@@ -46,9 +46,9 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 			System.out.println("Couldn't send control data.");
 		}
 		
-		keepAliveTimer = new javax.swing.Timer(20, this);
+		/*keepAliveTimer = new javax.swing.Timer(20, this);
 		keepAliveTimer.setRepeats(true);
-		keepAliveTimer.start();
+		keepAliveTimer.start();*/
 	}
 	
 	public SceneProvider nextProvider() {
@@ -61,6 +61,16 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 
 	public Scene nextScene() {
 		Message message = communicator.receiveData();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		DataOutputStream writer = new DataOutputStream(stream);
+		try {
+			writer.writeByte(Riot.KeepAlive);
+			communicator.sendData(stream.toByteArray());
+		}
+		catch(IOException ex) {
+			System.out.println("Couldn't send control data.");
+		}
+		System.out.println("KEEPALIVE");
 		return new Scene(manager, message.data);
 	}
 	
@@ -160,15 +170,6 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		DataOutputStream writer = new DataOutputStream(stream);
-		try {
-			writer.writeByte(Riot.KeepAlive);
-			communicator.sendData(stream.toByteArray());
-		}
-		catch(IOException ex) {
-			System.out.println("Couldn't send control data.");
-		}
-		System.out.println("KEEPALIVE");
+		
 	}
 }
