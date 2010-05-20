@@ -1,7 +1,5 @@
 package riot.gameobject;
 
-import java.awt.event.KeyEvent;
-
 import riot.*;
 import riot.physics.*;
 
@@ -27,11 +25,11 @@ public class Character extends GameObject {
 			idle();
 		else if(degrees < 90 || degrees > 270) {
 			physics.setAnimation(sheetName, "shortWalk");
-			physics.setMovement(0, 150);
+			physics.setMovement(0, 600);
 		}
 		else {
 			physics.setAnimation(sheetName, "shortWalk" /*, REVERSED*/);
-			physics.setMovement(180, 150);
+			physics.setMovement(180, 600);
 		}
 	}
 
@@ -42,22 +40,18 @@ public class Character extends GameObject {
 
 	public void dodge() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void jump() {
-		System.out.println("Jumping");
 		physics.makeImpulse(90, 1000);
 	}
 
 	public void special() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void shield() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public void death(int speed, int direction)//speed of flying away and 

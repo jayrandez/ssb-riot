@@ -14,20 +14,14 @@ import riot.Scene;
 import riot.SceneProvider;
 import riot.SpriteManager;
 
-public class DummyTerminal implements SceneProvider, ActionListener {
+public class DummyTerminal implements SceneProvider {
 	SpriteManager manager;
 	ArrayList<GameObject> gameObjects;
-	
 	Communicator communicator;
-	javax.swing.Timer keepAliveTimer;
-	
 	boolean[] directions;
-	
-	boolean exit;
 	
 	public DummyTerminal(SpriteManager manager, String hostname) {
 		this.manager = manager;
-		exit = false;
 		directions = new boolean[4];
 		for(int i = 0; i < 4; i++)
 			directions[i] = false;
@@ -45,14 +39,6 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 			System.out.println("Couldn't send control data.");
 		}
 		
-	}
-	
-	public SceneProvider nextProvider() {
-		if(exit) {
-			System.exit(0);
-			return null;
-		}
-		return this;
 	}
 
 	public Scene nextScene() {
@@ -112,7 +98,9 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 	
 	private void writeDirection(DataOutputStream writer) throws IOException {
 		// I'm sure there's a better way to do this mathematically.
-		int degrees = 0;
+		//directions numbered at right arrow, numbered counterclockwise.
+		
+		int degrees = -1;
 		if(directions[0] && directions[1]) {
 			degrees = 45;
 		}
@@ -137,18 +125,7 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 		else if(directions[3]) {
 			degrees = 270;
 		}
-		else {
-			degrees = -1;
-		}
 		writer.writeByte(Riot.Direction);
 		writer.writeInt(degrees);
-	}
-
-	public void debug(Serializable message) {
-		System.out.println(message);
-	}
-
-	public void actionPerformed(ActionEvent arg0) {
-		
 	}
 }

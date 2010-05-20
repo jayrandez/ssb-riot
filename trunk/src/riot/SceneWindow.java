@@ -6,18 +6,14 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.Timer;
 
-public class SceneWindow extends JFrame implements KeyListener, MouseListener, ActionListener {
+public class SceneWindow extends JFrame implements KeyListener {
 	private static final long serialVersionUID = -6417663999978098545L;
 	
 	private SceneProvider provider;
 	private GraphicsEnvironment environment;
 	private GraphicsDevice screen;
 	private BufferStrategy strategy;
-	
-	private Timer pressTimer;
-	private Timer releaseTimer;
 	
 	private ArrayList<Integer> pressedKeys;
 	
@@ -34,7 +30,6 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 		strategy = this.getBufferStrategy();
 		
 		addKeyListener(this);
-		addMouseListener(this);
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int[] pixels = new int[16 * 16];
@@ -44,12 +39,9 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 		
 		setUndecorated(true);
 		setResizable(false);
-		
-		this.setSize(new Dimension(640, 480));
-		this.setIgnoreRepaint(true);
-		this.setVisible(true);
-		
-	    validate();
+		setSize(new Dimension(640, 480));
+		setIgnoreRepaint(true);
+		setVisible(true);
 	}
 	
 	public void gameLoop() {
@@ -61,10 +53,6 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 		    
 		    strategy.show();
 		    g2d.dispose();
-		    
-		    if(provider.nextProvider() != provider) {
-		    	provider = provider.nextProvider();
-		    }
 		}
 	}
 	
@@ -120,13 +108,4 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
     }
     
     public void keyTyped(KeyEvent e) {}
-	public void mouseClicked(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }
