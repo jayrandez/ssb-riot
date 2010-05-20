@@ -1,13 +1,11 @@
 package riot;
 
-import java.awt.event.KeyEvent;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import riot.gameobject.Character;
 import riot.gameobject.Map;
 
@@ -83,18 +81,13 @@ public class GameEngine {
 			for(GameObject object: worldObjects) {
 				object.step();
 			}
-			for(GameObject object: overlayObjects) {
-				object.step();
-			}
 			
-			Scene scene = new Scene("Test Server " + frameNum, playerNames, worldObjects, overlayObjects);
+			Scene scene = new Scene("Server " + frameNum++, playerNames, worldObjects, overlayObjects);
 			byte[] data = scene.serialize();
 			communicator.sendData(data);
 			
-			try {Thread.sleep(40);}
+			try {Thread.sleep(45);}
 			catch(InterruptedException ex){}
-			
-			frameNum++;
 		}
 	}
 }

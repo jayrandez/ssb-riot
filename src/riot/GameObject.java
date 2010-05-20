@@ -3,10 +3,6 @@ package riot;
 public abstract class GameObject {
 	private Physics objectPhysics;
 	
-	public GameObject() {
-		this.objectPhysics = null;
-	}
-	
 	public GameObject(Physics objectPhysics) {
 		this.objectPhysics = objectPhysics;
 	}
@@ -20,8 +16,6 @@ public abstract class GameObject {
 	}
 	
 	public void step() {
-		if(objectPhysics != null) {
-			objectPhysics.step();
-		}
+		objectPhysics.step();
 	}
 }
