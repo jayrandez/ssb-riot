@@ -71,6 +71,11 @@ public class Communicator {
 		
 		try {
 			DataInputStream stream = new DataInputStream(socket.getInputStream());
+			if(stream.available() == 0) {
+				byte[] data = {Riot.KeepAlive};
+				return new Message(socket, data);
+				//return receiveData();
+			}
 			int size = stream.readInt();
 			byte[] data = new byte[size];
 			stream.read(data);
