@@ -1,5 +1,5 @@
 <SheetDescriptor>
-	<sheetName>Mario</sheetName>
+	<sheetName>mario</sheetName>
 	<imageFile>mario2z.png</imageFile>
 	<animations>
 		<AnimationDescriptor>
@@ -15,18 +15,6 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>groundPound</animationName>
-			<originX>19</originX>
-			<originY>83</originY>
-			<width>21</width>
-			<height>32</height>
-			<centerX>30</centerX>
-			<centerY>99</centerY>
-			<frames>3</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-		<AnimationDescriptor>
 			<animationName>jump</animationName>
 			<originX>12</originX>
 			<originY>291</originY>
@@ -38,8 +26,8 @@
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
-		<AnimationDescriptor>
-			<animationName>move</animationName>
+		//<AnimationDescriptor>
+			<animationName>shortWalk</animationName>
 			<originX>15</originX>
 			<originY>328</originY>
 			<width>36</width>
@@ -47,18 +35,6 @@
 			<centerX>33</centerX>
 			<centerY>346</centerY>
 			<frames>6</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-		<AnimationDescriptor>
-			<animationName>fireBall</animationName>
-			<originX>10</originX>
-			<originY>370</originY>
-			<width>27</width>
-			<height>33</height>
-			<centerX>24</centerX>
-			<centerY>387</centerY>
-			<frames>11</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
@@ -75,7 +51,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>airKick</animationName>
+			<animationName>special</animationName>
 			<originX>14</originX>
 			<originY>548</originY>
 			<width>22</width>
@@ -87,7 +63,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>hyperBall</animationName>
+			<animationName>shield</animationName>
 			<originX>15</originX>
 			<originY>593</originY>
 			<width>21</width>
@@ -99,7 +75,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>frontRoll</animationName>
+			<animationName>dodge</animationName>
 			<originX>9</originX>
 			<originY>717</originY>
 			<width>28</width>
