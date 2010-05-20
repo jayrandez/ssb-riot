@@ -67,21 +67,22 @@ public class Communicator {
 			readIndex = 0;
 		}
 		Socket socket = sockets.get(readIndex);
+		readIndex++;
 		
 		try {
 			DataInputStream stream = new DataInputStream(socket.getInputStream());
 			int size = stream.readInt();
 			byte[] data = new byte[size];
 			stream.read(data);
-			readIndex++;
 			return new Message(socket, data);
 		}
 		catch(IOException ex) {
 			System.out.println("Failed to read data from socket.");
 			synchronized(sockets) {
 				sockets.remove(socket);
+				byte[] data = {Riot.Disconnect};
+				return new Message(socket, data);
 			}
-			return receiveData();
 		}
 	}
 	
