@@ -30,9 +30,6 @@ public class GameEngine {
 		playerNames = new ArrayList<String>();
 		players = new HashMap<Socket, Character>();
 		
-		playerNames.add("Zapata");
-		playerNames.add("Solidpenguin");
-		
 		worldObjects.add(new Map(manager, "firstmap"));
 	}
 	
@@ -71,19 +68,15 @@ public class GameEngine {
 	}
 	
 	public void gameLoop() {
-		int steps = 0;
 		int frameNum = 0;
 		while(true) {
 			
 			try {
 				Message message = communicator.receiveData();
 				Character referral = players.get(message.sender);
-				byte[] data = message.data;
-				ByteArrayInputStream stream = new ByteArrayInputStream(data);
+				ByteArrayInputStream stream = new ByteArrayInputStream(message.data);
 				DataInputStream reader = new DataInputStream(stream);
-				while(reader.available() > 0) {
-					handleMessage(reader, referral, message);
-				}
+				handleMessage(reader, referral, message);
 			}
 			catch(IOException ex) {System.out.println("Couldn't get client's message.");}
 			
@@ -95,14 +88,12 @@ public class GameEngine {
 			}
 			
 			Scene scene = new Scene("Test Server " + frameNum, playerNames, worldObjects, overlayObjects);
-			byte[] data2 = scene.serialize();
-			communicator.sendData(data2);
-			steps = 0;
+			byte[] data = scene.serialize();
+			communicator.sendData(data);
 			
 			try {Thread.sleep(40);}
 			catch(InterruptedException ex){}
 			
-			steps++;
 			frameNum++;
 		}
 	}

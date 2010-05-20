@@ -16,32 +16,28 @@ public class Communicator {
 		this.sendKeepAlives = sendKeepAlives;
 	}
 	
-	public boolean addOutgoing(String hostname) {
+	public void addOutgoing(String hostname) {
 		try {
 			Socket outgoingSocket = new Socket(hostname, Riot.Port);
 			sockets.add(outgoingSocket);
-			return true;
 		}
 		catch(IOException ex) {
 			System.out.println("Failed to add outgoing connection.");
-			return false;
 		}
 	}
 	
-	public boolean acceptIncoming() {
+	public void acceptIncoming() {
 		try {
 			serverSocket = new ServerSocket(Riot.Port);
 			new IncomingAcceptor().start();
-			return true;
 		}
 		catch(IOException ex) {
 			System.out.println("Failed to start accepting incoming connections.");
-			return false;
 		}
 	}
 	
 	public void sendData(byte[] data) {
-		for(int i = sockets.size() -1; i >= 0; i--) {
+		for(int i = 0; i < sockets.size(); i++) {
 			Socket socket = sockets.get(i);
 			try {
 				DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
@@ -51,18 +47,16 @@ public class Communicator {
 			catch(IOException ex) {
 				System.out.println("Failed to write data to a socket." + socket.getLocalAddress().toString());
 				sockets.remove(socket);
-				i++;
+				i--;
 			}
 		}
 	}
 	
 	public Message receiveData() {
 		while(sockets.isEmpty());
-		if(readIndex >= sockets.size()) {
+		if(readIndex >= sockets.size())
 			readIndex = 0;
-		}
-		Socket socket = sockets.get(readIndex);
-		readIndex++;
+		Socket socket = sockets.get(readIndex++);
 		
 		try {
 			DataInputStream stream = new DataInputStream(socket.getInputStream());
@@ -70,8 +64,7 @@ public class Communicator {
 				byte[] data = {Riot.KeepAlive};
 				return new Message(socket, data);
 			}
-			int size = stream.readInt();
-			byte[] data = new byte[size];
+			byte[] data = new byte[stream.readInt()];
 			stream.readFully(data);
 			return new Message(socket, data);
 		}

@@ -34,7 +34,7 @@ public class Scene {
 			Sprite sprite = physics.getSprite();
 			worldSprites.add(sprite);
 			if(object instanceof Map) {
-				worldSize = new Dimension(sprite.image.getWidth(), sprite.image.getHeight());
+				worldSize = new Dimension(sprite.width, sprite.height);
 			}
 		}
 	}
