@@ -13,14 +13,15 @@ public class Riot {
 	public static final byte Disconnect		= 2;
 	public static final byte Establish		= 3;
 	public static final byte Control		= 4;
+	public static final byte KeepAlive		= 5;
 	
-	public static final byte Attack			= 4;
-	public static final byte Special		= 5;
-	public static final byte Jump			= 6;
-	public static final byte Dodge			= 7;
-	public static final byte Shield			= 8;
+	public static final byte Attack			= 6;
+	public static final byte Special		= 7;
+	public static final byte Jump			= 8;
+	public static final byte Dodge			= 9;
+	public static final byte Shield			= 10;
 	
-	public static final byte Direction		= 9;
+	public static final byte Direction		= 11;
 	
 	// Server > Client
 	public static final byte WorldSprites	= 12;
