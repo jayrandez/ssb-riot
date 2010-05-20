@@ -1,6 +1,6 @@
 <SheetDescriptor>
 	<sheetName>Roy</sheetName>
-	<imageFile>roy btr.gif</imageFile>
+	<imageFile>roybtr.gif</imageFile>
 	<animations>
 		<AnimationDescriptor>
 			<animationName>idle</animationName>
@@ -20,7 +20,7 @@
 			<originY>80</originY>
 			<width>31</width>
 			<height>31</height>
-			<centerX>62/centerX>
+			<centerX>62</centerX>
 			<centerY>96</centerY>
 			<frames>3</frames>
 			<speed>50</speed>
@@ -86,3 +86,5 @@
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
+	</animations>
+</SheetDescriptor>
