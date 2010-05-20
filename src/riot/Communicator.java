@@ -17,9 +17,7 @@ public class Communicator {
 	public boolean addOutgoing(String hostname) {
 		try {
 			Socket outgoingSocket = new Socket(hostname, Riot.Port);
-			synchronized(sockets) {
-				sockets.add(outgoingSocket);
-			}
+			sockets.add(outgoingSocket);
 			return true;
 		}
 		catch(IOException ex) {
@@ -81,11 +79,9 @@ public class Communicator {
 		}
 		catch(IOException ex) {
 			System.out.println("Failed to read data from socket.");
-			synchronized(sockets) {
-				sockets.remove(socket);
-				byte[] data = {Riot.Disconnect};
-				return new Message(socket, data);
-			}
+			sockets.remove(socket);
+			byte[] data = {Riot.Disconnect};
+			return new Message(socket, data);
 		}
 	}
 	
@@ -94,10 +90,8 @@ public class Communicator {
 			while(true) {
 				try {
 					Socket incoming = serverSocket.accept();
-					synchronized(sockets) {
-						System.out.println("Incoming connection : " + incoming.getLocalAddress().toString());
-						sockets.add(incoming);
-					}
+					System.out.println("Incoming connection : " + incoming.getLocalAddress().toString());
+					sockets.add(incoming);
 				}
 				catch (IOException e) {
 				    System.out.println("Failed to accept an incoming socket.");

@@ -60,7 +60,13 @@ public class DummyTerminal implements SceneProvider, ActionListener {
 	}
 
 	public Scene nextScene() {
-		Message message = communicator.receiveData();
+		Message message = null;
+		boolean send = false;
+		while(!send) {
+			message = communicator.receiveData();
+			if(message.data[0] != Riot.KeepAlive)
+				send = true;
+		}
 		return new Scene(manager, message.data);
 	}
 	

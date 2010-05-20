@@ -90,6 +90,7 @@ public class GameEngine {
 		}.start();
 		
 		int steps = 0;
+		int frameNum = 0;
 		while(true) {
 			for(GameObject object: worldObjects) {
 				object.step();
@@ -98,7 +99,7 @@ public class GameEngine {
 				object.step();
 			}
 			if(steps == 4) {
-				Scene scene = new Scene("Local Test Server", playerNames, worldObjects, overlayObjects);
+				Scene scene = new Scene("Test Server " + frameNum, playerNames, worldObjects, overlayObjects);
 				byte[] data = scene.serialize();
 				communicator.sendData(data);
 				steps = 0;
@@ -106,6 +107,7 @@ public class GameEngine {
 			try {Thread.sleep(10);}
 			catch(InterruptedException ex){}
 			steps++;
+			frameNum++;
 		}
 	}
 }
