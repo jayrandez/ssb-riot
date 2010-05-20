@@ -14,11 +14,12 @@ import riot.Scene;
 import riot.SceneProvider;
 import riot.SpriteManager;
 
-public class DummyTerminal implements SceneProvider {
+public class DummyTerminal implements SceneProvider, ActionListener {
 	SpriteManager manager;
 	ArrayList<GameObject> gameObjects;
 	
 	Communicator communicator;
+	javax.swing.Timer keepAliveTimer;
 	
 	boolean[] directions;
 	
@@ -44,6 +45,8 @@ public class DummyTerminal implements SceneProvider {
 		catch(IOException ex) {
 			System.out.println("Couldn't send control data.");
 		}
+		
+		keepAliveTimer = new javax.swing.Timer(20, this);
 	}
 	
 	public SceneProvider nextProvider() {
@@ -151,5 +154,18 @@ public class DummyTerminal implements SceneProvider {
 
 	public void debug(Serializable message) {
 		System.out.println(message);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		DataOutputStream writer = new DataOutputStream(stream);
+		try {
+			writer.writeByte(Riot.KeepAlive);
+			communicator.sendData(stream.toByteArray());
+		}
+		catch(IOException ex) {
+			System.out.println("Couldn't send control data.");
+		}
 	}
 }
