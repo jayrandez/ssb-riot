@@ -40,51 +40,7 @@ public class GameEngine {
 		new Thread() {
 			public void run() {
 				while(true) {
-					Message message = communicator.receiveData();
-					Character referral = players.get(message.sender);
 					
-					byte[] data = message.data;
-					ByteArrayInputStream stream = new ByteArrayInputStream(data);
-					DataInputStream reader = new DataInputStream(stream);
-					
-					try {
-						while(reader.available() > 0) {
-							switch(reader.readByte()) {
-								case Riot.Connect:
-									Character character = new Character(manager, "jigglypuff");
-									players.put(message.sender, character);
-									worldObjects.add(character);
-									System.out.println("Created new character.");
-									break;
-								case Riot.Disconnect:
-									players.remove(message.sender);
-									worldObjects.remove(referral);
-									break;
-								case Riot.Direction:
-									int degrees = reader.readInt();
-									referral.move(degrees);
-									break;
-								case Riot.Attack:
-									referral.attack();
-									break;
-								case Riot.Dodge:
-									referral.dodge();
-									break;
-								case Riot.Jump:
-									referral.jump();
-									break;
-								case Riot.Special:
-									referral.special();
-									break;
-								case Riot.Shield:
-									referral.shield();
-									break;
-							}
-						}
-					}
-					catch(IOException ex) {
-						System.out.println("Couldn't get client's message.");
-					}
 				}
 			}
 		}.start();
@@ -92,20 +48,69 @@ public class GameEngine {
 		int steps = 0;
 		int frameNum = 0;
 		while(true) {
+			
+			Message message = communicator.receiveData();
+			Character referral = players.get(message.sender);
+			
+			byte[] data = message.data;
+			ByteArrayInputStream stream = new ByteArrayInputStream(data);
+			DataInputStream reader = new DataInputStream(stream);
+			
+			try {
+				while(reader.available() > 0) {
+					switch(reader.readByte()) {
+						case Riot.Connect:
+							Character character = new Character(manager, "jigglypuff");
+							players.put(message.sender, character);
+							worldObjects.add(character);
+							System.out.println("Created new character.");
+							break;
+						case Riot.Disconnect:
+							players.remove(message.sender);
+							worldObjects.remove(referral);
+							break;
+						case Riot.Direction:
+							int degrees = reader.readInt();
+							referral.move(degrees);
+							break;
+						case Riot.Attack:
+							referral.attack();
+							break;
+						case Riot.Dodge:
+							referral.dodge();
+							break;
+						case Riot.Jump:
+							referral.jump();
+							break;
+						case Riot.Special:
+							referral.special();
+							break;
+						case Riot.Shield:
+							referral.shield();
+							break;
+					}
+				}
+			}
+			catch(IOException ex) {
+				System.out.println("Couldn't get client's message.");
+			}
+			
 			for(GameObject object: worldObjects) {
 				object.step();
 			}
+			
 			for(GameObject object: overlayObjects) {
 				object.step();
 			}
-			if(steps == 1) {
-				Scene scene = new Scene("Test Server " + frameNum, playerNames, worldObjects, overlayObjects);
-				byte[] data = scene.serialize();
-				communicator.sendData(data);
-				steps = 0;
-			}
+			
+			Scene scene = new Scene("Test Server " + frameNum, playerNames, worldObjects, overlayObjects);
+			byte[] data2 = scene.serialize();
+			communicator.sendData(data2);
+			steps = 0;
+			
 			try {Thread.sleep(40);}
 			catch(InterruptedException ex){}
+			
 			steps++;
 			frameNum++;
 		}
