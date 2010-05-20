@@ -45,8 +45,9 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 		setUndecorated(true);
 		setResizable(false);
 		
-		screen.setFullScreenWindow(this);
-		screen.setDisplayMode(new DisplayMode(640, 480, 32, DisplayMode.REFRESH_RATE_UNKNOWN));
+		this.setSize(new Dimension(640, 480));
+		this.setIgnoreRepaint(true);
+		this.setVisible(true);
 		
 	    validate();
 	}
@@ -95,6 +96,8 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 		for(Sprite sprite: overlaySprites) {
 			sprite.drawOn(g2d);
 		}
+		
+		g2d.drawString(scene.getServerName(), 10, 10);
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -106,6 +109,10 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
     }
     
     public void keyPressed(KeyEvent e) {
+    	if(e.getKeyCode() == KeyEvent.VK_F1) {
+    		screen.setFullScreenWindow(this);
+    		screen.setDisplayMode(new DisplayMode(640, 480, 32, DisplayMode.REFRESH_RATE_UNKNOWN));
+    	}
     	if(!pressedKeys.contains(e.getKeyCode())) {
     		pressedKeys.add(e.getKeyCode());
     		provider.receivePress(e.getKeyCode(), true);

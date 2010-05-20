@@ -83,11 +83,17 @@ public class Scene {
 		worldSprites = new ArrayList<Sprite>();
 		overlaySprites = new ArrayList<Sprite>();
 		
+		boolean test = false;
+		boolean test2 = false;
 		try {
 			while(reader.available() > 0) {
 				switch(reader.readByte()) {
 					case Riot.ServerName: {
-						serverName = reader.readUTF();
+						test = true;
+						serverName = "";
+						int count = reader.readShort();
+						for(int i = 0; i < count; i++)
+							serverName += reader.readChar();
 						break;
 					}
 					case Riot.PlayerNames: {
@@ -101,6 +107,7 @@ public class Scene {
 						worldView = new Rectangle(reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
 						break;
 					case Riot.WorldSprites: {
+						test2 = true;
 						int count = reader.readShort();
 						for(int i = 0; i < count; i++) {
 							Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
@@ -122,6 +129,12 @@ public class Scene {
 		catch(IOException ex) {
 			ex.printStackTrace();
 		}
+		if(test == false) {
+			System.out.println("NO SERVERNAME MESSAGE");
+		}
+		if(test2 == false) {
+			System.out.println("NO SPRITE MESSAGE");
+		}
 	}
 	
 	// Serialization of the Scene for Transmittance
@@ -130,11 +143,13 @@ public class Scene {
 		DataOutputStream writer = new DataOutputStream(stream);
 		
 		try {
-			/*// Write Server Name Information
+			// Write Server Name Information
 			writer.writeByte(Riot.ServerName);
-			writer.writeUTF(serverName);
+			writer.writeShort(serverName.length());
+			for(int i = 0; i < serverName.length(); i++)
+				writer.writeChar(serverName.charAt(i));
 			
-			// Write Player Name Information
+			/*// Write Player Name Information
 			writer.writeByte(Riot.PlayerNames);
 			writer.writeShort(playerNames.size());
 			for(String playerName: playerNames) {
@@ -175,6 +190,7 @@ public class Scene {
 			return stream.toByteArray();
 		}
 		catch(IOException ex) {
+			System.out.println("BAD WRITE");
 			return new byte[0];
 		}
 	}
@@ -201,59 +217,5 @@ public class Scene {
 	
 	public ArrayList<String> getPlayerNames() {
 		return playerNames;
-	}
-	
-	public static void main(String[] arguments) throws Exception {
-		
-		// Timed Trials Seem to Be Good After Analysis
-		// We should be able to max 30 FPS to 5 Players
-		// Simultaneously over TCP with Detail as High
-		// As 75 Sprites per Scene With =0%= Data Loss
-		
-		SpriteManager manager = new SpriteManager("sheets");
-		
-		Thread.sleep(2000);
-		
-		
-		System.out.println("\n\nTime 10 Seconds... Go!\n\n");
-		for(int x = 0; x < 10; x++) {
-		
-		System.out.println("150 High-Detail Trials (5P * 30FPS) & 75 Sprites.");
-		System.out.println("5ms fake network latency per scene");
-		for(int j = 0; j < 150; j++) {
-			ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
-			for(int i = 0; i < 75; i++) {
-				gameObjects.add(new Character(manager, "jigglypuff"));
-			}
-			ArrayList<String> players = new ArrayList<String>();
-			players.add("Zapata");
-			players.add("Solidpenguin");
-			Scene scene = new Scene("Local Test Server", players, gameObjects, new ArrayList<GameObject>());
-			byte[] data = scene.serialize();
-			//System.out.println("Length: " + data.length);
-			for(int i = 0; i < data.length; i++) {
-				//System.out.print("" + (int)data[i] + ", ");
-			}
-			
-			// Fake latency 5 ms
-			Thread.sleep(5);
-			
-			//System.out.println();
-			Scene recon = new Scene(manager, data);
-			//System.out.println("Server Name: " + recon.getServerName());
-			ArrayList<String> players2 = recon.getPlayerNames();
-			for(String name: players2) {
-				//System.out.print(name + ", ");
-			}
-			//System.out.println();
-			//System.out.println("World Sprites: " + recon.getWorldSprites().size());
-			//System.out.println("Overlay Sprites: " + recon.getOverlaySprites().size());
-			//System.out.println("World Size: " + recon.getWorldSize());
-			//System.out.println("World View: " + recon.getWorldView());
-		}
-		System.out.println("Done with the 150. Was it less than a second?");
-		
-		}
-		System.out.println("\n\n\n\nSTOP!");
 	}
 }
