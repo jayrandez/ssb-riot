@@ -67,4 +67,33 @@ public class Sprite {
 	public void drawOn(Graphics2D g2d) {
 		g2d.drawImage(image, x-centerX, y-centerY, null);
 	}
+	
+	private BufferedImage horizontalMirror(BufferedImage p) 
+	{
+        //for even width pixels
+        if(p.getWidth()%2 == 0) {
+                
+                for( int i = 0, k = p.getWidth()-1; i < k; i++, k--) {
+                        for (int j = 0 ,l = 0; j < p.getHeight() ;j++, l++) {           
+                                int x = p.getRGB(i, j);
+                                int y = p.getRGB(k, l);
+                                p.setRGB(i, j, y);
+                                p.setRGB(k, l, x);
+                        }                       
+                }
+        }
+        //for odd width pixels
+        else {
+                for( int i = 0, k = p.getWidth()-1; i != k; i++, k--) {
+                        for (int j = 0 ,l = 0; j < p.getHeight() ;j++, l++) {           
+                                int x = p.getRGB(i, j);
+                                int y = p.getRGB(k, l);
+                                p.setRGB(i, j, y);
+                                p.setRGB(k, l, x);
+                        }                       
+                }
+        }    
+        
+        return p;
+
 }
