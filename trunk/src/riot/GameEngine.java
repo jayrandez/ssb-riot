@@ -98,13 +98,13 @@ public class GameEngine {
 			for(GameObject object: overlayObjects) {
 				object.step();
 			}
-			if(steps == 3) {
+			if(steps == 1) {
 				Scene scene = new Scene("Test Server " + frameNum, playerNames, worldObjects, overlayObjects);
 				byte[] data = scene.serialize();
 				communicator.sendData(data);
 				steps = 0;
 			}
-			try {Thread.sleep(20);}
+			try {Thread.sleep(40);}
 			catch(InterruptedException ex){}
 			steps++;
 			frameNum++;
