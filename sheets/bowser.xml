@@ -1,0 +1,7 @@
+<SheetDescriptor>
+	<sheetName>Bowser</sheetName>
+	<imageFile>bowser.gif</imageFile>
+	<animations>
+		<AnimationDescriptor>
+			<animationName>idle</animationName>
+			<originX>
