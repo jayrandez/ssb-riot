@@ -40,9 +40,8 @@ public class Communicator {
 		}
 	}
 	
-	public boolean sendData(byte[] data) {
-		boolean result = true;
-		for(int i = 0; i < sockets.size(); i++) {
+	public void sendData(byte[] data) {
+		for(int i = sockets.size() -1; i >= 0; i--) {
 			Socket socket = sockets.get(i);
 			try {
 				DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
@@ -52,11 +51,9 @@ public class Communicator {
 			catch(IOException ex) {
 				System.out.println("Failed to write data to a socket." + socket.getLocalAddress().toString());
 				sockets.remove(socket);
-				i--;
-				result = false;
+				i++;
 			}
 		}
-		return result;
 	}
 	
 	public Message receiveData() {
@@ -75,7 +72,7 @@ public class Communicator {
 			}
 			int size = stream.readInt();
 			byte[] data = new byte[size];
-			stream.read(data);
+			stream.readFully(data);
 			return new Message(socket, data);
 		}
 		catch(IOException ex) {
