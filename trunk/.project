@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>riot</name>
-			<type>2</type>
-			<location>C:/Documents and Settings/BoulazerisC/Desktop/ssb-riot/src/riot</location>
-		</link>
-	</linkedResources>
 </projectDescription>
