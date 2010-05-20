@@ -11,7 +11,7 @@
 			<centerX>59</centerX>
 			<centerY>153.5</centerY>
 			<frames>6</frames>
-			<speed>20</speed>
+			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
@@ -23,4 +23,19 @@
 			<centerX>100.5</centerX>
 			<centerY>245.5</centerX>
 			<frames>6</frames>
-			
+			<speed>50</speed>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>run</animationName>
+			<originX>24</originX>
+			<originY>308</originY>
+			<width>68</width>	
+			<height>61</height>
+			<centerX>58</centerX>
+			<centerY>338.5</centerY>
+			<frames>6</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+	</animations>
+</SheetDescriptor>
