@@ -56,9 +56,6 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 		while(provider != null) {
 			Graphics2D g2d = (Graphics2D)strategy.getDrawGraphics();
 			
-			Point mouse = MouseInfo.getPointerInfo().getLocation();
-			provider.receiveLocation(mouse.x, mouse.y);
-			
 			Scene scene = provider.nextScene();
 			renderScene(g2d, scene);
 		    
@@ -76,26 +73,19 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 			Dimension worldSize = scene.getWorldSize();
 			world = new BufferedImage(worldSize.width, worldSize.height, BufferedImage.TYPE_INT_ARGB);
 		}	
-		if(worldView == null) {
-			worldView = scene.getWorldView();
-		}
 		
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
-		ArrayList<Sprite> overlaySprites = scene.getOverlaySprites();
 		
 		for(Sprite sprite: worldSprites) {
 			sprite.drawOn((Graphics2D)world.getGraphics());
 		}
 
+		worldView = scene.getWorldView();
 		int x1 = (int)worldView.getMinX();
 		int y1 = (int)worldView.getMinY();
 		int x2 = (int)worldView.getMaxX();
 		int y2 = (int)worldView.getMaxY();
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
-		
-		for(Sprite sprite: overlaySprites) {
-			sprite.drawOn(g2d);
-		}
 		
 		g2d.drawString("" + scene.getServerName(), 10, 10);
 	}
