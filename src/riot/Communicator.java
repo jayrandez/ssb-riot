@@ -42,20 +42,18 @@ public class Communicator {
 	
 	public boolean sendData(byte[] data) {
 		boolean result = true;
-		synchronized(sockets) {
-			for(int i = 0; i < sockets.size(); i++) {
-				Socket socket = sockets.get(i);
-				try {
-					DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
-					stream.writeInt(data.length);
-					stream.write(data);
-				}
-				catch(IOException ex) {
-					System.out.println("Failed to write data to a socket." + socket.getLocalAddress().toString());
-					sockets.remove(socket);
-					i--;
-					result = false;
-				}
+		for(int i = 0; i < sockets.size(); i++) {
+			Socket socket = sockets.get(i);
+			try {
+				DataOutputStream stream = new DataOutputStream(socket.getOutputStream());
+				stream.writeInt(data.length);
+				stream.write(data);
+			}
+			catch(IOException ex) {
+				System.out.println("Failed to write data to a socket." + socket.getLocalAddress().toString());
+				sockets.remove(socket);
+				i--;
+				result = false;
 			}
 		}
 		return result;
