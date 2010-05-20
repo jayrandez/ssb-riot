@@ -1,5 +1,8 @@
 package riot;
 
+import java.io.BufferedReader;
+import java.util.Scanner;
+
 import riot.sceneprovider.ConnectionScreen;
 import riot.sceneprovider.DummyTerminal;
 
@@ -34,27 +37,30 @@ public class Riot {
 	public static final int Port 			= 48123;
 
 	public static void main(String[] args) throws Exception {
-		new RepeatingReleasedEventsFixer().install();
 		final SpriteManager manager = new SpriteManager("sheets");
+		Scanner scanner = new Scanner(System.in);
+		String line;
 		
-		// For now we'll be testing the game using a locally run server.
-		new Thread() {
-			public void run() {
-				new GameEngine(manager).gameLoop();
-			}
-		}.start();
+		System.out.print("\nStart a server at localhost? [Y/n] ");
+		line = scanner.nextLine();
+		if(line.equals("") || line.equals("Y") || line.equals("y")) {
+			new Thread() {
+				public void run() {
+					new GameEngine(manager).gameLoop();
+				}
+			}.start();
+		}
 		
-		new DummyTerminal(manager, "localhost");
-		new DummyTerminal(manager, "localhost");
-		new DummyTerminal(manager, "localhost");
-		new DummyTerminal(manager, "localhost");
+		System.out.print("Connect to server [localhost]: ");
+		line = scanner.nextLine();
+		if(line.equals(""))
+			line = "localhost";
 		
-		SceneProvider startScreen = new DummyTerminal(manager, "localhost");
+		SceneProvider startScreen = new DummyTerminal(manager, line);
 		SceneWindow window = new SceneWindow(startScreen);
-		
 		window.gameLoop();
-		
 		window.dispose();
+		
 		System.exit(0);
 	}
 }

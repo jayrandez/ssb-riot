@@ -11,7 +11,7 @@
 			<centerX>16</centerX>
 			<centerY>16</centerY>
 			<frames>2</frames>
-			<speed>30</speed>
+			<speed>20</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
@@ -23,7 +23,7 @@
 			<centerX>16</centerX>
 			<centerY>16</centerY>
 			<frames>5</frames>
-			<speed>50</speed>
+			<speed>5</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>

@@ -53,6 +53,8 @@ public class CharacterPhysics extends Physics {
 		animationSteps++;
 		
 		time++;
+		x += (speedX / 100.0);
+		y += (speedY / 100.0);
 		// account for x, y, x speed, y speed, gravity, time passed (maybe wind resistance future)
 		// update the x and y location
 		
@@ -67,10 +69,14 @@ public class CharacterPhysics extends Physics {
 	}
 	
 	public void setMovement(int degrees, double speed) {
-		// update x and y velocity based on degrees, speed
+		double radians = (degrees * Math.PI / 180);
+		speedX = Math.cos(radians) * speed;
+		speedY = -Math.sin(radians) * speed;
 	}
 	
 	public void makeImpulse(int degrees, double speed) {
-		// increase x and y velocity based on degrees, speed
+		double radians = (degrees * Math.PI / 180);
+		speedX += Math.cos(radians) * speed;
+		speedY += -Math.sin(radians) * speed;
 	}
 }

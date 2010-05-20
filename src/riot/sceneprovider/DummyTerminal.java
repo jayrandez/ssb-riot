@@ -28,6 +28,8 @@ public class DummyTerminal implements SceneProvider {
 		this.manager = manager;
 		exit = false;
 		directions = new boolean[4];
+		for(int i = 0; i < 4; i++)
+			directions[i] = false;
 		
 		communicator = new Communicator();
 		if(!communicator.addOutgoing(hostname)) {

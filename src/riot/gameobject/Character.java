@@ -19,13 +19,20 @@ public class Character extends GameObject {
 
 	public void idle() {
 		physics.setAnimation(sheetName, "idle");
+		physics.setMovement(0, 0);
 	}
 	
 	public void move(int degrees) {
-		if(degrees == -1)
+		if(degrees == -1 || degrees == 90 || degrees == 270)
 			idle();
-		else
+		else if(degrees < 90 || degrees > 270) {
 			physics.setAnimation(sheetName, "shortWalk");
+			physics.setMovement(0, 150);
+		}
+		else {
+			physics.setAnimation(sheetName, "shortWalk" /*, REVERSED*/);
+			physics.setMovement(180, 150);
+		}
 	}
 
 	public void attack() {
@@ -39,8 +46,8 @@ public class Character extends GameObject {
 	}
 
 	public void jump() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Jumping");
+		physics.makeImpulse(90, 1000);
 	}
 
 	public void special() {

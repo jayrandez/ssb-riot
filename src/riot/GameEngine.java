@@ -97,7 +97,7 @@ public class GameEngine {
 			for(GameObject object: overlayObjects) {
 				object.step();
 			}
-			if(steps == 5) {
+			if(steps == 4) {
 				Scene scene = new Scene("Local Test Server", playerNames, worldObjects, overlayObjects);
 				byte[] data = scene.serialize();
 				communicator.sendData(data);

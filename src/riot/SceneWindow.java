@@ -21,6 +21,9 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 	
 	private ArrayList<Integer> pressedKeys;
 	
+	BufferedImage world;
+	Rectangle worldView;
+	
 	public SceneWindow(SceneProvider provider) {
 		this.provider = provider;
 		
@@ -68,22 +71,27 @@ public class SceneWindow extends JFrame implements KeyListener, MouseListener, A
 	}
 	
 	public void renderScene(Graphics2D g2d, Scene scene) {
-		Dimension worldSize = scene.getWorldSize();
-		BufferedImage world = new BufferedImage(worldSize.width, worldSize.height, BufferedImage.TYPE_INT_ARGB);
+		if(world == null) {
+			Dimension worldSize = scene.getWorldSize();
+			world = new BufferedImage(worldSize.width, worldSize.height, BufferedImage.TYPE_INT_ARGB);
+		}	
+		if(worldView == null) {
+			worldView = scene.getWorldView();
+		}
 		
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
+		ArrayList<Sprite> overlaySprites = scene.getOverlaySprites();
+		
 		for(Sprite sprite: worldSprites) {
 			sprite.drawOn((Graphics2D)world.getGraphics());
 		}
-		
-		Rectangle worldView = scene.getWorldView();
+
 		int x1 = (int)worldView.getMinX();
 		int y1 = (int)worldView.getMinY();
 		int x2 = (int)worldView.getMaxX();
 		int y2 = (int)worldView.getMaxY();
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
 		
-		ArrayList<Sprite> overlaySprites = scene.getOverlaySprites();
 		for(Sprite sprite: overlaySprites) {
 			sprite.drawOn(g2d);
 		}
