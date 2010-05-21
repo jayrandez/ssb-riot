@@ -20,6 +20,7 @@ public class Communicator {
 		try {
 			Socket outgoingSocket = new Socket(hostname, Riot.Port);
 			outgoingSocket.setReceiveBufferSize(100);
+			outgoingSocket.setSendBufferSize(100);
 			System.out.println(outgoingSocket.getReceiveBufferSize());
 			sockets.add(outgoingSocket);
 		}
