@@ -1,6 +1,8 @@
 package riot;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class Sprite {
@@ -17,7 +19,7 @@ public class Sprite {
 	public int width;
 	public int height;
 	
-	public BufferedImage image;
+	public Image image;
 	
 	public Sprite() {
 		this.sheet = "";
@@ -68,7 +70,7 @@ public class Sprite {
 		
 	}
 	
-	public void drawOn(Graphics2D g2d) {
+	public void drawOn(Graphics g2d) {
 		g2d.drawImage(image, x-centerX, y-centerY, null);
 	}
 
