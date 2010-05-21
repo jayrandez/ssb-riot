@@ -2,7 +2,7 @@ package riot.physics;
 
 import riot.*;
 
-public class CharacterPhysics extends Physics {
+public class NaturalPhysics extends Physics {
 	
 	SpriteManager manager;
 	int animationSteps;
@@ -19,7 +19,7 @@ public class CharacterPhysics extends Physics {
 	
 	double gravity;
 	
-	public CharacterPhysics(SpriteManager manager) {
+	public NaturalPhysics(SpriteManager manager) {
 		this.manager = manager;
 		animation = null;
 		animationSteps = 0;

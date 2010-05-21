@@ -6,12 +6,12 @@ import riot.physics.*;
 public class Character extends GameObject {
 
 	String sheetName;
-	CharacterPhysics physics;
+	NaturalPhysics physics;
 	
 	public Character(SpriteManager manager, String sheetName) {
-		super(new CharacterPhysics(manager));
+		super(new NaturalPhysics(manager));
 		this.sheetName = sheetName;
-		this.physics = (CharacterPhysics)getPhysics();
+		this.physics = (NaturalPhysics)getPhysics();
 		idle();
 	}
 
