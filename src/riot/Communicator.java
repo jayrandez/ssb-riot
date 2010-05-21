@@ -85,6 +85,9 @@ public class Communicator {
 			while(true) {
 				try {
 					Socket incoming = serverSocket.accept();
+					incoming.setReceiveBufferSize(100);
+					incoming.setSendBufferSize(100);
+					incoming.setTcpNoDelay(false);
 					System.out.println("Incoming connection : " + incoming.getLocalAddress().toString());
 					sockets.add(incoming);
 				}
