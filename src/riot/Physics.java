@@ -1,11 +1,22 @@
 package riot;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public abstract class Physics {
-	public abstract Dimension getLocation();
-	public abstract Rectangle getBoundingBox();
-	public abstract Sprite getSprite();
+	private Location location;
+	
+	public Physics(Location location) {
+		this.location = location;
+	}
+	
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	
+	public Location getLocation() {
+		return location;
+	}
+	
+	public abstract ArrayList<Rectangle> getBoundingBoxes();
 	public abstract void step();
 }
