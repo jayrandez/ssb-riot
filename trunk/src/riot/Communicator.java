@@ -20,6 +20,8 @@ public class Communicator {
 		try {
 			Socket outgoingSocket = new Socket(hostname, Riot.Port);
 			outgoingSocket.setTcpNoDelay(true);
+			outgoingSocket.setReceiveBufferSize(100);
+			outgoingSocket.setSendBufferSize(100);
 			System.out.println(outgoingSocket.getReceiveBufferSize());
 			sockets.add(outgoingSocket);
 		}
@@ -84,6 +86,8 @@ public class Communicator {
 				try {
 					Socket incoming = serverSocket.accept();
 					incoming.setTcpNoDelay(true);
+					incoming.setReceiveBufferSize(100);
+					incoming.setSendBufferSize(100);
 					System.out.println("Incoming connection : " + incoming.getLocalAddress().toString());
 					sockets.add(incoming);
 				}
