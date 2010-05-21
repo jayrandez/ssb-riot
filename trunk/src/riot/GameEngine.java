@@ -95,7 +95,7 @@ public class GameEngine {
 			byte[] data = scene.serialize();
 			communicator.sendData(data);
 			
-			try {Thread.sleep(45);}
+			try {Thread.sleep(30);}
 			catch(InterruptedException ex){}
 		}
 	}
