@@ -21,7 +21,7 @@ public class Communicator {
 			Socket outgoingSocket = new Socket(hostname, Riot.Port);
 			outgoingSocket.setReceiveBufferSize(100);
 			outgoingSocket.setSendBufferSize(100);
-			outgoingSocket.setTcpNoDelay(true);
+			outgoingSocket.setTcpNoDelay(false);
 			System.out.println(outgoingSocket.getReceiveBufferSize());
 			sockets.add(outgoingSocket);
 		}
