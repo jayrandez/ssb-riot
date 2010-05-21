@@ -88,10 +88,10 @@ public class SceneWindow extends JFrame implements KeyListener {
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
 		
 		
-		g2d.setColor(Color.white);
+		/*g2d.setColor(Color.white);
 		g2d.fillRect(0,0,200,50);
 		g2d.setColor(Color.black);
-		g2d.drawString("" + scene.getServerName(), 10, 10);
+		g2d.drawString("" + scene.getServerName(), 10, 10);*/
 	}
 	
 	public void mousePressed(MouseEvent e) {

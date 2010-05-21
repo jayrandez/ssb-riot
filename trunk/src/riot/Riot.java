@@ -49,7 +49,7 @@ public class Riot {
 			line = "localhost";
 		
 		boolean fullscreen = false;
-		if(args[0].equals("-fullscreen"))
+		if(args.length > 0 && args[0].equals("-fullscreen"))
 			fullscreen = true;
 		
 		SceneProvider startScreen = new DummyTerminal(manager, line);
