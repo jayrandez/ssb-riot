@@ -48,8 +48,12 @@ public class Riot {
 		if(line.equals(""))
 			line = "localhost";
 		
+		boolean fullscreen = false;
+		if(args[0].equals("-fullscreen"))
+			fullscreen = true;
+		
 		SceneProvider startScreen = new DummyTerminal(manager, line);
-		SceneWindow window = new SceneWindow(startScreen);
+		SceneWindow window = new SceneWindow(startScreen, fullscreen);
 		window.gameLoop();
 		window.dispose();
 		
