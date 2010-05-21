@@ -90,6 +90,7 @@ public class SceneWindow extends JFrame implements KeyListener {
 		
 		/*g2d.setColor(Color.white);
 		g2d.fillRect(0,0,200,50);
+		
 		g2d.setColor(Color.black);
 		g2d.drawString("" + scene.getServerName(), 10, 10);*/
 	}

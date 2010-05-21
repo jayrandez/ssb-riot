@@ -66,17 +66,26 @@ public class GameEngine {
 	}
 	
 	public void gameLoop() {
+		
+		new Thread() {
+			public void run() {
+				while(true) {
+					try {
+						Message message = communicator.receiveData();
+						Character referral = players.get(message.sender);
+						ByteArrayInputStream stream = new ByteArrayInputStream(message.data);
+						DataInputStream reader = new DataInputStream(stream);
+						handleMessage(reader, referral, message);
+					}
+					catch(IOException ex) {System.out.println("Couldn't get client's message.");}
+				}
+			}
+		}.start();
+		
 		int frameNum = 0;
 		while(true) {
 			
-			try {
-				Message message = communicator.receiveData();
-				Character referral = players.get(message.sender);
-				ByteArrayInputStream stream = new ByteArrayInputStream(message.data);
-				DataInputStream reader = new DataInputStream(stream);
-				handleMessage(reader, referral, message);
-			}
-			catch(IOException ex) {System.out.println("Couldn't get client's message.");}
+			
 			
 			for(GameObject object: worldObjects) {
 				object.step();
