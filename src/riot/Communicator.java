@@ -19,6 +19,8 @@ public class Communicator {
 	public void addOutgoing(String hostname) {
 		try {
 			Socket outgoingSocket = new Socket(hostname, Riot.Port);
+			outgoingSocket.setReceiveBufferSize(100);
+			System.out.println(outgoingSocket.getReceiveBufferSize());
 			sockets.add(outgoingSocket);
 		}
 		catch(IOException ex) {
@@ -65,7 +67,7 @@ public class Communicator {
 				return new Message(socket, data);
 			}
 			byte[] data = new byte[stream.readInt()];
-			stream.readFully(data);
+			stream.read(data);
 			return new Message(socket, data);
 		}
 		catch(IOException ex) {
