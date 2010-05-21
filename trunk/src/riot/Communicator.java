@@ -22,7 +22,6 @@ public class Communicator {
 			outgoingSocket.setTcpNoDelay(true);
 			outgoingSocket.setReceiveBufferSize(100);
 			outgoingSocket.setSendBufferSize(100);
-			System.out.println(outgoingSocket.getReceiveBufferSize());
 			sockets.add(outgoingSocket);
 		}
 		catch(IOException ex) {

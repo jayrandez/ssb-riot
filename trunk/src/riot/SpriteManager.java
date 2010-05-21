@@ -4,7 +4,10 @@ package riot;
  * I RECOMMEND THAT YOU DONT LOOK AT THIS CODE IF YOU WANT TO MAINTAIN YOUR SANITY
  */
 
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
@@ -17,12 +20,12 @@ import com.thoughtworks.xstream.XStream;
 
 public class SpriteManager {
 	private ArrayList<AnimationDescriptor> animations;
-	private ArrayList<ArrayList<BufferedImage>> images;
+	private ArrayList<ArrayList<Image>> images;
 	private HashMap<String, Integer> associations;
 	
 	public SpriteManager(String path) {
 		animations = new ArrayList<AnimationDescriptor>();
-		images = new ArrayList<ArrayList<BufferedImage>>();
+		images = new ArrayList<ArrayList<Image>>();
 		associations = new HashMap<String, Integer>();
 		
 		ArrayList<SpriteSheet> sheets = new ArrayList<SpriteSheet>();
@@ -52,12 +55,12 @@ public class SpriteManager {
 		return animations.get(index);
 	}
 
-	public BufferedImage getImage(String sheet, String animation, int frame) {
+	public Image getImage(String sheet, String animation, int frame) {
 		int index = getIndex(sheet, animation);
 		return getImage(index, frame);
 	}
 	
-	public BufferedImage getImage(int index, int frame) {
+	public Image getImage(int index, int frame) {
 		return images.get(index).get(frame);
 	}
 	
@@ -101,7 +104,7 @@ public class SpriteManager {
 			
 			for(AnimationDescriptor animation: animationDescriptors) {
 				String animationName = animation.animationName;
-				ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
+				ArrayList<Image> frames = new ArrayList<Image>();
 				
 				for(int i = 0; i < animation.frames; i++) {
 					int offsetX = animation.originX + (i*animation.width);
@@ -109,7 +112,7 @@ public class SpriteManager {
 					int width = animation.width;
 					int height = animation.height;
 					boolean transparent = animation.transparent;
-					BufferedImage subImage = getSubimage(sheetImage, offsetX, offsetY, width, height, transparent);
+					Image subImage = getSubimage(sheetImage, offsetX, offsetY, width, height, transparent);
 					frames.add(subImage);
 				}
 				
@@ -137,23 +140,25 @@ public class SpriteManager {
 		return null;
 	}
 	
-	private BufferedImage getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
+	private Image getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
 	{
 		BufferedImage bufferedSource = (BufferedImage)source;
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		
-		image = bufferedSource.getSubimage(offsetX, offsetY, width, height);
-		int transcolor = image.getRGB(0,0);
+		bufferedImage = bufferedSource.getSubimage(offsetX, offsetY, width, height);
+		int transcolor = bufferedSource.getRGB(0,0);
 		
-		for (int i = 0; i < image.getHeight(); i++)
+		for (int i = 0; i < bufferedImage.getHeight(); i++)
 		{
-			for (int j = 0; j < image.getWidth(); j++)
+			for (int j = 0; j < bufferedImage.getWidth(); j++)
 			{
-				if (image.getRGB(j, i) == transcolor)
-					image.setRGB(j, i, 0x8F1C1C);
+				if (bufferedImage.getRGB(j, i) == transcolor)
+					bufferedImage.setRGB(j, i, 0x8F1C1C);
 			}
-		}  
-
+		} 
+		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+		Image image = gc.createCompatibleImage(bufferedImage.getWidth(), bufferedImage.getHeight(), Transparency.BITMASK);
+		image.getGraphics().drawImage(bufferedImage, 0, 0, null);
 		return image;  
 	}
 	

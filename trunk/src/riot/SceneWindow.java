@@ -17,16 +17,16 @@ public class SceneWindow extends JFrame implements KeyListener {
 	
 	private ArrayList<Integer> pressedKeys;
 	
-	BufferedImage world;
+	Image world;
 	Rectangle worldView;
+	Graphics2D worldGraphics;
 	
 	public SceneWindow(SceneProvider provider, boolean defaultFullScreen) {
 		this.provider = provider;
 		pressedKeys = new ArrayList<Integer>();
 		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = environment.getDefaultScreenDevice();
-		this.createBufferStrategy(1);
-		strategy = this.getBufferStrategy();
+		
 		
 		addKeyListener(this);
 		
@@ -47,8 +47,11 @@ public class SceneWindow extends JFrame implements KeyListener {
     		screen.setDisplayMode(new DisplayMode(640, 480, 32, DisplayMode.REFRESH_RATE_UNKNOWN));
 		}
 		
+		this.createBufferStrategy(1);
+		strategy = this.getBufferStrategy();
+		
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,35 +61,38 @@ public class SceneWindow extends JFrame implements KeyListener {
 	
 	public void gameLoop() {
 		while(provider != null) {
-			Graphics2D g2d = (Graphics2D)strategy.getDrawGraphics();
-			
 			Scene scene = provider.nextScene();
+			Graphics g2d = strategy.getDrawGraphics();
 			renderScene(g2d, scene);
-		    
+			g2d.dispose();
 		    strategy.show();
-		    g2d.dispose();
 		}
 	}
 	
-	public void renderScene(Graphics2D g2d, Scene scene) {
-		if(world == null) {
+	public void renderScene(Graphics g2d, Scene scene) {
+		if(world == null || worldGraphics == null) {
 			Dimension worldSize = scene.getWorldSize();
-			world = new BufferedImage(worldSize.width, worldSize.height, BufferedImage.TYPE_INT_ARGB);
-		}	
+			GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+			world = gc.createCompatibleImage(worldSize.width, worldSize.height, Transparency.BITMASK);
+			worldGraphics = (Graphics2D)world.getGraphics();
+		}
 		
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
+		worldView = scene.getWorldView();
 		
 		for(Sprite sprite: worldSprites) {
-			sprite.drawOn((Graphics2D)world.getGraphics());
+			sprite.drawOn(worldGraphics);
 		}
 
-		worldView = scene.getWorldView();
 		int x1 = (int)worldView.getMinX();
 		int y1 = (int)worldView.getMinY();
 		int x2 = (int)worldView.getMaxX();
 		int y2 = (int)worldView.getMaxY();
-		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
 		
+		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
+		g2d.setColor(Color.white);
+		g2d.fillRect(0, 0, 200, 50);
+		g2d.setColor(Color.black);
 		g2d.drawString("" + scene.getServerName(), 10, 10);
 	}
 	
