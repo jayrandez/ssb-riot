@@ -20,9 +20,8 @@ public class SceneWindow extends JFrame implements KeyListener {
 	BufferedImage world;
 	Rectangle worldView;
 	
-	public SceneWindow(SceneProvider provider) {
+	public SceneWindow(SceneProvider provider, boolean defaultFullScreen) {
 		this.provider = provider;
-		
 		pressedKeys = new ArrayList<Integer>();
 		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = environment.getDefaultScreenDevice();
@@ -42,6 +41,19 @@ public class SceneWindow extends JFrame implements KeyListener {
 		setSize(new Dimension(640, 480));
 		setIgnoreRepaint(true);
 		setVisible(true);
+		
+		if(defaultFullScreen) {
+			screen.setFullScreenWindow(this);
+    		screen.setDisplayMode(new DisplayMode(640, 480, 32, DisplayMode.REFRESH_RATE_UNKNOWN));
+		}
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		provider.begin();
 	}
 	
 	public void gameLoop() {
@@ -75,6 +87,10 @@ public class SceneWindow extends JFrame implements KeyListener {
 		int y2 = (int)worldView.getMaxY();
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
 		
+		
+		g2d.setColor(Color.white);
+		g2d.fillRect(0,0,200,50);
+		g2d.setColor(Color.black);
 		g2d.drawString("" + scene.getServerName(), 10, 10);
 	}
 	

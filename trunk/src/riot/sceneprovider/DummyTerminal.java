@@ -19,16 +19,19 @@ public class DummyTerminal implements SceneProvider {
 	ArrayList<GameObject> gameObjects;
 	Communicator communicator;
 	boolean[] directions;
+	String hostname;
 	
 	public DummyTerminal(SpriteManager manager, String hostname) {
+		this.hostname = hostname;
 		this.manager = manager;
 		directions = new boolean[4];
 		for(int i = 0; i < 4; i++)
 			directions[i] = false;
-		
+	}
+
+	public void begin() {
 		communicator = new Communicator(false);
 		communicator.addOutgoing(hostname);
-		
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		DataOutputStream writer = new DataOutputStream(stream);
 		try {
@@ -38,9 +41,8 @@ public class DummyTerminal implements SceneProvider {
 		catch(IOException ex) {
 			System.out.println("Couldn't send control data.");
 		}
-		
 	}
-
+	
 	public Scene nextScene() {
 		Message message = communicator.receiveData();
 		return new Scene(manager, message.data);
