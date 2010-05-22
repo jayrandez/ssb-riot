@@ -12,6 +12,8 @@ public class NaturalPhysics extends AnimationPhysics {
 	double gravity;
 	double xVelocity;
 	double yVelocity;
+	double xInfluence;
+	double yInfluence;
 	boolean ignoreGravity;
 
 	public NaturalPhysics(SpriteManager manager, Location location, Size size, double gravity) {
@@ -34,8 +36,8 @@ public class NaturalPhysics extends AnimationPhysics {
 		if(!ignoreGravity)
 			yVelocity += gravity;
 		ignoreGravity = false;
-		location.x += (xVelocity / 10.0);
-		location.y += (yVelocity / 10.0);
+		location.x += ((xVelocity + xInfluence)/ 10.0);
+		location.y += ((yVelocity + yInfluence)/ 10.0);
 		steps++;
 	}
 
@@ -58,10 +60,14 @@ public class NaturalPhysics extends AnimationPhysics {
 	}
 	
 	public void setInfluence(double speed, int direction) {
-		
+		this.steps = 0;
+		double radians = Math.PI * direction / 180.0;
+		xInfluence = speed * Math.cos(radians);
+		yInfluence = speed * -Math.sin(radians);
 	}
 	
 	public void clearInfluence() {
-		
+		xInfluence = 0;
+		yInfluence = 0;
 	}
 }

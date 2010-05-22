@@ -1,6 +1,8 @@
 package riot;
 
-public class Rectangle {
+import java.io.Serializable;
+
+public class Rectangle implements Serializable {
 	public double x;
 	public double y;
 	public double width;
@@ -36,7 +38,7 @@ public class Rectangle {
 	    	return false;
 	    if(this.maxX() < other.minX())
 	    	return false;
-	    if(this.minX() > other.maxY())
+	    if(this.minX() > other.maxX())
 	    	return false;
 	    return true;
 

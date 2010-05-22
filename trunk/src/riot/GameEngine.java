@@ -35,7 +35,7 @@ public class GameEngine {
 	private void handleMessage(DataInputStream reader, Character referral, Message message) throws IOException {
 		switch(reader.readByte()) {
 			case Riot.Connect:
-				Character character = new Character(manager, "jigglypuff", new Size(32,40));
+				Character character = new Character(manager, "jigglypuff", new Size(28,32));
 				players.put(message.sender, character);
 				worldObjects.add(character);
 				System.out.println("Created new character.");
@@ -130,6 +130,10 @@ public class GameEngine {
 					// IF POSITIONED ABOVE
 					if(characterBounds.maxY() + 1 == platform.minY() && characterBounds.maxX() >= platform.minX() && characterBounds.minX() <= platform.maxX()) {
 						characterPhysics.ignoreGravity();
+						character.grounded();
+					}
+					else {
+						character.aerial();
 					}
 				}
 			}
