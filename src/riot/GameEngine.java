@@ -130,10 +130,10 @@ public class GameEngine {
 					// IF POSITIONED ABOVE
 					if(characterBounds.maxY() + 1 == platform.minY() && characterBounds.maxX() >= platform.minX() && characterBounds.minX() <= platform.maxX()) {
 						characterPhysics.ignoreGravity();
-						character.grounded();
+						character.aerial(false);
 					}
 					else {
-						character.aerial();
+						character.aerial(true);
 					}
 				}
 			}

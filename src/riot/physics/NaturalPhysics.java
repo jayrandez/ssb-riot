@@ -59,6 +59,11 @@ public class NaturalPhysics extends AnimationPhysics {
 		yVelocity = speed * -Math.sin(radians);
 	}
 	
+	public void stopMovement() {
+		xVelocity = 0.0;
+		yVelocity = 0.0;
+	}
+	
 	public void setInfluence(double speed, int direction) {
 		this.steps = 0;
 		double radians = Math.PI * direction / 180.0;
@@ -66,8 +71,8 @@ public class NaturalPhysics extends AnimationPhysics {
 		yInfluence = speed * -Math.sin(radians);
 	}
 	
-	public void clearInfluence() {
-		xInfluence = 0;
-		yInfluence = 0;
+	public void stopInfluence() {
+		xInfluence = 0.0;
+		yInfluence = 0.0;
 	}
 }

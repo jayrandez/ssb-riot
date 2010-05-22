@@ -27,8 +27,8 @@ public class Riot {
 	
 	// General
 	public static final int Port 			= 48123;
-	public static final int Left			= 17;
-	public static final int Right			= 18;
+	public static final boolean Left			= true;
+	public static final boolean Right			= false;
 
 	public static void main(String[] args) throws Exception {
 		final SpriteManager manager = new SpriteManager("sheets");
