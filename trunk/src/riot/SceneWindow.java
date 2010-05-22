@@ -41,6 +41,7 @@ public class SceneWindow extends JFrame implements KeyListener {
 		setSize(new Dimension(640, 480));
 		setIgnoreRepaint(true);
 		setVisible(true);
+		show();
 		
 		if(defaultFullScreen) {
 			screen.setFullScreenWindow(this);
@@ -71,9 +72,9 @@ public class SceneWindow extends JFrame implements KeyListener {
 	
 	public void renderScene(Graphics g2d, Scene scene) {
 		if(world == null || worldGraphics == null) {
-			Dimension worldSize = scene.getWorldSize();
+			Size worldSize = scene.getWorldSize();
 			GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-			world = gc.createCompatibleImage(worldSize.width, worldSize.height, Transparency.BITMASK);
+			world = gc.createCompatibleImage((int)worldSize.width, (int)worldSize.height, Transparency.BITMASK);
 			worldGraphics = (Graphics2D)world.getGraphics();
 		}
 		
@@ -81,13 +82,13 @@ public class SceneWindow extends JFrame implements KeyListener {
 		worldView = scene.getWorldView();
 		
 		for(Sprite sprite: worldSprites) {
-			sprite.drawOn(worldGraphics);
+			sprite.drawTo(worldGraphics);
 		}
 
-		int x1 = (int)worldView.getMinX();
-		int y1 = (int)worldView.getMinY();
-		int x2 = (int)worldView.getMaxX();
-		int y2 = (int)worldView.getMaxY();
+		int x1 = (int)worldView.minX();
+		int y1 = (int)worldView.minY();
+		int x2 = (int)worldView.maxX();
+		int y2 = (int)worldView.maxY();
 		
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
 		g2d.setColor(Color.white);
