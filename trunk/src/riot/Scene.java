@@ -61,13 +61,13 @@ public class Scene {
 			// Read World Sprites
 			count = reader.readShort();
 			for(int i = 0; i < count; i++) {
-				Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), false);
+				Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readBoolean());
 				worldSprites.add(sprite);
 			}
 			// Read Overlay Sprites
 			count = reader.readShort();
 			for(int i = 0; i < count; i++) {
-				Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), false);
+				Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readBoolean());
 				overlaySprites.add(sprite);
 			}
 		}
@@ -101,6 +101,7 @@ public class Scene {
 				writer.writeShort(sprite.x);
 				writer.writeShort(sprite.y);
 				writer.writeShort(sprite.rotation);
+				writer.writeBoolean(sprite.flipped);
 			}
 			// Write Overlay Sprite Information
 			writer.writeShort(overlaySprites.size());
@@ -110,6 +111,7 @@ public class Scene {
 				writer.writeShort(sprite.x);
 				writer.writeShort(sprite.y);
 				writer.writeShort(sprite.rotation);
+				writer.writeBoolean(sprite.flipped);
 			}
 			return stream.toByteArray();
 		}

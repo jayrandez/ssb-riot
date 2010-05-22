@@ -1,7 +1,9 @@
 package riot;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
@@ -41,9 +43,15 @@ public class Sprite {
 		
 	}
 	
-	public void drawTo(Graphics g2d) {
-		// Draw transformations here
-		g2d.drawImage(image, x-centerX, y-centerY, null);
+	public void drawTo(Graphics g) {
+		Graphics2D g2d = (Graphics2D)g;
+		AffineTransform transform = new AffineTransform();
+		transform.translate(x-centerX, y-centerY);
+		if(flipped) {
+			transform.translate(width, 0);
+			transform.scale(-1, 1);
+		}
+		g2d.drawImage(image, transform, null);
 	}
 	
 }
