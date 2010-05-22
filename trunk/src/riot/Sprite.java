@@ -1,11 +1,8 @@
 package riot;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.AffineTransform;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.awt.*;
+import java.awt.geom.*;
+import java.io.*;
 
 public class Sprite {
 	public int index;
@@ -21,13 +18,14 @@ public class Sprite {
 	public Image image;
 	
 	public Sprite(SpriteManager manager, int index, int frame, int x, int y, int rotation, boolean flipped) {
-		AnimationDescriptor desc = manager.getAnimation(index);
 		this.index = index;
 		this.frame = frame;
 		this.x = x;
 		this.y = y;
 		this.rotation = rotation;
 		this.flipped = flipped;
+		
+		AnimationDescriptor desc = manager.getAnimation(index);
 		this.centerX = desc.centerX;
 		this.centerY = desc.centerY;
 		this.width = desc.width;
@@ -35,12 +33,29 @@ public class Sprite {
 		this.image = manager.getImage(index, frame);
 	}
 	
-	public Sprite(DataInputStream stream) {
+	public Sprite(SpriteManager manager, DataInputStream stream) throws IOException {
+		this.index = stream.readShort();
+		this.frame = stream.readShort();
+		this.x = stream.readShort();
+		this.y = stream.readShort();
+		this.rotation = stream.readShort();
+		this.flipped = stream.readBoolean();
 		
+		AnimationDescriptor desc = manager.getAnimation(index);
+		this.centerX = desc.centerX;
+		this.centerY = desc.centerY;
+		this.width = desc.width;
+		this.height = desc.height;
+		this.image = manager.getImage(index, frame);
 	}
 	
-	public void writeTo(DataOutputStream stream) {
-		
+	public void writeTo(DataOutputStream stream) throws IOException {
+		stream.writeShort(index);
+		stream.writeShort(frame);
+		stream.writeShort(x);
+		stream.writeShort(y);
+		stream.writeShort(rotation);
+		stream.writeBoolean(flipped);
 	}
 	
 	public void drawTo(Graphics g) {

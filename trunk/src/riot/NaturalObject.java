@@ -1,13 +1,8 @@
-package riot.physics;
+package riot;
 
-import java.util.ArrayList;
+import java.util.*;
 
-import riot.*;
-
-// Remember Velocity is measured in Pixels / Step or approx. Pixels / 30ms
-// And positive y means downwards
-
-public class NaturalPhysics extends AnimationPhysics {
+public class NaturalObject extends AnimatedObject {
 	Size size;
 	double gravity;
 	double xVelocity;
@@ -16,7 +11,7 @@ public class NaturalPhysics extends AnimationPhysics {
 	double yInfluence;
 	boolean ignoreGravity;
 
-	public NaturalPhysics(SpriteManager manager, Location location, Size size, double gravity) {
+	public NaturalObject(SpriteManager manager, Point location, Size size, double gravity) {
 		super(manager, location);
 		this.size = size;
 		this.gravity = gravity;
@@ -26,13 +21,13 @@ public class NaturalPhysics extends AnimationPhysics {
 		this.ignoreGravity = false;
 	}
 	
-	public void ignoreGravity() {
-		ignoreGravity = true;
+	public void aerial(boolean aerial) {
+		ignoreGravity = !aerial;
 	}
 	
 	public void step() {
 		super.step();
-		Location location = getLocation();
+		Point location = getLocation();
 		if(!ignoreGravity)
 			yVelocity += gravity;
 		ignoreGravity = false;

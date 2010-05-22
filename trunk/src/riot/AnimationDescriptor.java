@@ -1,8 +1,6 @@
 package riot;
 
-import java.io.Serializable;
-
-public class AnimationDescriptor implements Serializable {
+public class AnimationDescriptor {
 	private static final long serialVersionUID = 7113223641101877085L;
 	
 	public String animationName;

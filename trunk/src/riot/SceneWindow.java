@@ -1,6 +1,5 @@
 package riot;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -27,7 +26,6 @@ public class SceneWindow extends JFrame implements KeyListener {
 		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = environment.getDefaultScreenDevice();
 		
-		
 		addKeyListener(this);
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -41,7 +39,6 @@ public class SceneWindow extends JFrame implements KeyListener {
 		setSize(new Dimension(640, 480));
 		setIgnoreRepaint(true);
 		setVisible(true);
-		show();
 		
 		if(defaultFullScreen) {
 			screen.setFullScreenWindow(this);
@@ -91,9 +88,6 @@ public class SceneWindow extends JFrame implements KeyListener {
 		int y2 = (int)worldView.maxY();
 		
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
-		g2d.setColor(Color.white);
-		g2d.fillRect(0, 0, 200, 50);
-		g2d.setColor(Color.black);
 		g2d.drawString("" + scene.getServerName(), 10, 10);
 	}
 	
