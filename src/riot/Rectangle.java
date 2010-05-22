@@ -1,8 +1,8 @@
 package riot;
 
-import java.io.Serializable;
+import java.io.*;
 
-public class Rectangle implements Serializable {
+public class Rectangle {
 	public double x;
 	public double y;
 	public double width;
@@ -13,6 +13,20 @@ public class Rectangle implements Serializable {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+	}
+	
+	public Rectangle(DataInputStream stream) throws IOException {
+		this.x = stream.readShort();
+		this.y = stream.readShort();
+		this.width = stream.readShort();
+		this.height = stream.readShort();
+	}
+	
+	public void writeTo(DataOutputStream stream) throws IOException {
+		stream.writeShort((int)x);
+		stream.writeShort((int)y);
+		stream.writeShort((int)width);
+		stream.writeShort((int)height);
 	}
 	
 	public int minX() {

@@ -1,12 +1,6 @@
-package riot.physics;
+package riot;
 
-import riot.AnimationDescriptor;
-import riot.Location;
-import riot.Physics;
-import riot.Sprite;
-import riot.SpriteManager;
-
-public abstract class AnimationPhysics extends Physics {
+public abstract class AnimatedObject extends GameObject {
 	SpriteManager manager;
 	AnimationDescriptor descriptor;
 	int index;
@@ -15,7 +9,7 @@ public abstract class AnimationPhysics extends Physics {
 	int frame;
 	int steps;
 	
-	public AnimationPhysics(SpriteManager manager, Location location) {
+	public AnimatedObject(SpriteManager manager, Point location) {
 		super(location);
 		this.manager = manager;
 	}

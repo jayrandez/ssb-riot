@@ -1,7 +1,6 @@
 package riot;
 
-import java.util.Scanner;
-import riot.sceneprovider.DummyTerminal;
+import java.util.*;
 
 public class Riot {
 	

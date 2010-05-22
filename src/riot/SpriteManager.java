@@ -1,22 +1,11 @@
 package riot;
 
-/*
- * I RECOMMEND THAT YOU DONT LOOK AT THIS CODE IF YOU WANT TO MAINTAIN YOUR SANITY
- */
-
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Transparency;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.imageio.ImageIO;
-import com.thoughtworks.xstream.XStream;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import java.util.*;
+import javax.imageio.*;
+import com.thoughtworks.xstream.*;
 
 public class SpriteManager {
 	private ArrayList<AnimationDescriptor> animations;

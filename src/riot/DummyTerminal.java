@@ -1,18 +1,8 @@
-package riot.sceneprovider;
+package riot;
 
 import java.awt.event.*;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
-
-import riot.*;
+import java.io.*;
 import java.util.*;
-
-import riot.Riot;
-import riot.Scene;
-import riot.SceneProvider;
-import riot.SpriteManager;
 
 public class DummyTerminal implements SceneProvider {
 	SpriteManager manager;

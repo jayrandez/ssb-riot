@@ -1,21 +1,22 @@
 package riot;
 
+import java.util.*;
+
 public abstract class GameObject {
-	private Physics objectPhysics;
+	private Point location;
 	
-	public GameObject(Physics objectPhysics) {
-		this.objectPhysics = objectPhysics;
+	public GameObject(Point location) {
+		this.location = location;
 	}
 	
-	public void setPhysics(Physics objectPhysics) {
-		this.objectPhysics = objectPhysics;
+	public void setLocation(Point location) {
+		this.location = location;
 	}
 	
-	public Physics getPhysics() {
-		return objectPhysics;
+	public Point getLocation() {
+		return location;
 	}
 	
-	public void step() {
-		objectPhysics.step();
-	}
+	public abstract ArrayList<Rectangle> getBoundingBoxes();
+	public abstract void step();
 }

@@ -1,6 +1,6 @@
 package riot;
 
-import java.net.Socket;
+import java.net.*;
 
 public class Message {
 	public Socket sender;
