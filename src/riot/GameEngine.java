@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import riot.gameobject.Character;
 import riot.gameobject.Map;
+import riot.physics.NaturalPhysics;
 
 public class GameEngine {
 	Communicator communicator;
@@ -34,7 +35,7 @@ public class GameEngine {
 	private void handleMessage(DataInputStream reader, Character referral, Message message) throws IOException {
 		switch(reader.readByte()) {
 			case Riot.Connect:
-				Character character = new Character(manager, "jigglypuff");
+				Character character = new Character(manager, "jigglypuff", new Size(32,40));
 				players.put(message.sender, character);
 				worldObjects.add(character);
 				System.out.println("Created new character.");
@@ -67,7 +68,10 @@ public class GameEngine {
 	
 	public void gameLoop() {
 		int frameNum = 0;
+		
 		while(true) {
+			
+			long start = System.currentTimeMillis();
 			
 			try {
 				Message message = communicator.receiveData();
@@ -78,16 +82,71 @@ public class GameEngine {
 			}
 			catch(IOException ex) {System.out.println("Couldn't get client's message.");}
 			
+			ArrayList<Character> characters = new ArrayList<Character>();
+			Map map = null;
+			
 			for(GameObject object: worldObjects) {
 				object.step();
+				if(object instanceof Character)
+					characters.add((Character)object);
+				if(object instanceof Map)
+					map = (Map)object;
+			}
+			
+			for(Character character: characters) {
+				NaturalPhysics characterPhysics = (NaturalPhysics)character.getPhysics();
+				Rectangle characterBounds = characterPhysics.getBoundingBoxes().get(0);
+				for(Rectangle platform: map.getPhysics().getBoundingBoxes()) {
+					// IF COLLIDING
+					if(characterBounds.overlaps(platform)) {
+						System.out.println("Collision!");
+						// IF TOUCHING LEFT SIDE
+						if(characterBounds.minX() < platform.minX() && characterBounds.minY() > platform.minY()) {
+							System.out.println("Landed on Left");
+							while(characterBounds.overlaps(platform)) {
+								characterBounds.x = characterBounds.x - 1.0;
+							}
+							characterPhysics.setLocation(new Location(characterBounds.x, characterBounds.y));
+						}
+						// IF TOUCHIG RIGHT SIDE
+						else if(characterBounds.maxX() > platform.maxX() && characterBounds.minY() > platform.minY()) {
+							System.out.println("Landed on Right");
+							while(characterBounds.overlaps(platform)) {
+								characterBounds.x = characterBounds.x + 1.0;
+							}
+							characterPhysics.setLocation(new Location(characterBounds.x, characterBounds.y));
+						}
+						// IF TOUCHING TOP
+						else {
+							System.out.println("Landed on Top!");
+							while(characterBounds.overlaps(platform)) {
+								characterBounds.y = characterBounds.y - 1.0;
+								
+							}
+							characterPhysics.setLocation(new Location(characterBounds.x+(characterBounds.width/2), characterBounds.maxY()));
+						}
+						character.mapCollision();
+					}
+					// IF POSITIONED ABOVE
+					if(characterBounds.maxY() + 1 == platform.minY() && characterBounds.maxX() >= platform.minX() && characterBounds.minX() <= platform.maxX()) {
+						characterPhysics.ignoreGravity();
+					}
+				}
 			}
 			
 			Scene scene = new Scene("Server " + frameNum++, playerNames, worldObjects, overlayObjects);
 			byte[] data = scene.serialize();
 			communicator.sendData(data);
 			
-			try {Thread.sleep(30);}
-			catch(InterruptedException ex){}
+			long executionTime = System.currentTimeMillis() - start;
+			
+			if(frameNum % 60 == 0)
+				System.out.println("Execution time: " + executionTime);
+			
+			if(executionTime < 30) {
+				try {Thread.sleep(30 - executionTime);}
+				catch(InterruptedException ex){}
+			}
 		}
 	}
 }

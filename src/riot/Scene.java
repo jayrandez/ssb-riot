@@ -1,7 +1,5 @@
 package riot;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -9,6 +7,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import riot.gameobject.Map;
+import riot.physics.*;
 
 
 public class Scene {
@@ -16,7 +15,7 @@ public class Scene {
 	ArrayList<String> playerNames;
 	ArrayList<Sprite> worldSprites;
 	ArrayList<Sprite> overlaySprites;
-	Dimension worldSize;
+	Size worldSize;
 	Rectangle worldView;
 	
 	// Assembly of a Scene on the Server Side
@@ -26,15 +25,17 @@ public class Scene {
 		
 		worldSprites = new ArrayList<Sprite>();
 		overlaySprites = new ArrayList<Sprite>();
-		worldSize = new Dimension(640, 480);
-		worldView = new Rectangle(0, 0, (int)worldSize.getWidth(), (int)worldSize.getHeight());
+		worldSize = new Size(640, 480);
+		worldView = new Rectangle(0, 0, (int)worldSize.width, (int)worldSize.height);
 		
 		for(GameObject object: worldObjects) {
 			Physics physics = object.getPhysics();
-			Sprite sprite = physics.getSprite();
-			worldSprites.add(sprite);
-			if(object instanceof Map) {
-				worldSize = new Dimension(sprite.width, sprite.height);
+			if(physics instanceof AnimationPhysics) {
+				Sprite sprite = ((AnimationPhysics)physics).getSprite();
+				worldSprites.add(sprite);
+				if(object instanceof Map) {
+					worldSize = new Size(sprite.width, sprite.height);
+				}
 			}
 		}
 	}
@@ -55,18 +56,18 @@ public class Scene {
 			for(int i = 0; i < count; i++)
 				serverName += reader.readChar();
 			// Read World Information
-			worldSize = new Dimension(reader.readShort(), reader.readShort());
+			worldSize = new Size(reader.readShort(), reader.readShort());
 			worldView = new Rectangle(reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
 			// Read World Sprites
 			count = reader.readShort();
 			for(int i = 0; i < count; i++) {
-				Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
+				Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), false);
 				worldSprites.add(sprite);
 			}
 			// Read Overlay Sprites
 			count = reader.readShort();
 			for(int i = 0; i < count; i++) {
-				Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort());
+				Sprite sprite = new Sprite(manager, reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), reader.readShort(), false);
 				overlaySprites.add(sprite);
 			}
 		}
@@ -86,12 +87,12 @@ public class Scene {
 			for(int i = 0; i < serverName.length(); i++)
 				writer.writeChar(serverName.charAt(i));
 			// Write Screen Layout Information
-			writer.writeShort(worldSize.width);
-			writer.writeShort(worldSize.height);
-			writer.writeShort((int)worldView.getMinX());
-			writer.writeShort((int)worldView.getMinY());
-			writer.writeShort((int)worldView.getWidth());
-			writer.writeShort((int)worldView.getHeight());
+			writer.writeShort((int)worldSize.width);
+			writer.writeShort((int)worldSize.height);
+			writer.writeShort((int)worldView.x);
+			writer.writeShort((int)worldView.y);
+			writer.writeShort((int)worldView.width);
+			writer.writeShort((int)worldView.height);
 			// Write World Sprite Information
 			writer.writeShort(worldSprites.size());
 			for(Sprite sprite: worldSprites) {
@@ -126,7 +127,7 @@ public class Scene {
 		return overlaySprites;
 	}
 	
-	public Dimension getWorldSize() {
+	public Size getWorldSize() {
 		return worldSize;
 	}
 	

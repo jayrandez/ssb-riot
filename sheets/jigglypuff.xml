@@ -9,7 +9,7 @@
 			<width>28</width>
 			<height>30</height>
 			<centerX>16</centerX>
-			<centerY>16</centerY>
+			<centerY>23</centerY>
 			<frames>2</frames>
 			<speed>20</speed>
 			<transparent>true</transparent>
@@ -21,7 +21,7 @@
 			<width>29</width>
 			<height>30</height>
 			<centerX>16</centerX>
-			<centerY>16</centerY>
+			<centerY>23</centerY>
 			<frames>5</frames>
 			<speed>5</speed>
 			<transparent>true</transparent>

@@ -23,7 +23,7 @@ public abstract class AnimationPhysics extends Physics {
 	public void setAnimation(String sheetName, String animationName, boolean flipped, int rotation) {
 		this.flipped = flipped;
 		this.rotation = rotation;
-		int index = manager.getIndex(sheetName, animationName);
+		this.index = manager.getIndex(sheetName, animationName);
 		descriptor = manager.getAnimation(index);
 		frame = 0;
 		steps = 0;

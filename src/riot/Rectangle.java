@@ -13,19 +13,32 @@ public class Rectangle {
 		this.height = height;
 	}
 	
-	public double minX() {
-		return x;
+	public int minX() {
+		return (int)x;
 	}
 	
-	public double minY() {
-		return y;
+	public int minY() {
+		return (int)y;
 	}
 	
-	public double maxX() {
-		return x + width - 1;
+	public int maxX() {
+		return (int)(x + width - 1);
 	}
 	
-	public double maxY() {
-		return y + height - 1;
+	public int maxY() {
+		return (int)(y + height - 1);
+	}
+	
+	public boolean overlaps(Rectangle other) {
+		if(this.maxY() < other.minY())
+			return false;
+	    if(this.minY() > other.maxY())
+	    	return false;
+	    if(this.maxX() < other.minX())
+	    	return false;
+	    if(this.minX() > other.maxY())
+	    	return false;
+	    return true;
+
 	}
 }
