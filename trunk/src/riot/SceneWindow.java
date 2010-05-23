@@ -40,10 +40,6 @@ public class SceneWindow extends JFrame implements KeyListener {
 		Cursor transparentCursor = tk.createCustomCursor(image, new java.awt.Point(0, 0), "invisiblecursor");
 		setCursor(transparentCursor);
 		addKeyListener(this);
-
-		setUndecorated(false);
-		setResizable(false);
-		setSize(new Dimension(645, 507));
 		setIgnoreRepaint(true);
 		screenSetup();
 		
@@ -57,13 +53,18 @@ public class SceneWindow extends JFrame implements KeyListener {
 			strategy = getBufferStrategy();
 			screen.setFullScreenWindow(this);
     		screen.setDisplayMode(new DisplayMode(640, 480, 32, DisplayMode.REFRESH_RATE_UNKNOWN));
-    		setVisible(true);
 		}
 		else {
 			add(windowCanvas);
 			windowCanvas.createBufferStrategy(1);
 			strategy = windowCanvas.getBufferStrategy();
 			screen.setFullScreenWindow(null);
+			int windowWidth = 645;
+			int windowHeight = 507;
+			int displayWidth = screen.getDisplayMode().getWidth();
+			int displayHeight = screen.getDisplayMode().getHeight();
+			setBounds((displayWidth/2)-(windowWidth/2), (displayHeight/2)-(windowHeight/2), windowWidth, windowHeight);
+			setResizable(false);
 			setVisible(true);
 		}
 	}
@@ -77,6 +78,7 @@ public class SceneWindow extends JFrame implements KeyListener {
 				g2d.dispose();
 			    strategy.show();
 			}
+			this.requestFocus();
 		}
 	}
 	
@@ -90,6 +92,7 @@ public class SceneWindow extends JFrame implements KeyListener {
 			worldSwapGraphics = (Graphics2D)worldSwap.getGraphics();
 		}
 		
+		this.setTitle("SSB: Riot!  --  " + scene.getServerName());
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
 		ArrayList<Rectangle> debugTangles = scene.getDebugTangles();
 		worldView = scene.getWorldView();
@@ -115,7 +118,6 @@ public class SceneWindow extends JFrame implements KeyListener {
 		int y2 = (int)worldView.maxY();
 
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
-		g2d.drawString("" + scene.getServerName(), 0, 10);
 	}
     
     public void keyPressed(KeyEvent e) {
