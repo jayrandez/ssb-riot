@@ -30,7 +30,7 @@ public class Riot {
 		final SpriteManager spriteManager = new SpriteManager("sheets");
 		final MapManager mapManager = new MapManager("maps");
 		Scanner scanner = new Scanner(System.in);
-		String line;
+		String line = "";
 		
 		System.out.print("\nStart a server at localhost? [Y/n] ");
 		line = scanner.nextLine();
@@ -47,9 +47,6 @@ public class Riot {
 		System.out.println();
 		if(line.equals(""))
 			line = "localhost";
-		
-		ArrayList<String> arguments = new ArrayList<String>(Arrays.asList(args));
-
 		
 		SceneProvider startScreen = new DummyTerminal(spriteManager, line);
 		SceneWindow window = new SceneWindow(startScreen);
