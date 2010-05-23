@@ -11,7 +11,7 @@ public class Character extends NaturalObject {
 	int currentJumps;
 	
 	public Character(SpriteManager manager, String sheetName, Size size, int maxJumps) {
-		super(manager, new Point(320, 450), size, 12.0);
+		super(manager, new Point(323, 97), size, 12.0);
 		this.sheetName = sheetName;
 		this.aerial = true;
 		this.direction = Riot.Right;

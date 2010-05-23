@@ -19,9 +19,8 @@ public class Scene {
 		
 		worldSprites = new ArrayList<Sprite>();
 		overlaySprites = new ArrayList<Sprite>();
-		worldSize = new Size(640, 480);
-		worldView = new Rectangle(0, 0, (int)worldSize.width, (int)worldSize.height);
-		
+
+		ArrayList<Character> characters = new ArrayList<Character>();
 		for(GameObject object: worldObjects) {
 			if(object instanceof AnimatedObject) {
 				Sprite sprite = ((AnimatedObject)object).getSprite();
@@ -30,7 +29,64 @@ public class Scene {
 					worldSize = new Size(sprite.width, sprite.height);
 				}
 			}
+			if(object instanceof Character) {
+				characters.add((Character)object);
+			}
 		}
+		
+		Rectangle boundingBox = bestFit(characters, worldSize, 175);
+		worldView = bestView(boundingBox, worldSize);
+	}
+	
+	private Rectangle bestView(Rectangle boundingBox, Size worldSize) {
+		boundingBox.forceRatioKeepCentered(4.0/3.0);
+		Rectangle worldRectangle = worldSize.toRectangle();
+		if(boundingBox.area() >= worldRectangle.area()) {
+			return worldRectangle;
+		}
+		double leftHang = worldRectangle.minX() - boundingBox.minX();
+		double rightHang = boundingBox.maxX() - worldRectangle.maxX();
+		double topHang = worldRectangle.minY() - boundingBox.minY();
+		double bottomHang = boundingBox.maxY() - worldRectangle.maxY();
+		if(leftHang > 0) {
+			boundingBox.x += leftHang;
+		}
+		if(rightHang > 0) {
+			boundingBox.x -= rightHang;
+		}
+		if(topHang > 0) {
+			boundingBox.y += topHang;
+		}
+		if(bottomHang > 0) {
+			boundingBox.y -= bottomHang;
+		}
+		return boundingBox;
+	}
+	
+	private Rectangle bestFit(ArrayList<Character> characters, Size worldSize, int padding) {
+		if(characters.size() > 0) {
+			double leftBound = characters.get(0).getLocation().x;
+			double topBound = characters.get(0).getLocation().y;
+			double rightBound = characters.get(0).getLocation().x;
+			double bottomBound = characters.get(0).getLocation().y;
+			for(Character character: characters) {
+				Point location = character.getLocation();
+				if(location.x < leftBound)
+					leftBound = location.x;
+				if(location.x > rightBound)
+					rightBound = location.x;
+				if(location.y < topBound)
+					topBound = location.y;
+				if(location.y > bottomBound)
+					bottomBound = location.y;
+			}
+			leftBound -= padding;
+			topBound -= padding;
+			rightBound += padding;
+			bottomBound += padding;
+			return new Rectangle(leftBound, topBound, rightBound-leftBound, bottomBound-topBound);
+		}
+		return worldSize.toRectangle();
 	}
 
 	public Scene(SpriteManager manager, byte[] rawData) {

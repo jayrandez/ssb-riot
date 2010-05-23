@@ -11,6 +11,10 @@ public class Size {
 		this.height = height;
 	}
 	
+	public Rectangle toRectangle() {
+		return new Rectangle(0, 0, width, height);
+	}
+	
 	public Size(DataInputStream stream) throws IOException {
 		this.width = stream.readShort();
 		this.height = stream.readShort();

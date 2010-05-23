@@ -27,7 +27,8 @@ public class Riot {
 	public static final int Port 			= 48123;
 
 	public static void main(String[] args) throws Exception {
-		final SpriteManager manager = new SpriteManager("sheets");
+		final SpriteManager spriteManager = new SpriteManager("sheets");
+		final MapManager mapManager = new MapManager("maps");
 		Scanner scanner = new Scanner(System.in);
 		String line;
 		
@@ -36,22 +37,22 @@ public class Riot {
 		if(line.equals("") || line.equals("Y") || line.equals("y")) {
 			new Thread() {
 				public void run() {
-					new GameEngine(manager).gameLoop();
+					new GameEngine(spriteManager, mapManager).gameLoop();
 				}
 			}.start();
 		}
 		
 		System.out.print("Connect to server [localhost]: ");
 		line = scanner.nextLine();
+		System.out.println();
 		if(line.equals(""))
 			line = "localhost";
 		
-		boolean fullscreen = false;
-		if(args.length > 0 && args[0].equals("-fullscreen"))
-			fullscreen = true;
+		ArrayList<String> arguments = new ArrayList<String>(Arrays.asList(args));
+
 		
-		SceneProvider startScreen = new DummyTerminal(manager, line);
-		SceneWindow window = new SceneWindow(startScreen, fullscreen);
+		SceneProvider startScreen = new DummyTerminal(spriteManager, line);
+		SceneWindow window = new SceneWindow(startScreen);
 		window.drawingLoop();
 		window.dispose();
 		

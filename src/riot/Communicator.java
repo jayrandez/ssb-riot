@@ -48,9 +48,9 @@ public class Communicator {
 				stream.write(data);
 			}
 			catch(IOException ex) {
-				System.out.println("Failed to write data to a socket." + socket.getLocalAddress().toString());
-				sockets.remove(socket);
-				i--;
+				System.out.println("Failed to write data to a socket: " + socket.getLocalAddress().toString());
+				try{socket.close();}
+				catch(IOException e) {}
 			}
 		}
 	}
@@ -72,7 +72,7 @@ public class Communicator {
 			return new Message(socket, data);
 		}
 		catch(IOException ex) {
-			System.out.println("Failed to read data from socket.");
+			System.out.println("Failed to read data from socket: " + socket.getLocalAddress().toString());
 			sockets.remove(socket);
 			byte[] data = {Riot.Disconnect};
 			return new Message(socket, data);
@@ -87,7 +87,7 @@ public class Communicator {
 					incoming.setTcpNoDelay(true);
 					incoming.setReceiveBufferSize(100);
 					incoming.setSendBufferSize(100);
-					System.out.println("Incoming connection : " + incoming.getLocalAddress().toString());
+					System.out.println("Incoming connection: " + incoming.getLocalAddress().toString());
 					sockets.add(incoming);
 				}
 				catch (IOException e) {

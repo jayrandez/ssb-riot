@@ -3,7 +3,7 @@
 	<imageFile>maps.png</imageFile>
 	<animations>
 		<AnimationDescriptor>
-			<animationName>firstmap</animationName>
+			<animationName>testmap</animationName>
 			<originX>0</originX>
 			<originY>0</originY>
 			<width>640</width>
@@ -12,7 +12,21 @@
 			<centerY>0</centerY>
 			<frames>1</frames>
 			<speed>1</speed>
-			<transparent>true</transparent>
+			<transparent>false</transparent>
+			<repeat>false</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>summit</animationName>
+			<originX>0</originX>
+			<originY>480</originY>
+			<width>750</width>
+			<height>563</height>
+			<centerX>0</centerX>
+			<centerY>0</centerY>
+			<frames>1</frames>
+			<speed>1</speed>
+			<transparent>false</transparent>
+			<repeat>false</repeat>
 		</AnimationDescriptor>
 	</animations>
 </SheetDescriptor>

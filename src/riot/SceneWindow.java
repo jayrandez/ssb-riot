@@ -1,6 +1,7 @@
 package riot;
 
 import java.awt.*;
+import java.awt.color.ColorSpace;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
@@ -12,6 +13,7 @@ public class SceneWindow extends JFrame implements KeyListener {
 	private SceneProvider provider;
 	private ArrayList<Integer> pressedKeys;
 	private boolean fullscreen;
+	private boolean debugtangles;
 	private BufferStrategy strategy;
 	private Canvas windowCanvas;
 	
@@ -19,12 +21,14 @@ public class SceneWindow extends JFrame implements KeyListener {
 	GraphicsDevice screen = environment.getDefaultScreenDevice();
 	
 	Image world;
+	Image worldSwap;
 	Rectangle worldView;
 	Graphics2D worldGraphics;
+	Graphics2D worldSwapGraphics;
 	
-	public SceneWindow(SceneProvider provider, boolean fullscreen) {
+	public SceneWindow(SceneProvider provider) {
 		this.provider = provider;
-		this.fullscreen = fullscreen;
+		this.fullscreen = false;
 		this.pressedKeys = new ArrayList<Integer>();
 		this.windowCanvas = new Canvas();
 		
@@ -81,7 +85,9 @@ public class SceneWindow extends JFrame implements KeyListener {
 			Size worldSize = scene.getWorldSize();
 			GraphicsConfiguration gc = screen.getDefaultConfiguration();
 			world = gc.createCompatibleImage((int)worldSize.width, (int)worldSize.height, Transparency.BITMASK);
+			worldSwap = gc.createCompatibleImage((int)worldSize.width, (int)worldSize.height, Transparency.BITMASK);
 			worldGraphics = (Graphics2D)world.getGraphics();
+			worldSwapGraphics = (Graphics2D)worldSwap.getGraphics();
 		}
 		
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
@@ -92,9 +98,15 @@ public class SceneWindow extends JFrame implements KeyListener {
 			sprite.drawTo(worldGraphics);
 		}
 		
-		worldGraphics.setColor(Color.white);
-		for(Rectangle rectangle: debugTangles) {
-			worldGraphics.drawRect((int)rectangle.x, (int)rectangle.y, (int)rectangle.width-1, (int)rectangle.height-1);
+		if(debugtangles) {
+			BufferedImage temp = new BufferedImage(world.getWidth(null), world.getHeight(null), BufferedImage.TYPE_BYTE_GRAY);
+			temp.getGraphics().drawImage(world, 0, 0, null);
+			worldGraphics.drawImage(temp, 0, 0, null);
+			worldGraphics.setStroke(new BasicStroke(2));
+			worldGraphics.setColor(Color.red);
+			for(Rectangle rectangle: debugTangles) {
+				worldGraphics.drawRect((int)rectangle.x, (int)rectangle.y, (int)rectangle.width-1, (int)rectangle.height-1);
+			}
 		}
 
 		int x1 = (int)worldView.minX();
@@ -103,17 +115,23 @@ public class SceneWindow extends JFrame implements KeyListener {
 		int y2 = (int)worldView.maxY();
 
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
-		g2d.drawString("" + scene.getServerName(), 10, 10);
+		g2d.drawString("" + scene.getServerName(), 0, 10);
 	}
     
     public void keyPressed(KeyEvent e) {
-    	if(e.getKeyCode() == KeyEvent.VK_F1) {
+    	switch(e.getKeyCode()) {
+    	case KeyEvent.VK_F1:
     		fullscreen = !fullscreen;
     		screenSetup();
-    	}
-    	if(!pressedKeys.contains(e.getKeyCode())) {
-    		pressedKeys.add(e.getKeyCode());
-    		provider.receivePress(e.getKeyCode(), true);
+    		break;
+    	case KeyEvent.VK_F2:
+    		debugtangles = !debugtangles;
+    		break;
+    	default:
+    		if(!pressedKeys.contains(e.getKeyCode())) {
+        		pressedKeys.add(e.getKeyCode());
+        		provider.receivePress(e.getKeyCode(), true);
+        	}
     	}
     }
     

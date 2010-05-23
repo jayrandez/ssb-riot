@@ -57,4 +57,28 @@ public class Rectangle {
 	    return true;
 
 	}
+	
+	public void forceRatio(double ratio) {
+		double currentRatio = width / height;
+		if(currentRatio > ratio)
+			height = width / ratio;
+		else
+			width = height * ratio;
+	}
+	
+	public void forceRatioKeepCentered(double ratio) {
+		double centerX = x + width / 2.0;
+		double centerY = y + height / 2.0;
+		forceRatio(ratio);
+		this.x = centerX - width / 2.0;
+		this.y = centerY - height / 2.0;
+	}
+	
+	public Size getSize() {
+		return new Size(width, height);
+	}
+	
+	public double area() {
+		return width * height;
+	}
 }

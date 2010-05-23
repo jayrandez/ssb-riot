@@ -9,11 +9,13 @@ public class GameEngine {
 	ArrayList<GameObject> worldObjects;
 	ArrayList<GameObject> overlayObjects;
 	ArrayList<String> playerNames;
-	SpriteManager manager;
+	SpriteManager spriteManager;
+	MapManager mapManager;
 	HashMap<Socket, Character> players;
 	
-	public GameEngine(SpriteManager manager) {
-		this.manager = manager;
+	public GameEngine(SpriteManager spriteManager, MapManager mapManager) {
+		this.spriteManager = spriteManager;
+		this.mapManager = mapManager;
 		
 		communicator = new Communicator(true);
 		communicator.acceptIncoming();
@@ -23,7 +25,7 @@ public class GameEngine {
 		playerNames = new ArrayList<String>();
 		players = new HashMap<Socket, Character>();
 		
-		worldObjects.add(new Map(manager, "firstmap"));
+		worldObjects.add(new Map(spriteManager, mapManager, "testmap"));
 	}
 	
 	private void handleMessage(Message message) {
@@ -33,14 +35,15 @@ public class GameEngine {
 			DataInputStream reader = new DataInputStream(stream);
 			switch(reader.readByte()) {
 				case Riot.Connect:
-					Character character = new Jigglypuff(manager);
+					Character character = new Jigglypuff(spriteManager);
 					players.put(message.sender, character);
 					worldObjects.add(character);
-					System.out.println("Created new character.");
+					System.out.println("New player joined the game.");
 					break;
 				case Riot.Disconnect:
 					players.remove(message.sender);
 					worldObjects.remove(referral);
+					System.out.println("Player left the game.");
 					break;
 				case Riot.Direction:
 					int degrees = reader.readInt();
@@ -70,45 +73,29 @@ public class GameEngine {
 	
 	public void rectifyPlatformCollision(NaturalObject object, Rectangle platform) {
 		Rectangle characterBounds = object.getBoundingBoxes().get(0);
-		// IF COLLIDING
 		if(characterBounds.overlaps(platform)) {
-			System.out.println("Collision!");
-			// IF TOUCHING LEFT SIDE
-			if(characterBounds.minX() < platform.minX() && characterBounds.minY() > platform.minY()) {
-				System.out.println("Landed on Left");
-				while(characterBounds.overlaps(platform)) {
+			// If we hit the left side
+			if(characterBounds.minX() < platform.minX() && characterBounds.minY() > platform.minY())
+				while(characterBounds.overlaps(platform))
 					characterBounds.x = characterBounds.x - 1.0;
-				}
-				object.setLocation(new Point(characterBounds.x, characterBounds.y));
-			}
-			// IF TOUCHIG RIGHT SIDE
-			else if(characterBounds.maxX() > platform.maxX() && characterBounds.minY() > platform.minY()) {
-				System.out.println("Landed on Right");
-				while(characterBounds.overlaps(platform)) {
+			// If we hit the right side
+			else if(characterBounds.maxX() > platform.maxX() && characterBounds.minY() > platform.minY())
+				while(characterBounds.overlaps(platform))
 					characterBounds.x = characterBounds.x + 1.0;
-				}
-				object.setLocation(new Point(characterBounds.x, characterBounds.y));
-			}
-			// IF TOUCHING TOP
-			else {
-				System.out.println("Landed on Top!");
-				while(characterBounds.overlaps(platform)) {
+			// If we hit the top or bottom
+			else
+				while(characterBounds.overlaps(platform))
 					characterBounds.y = characterBounds.y - 1.0;
-					
-				}
-				object.setLocation(new Point(characterBounds.x+(characterBounds.width/2), characterBounds.maxY()));
-			}
+			object.setLocation(new Point(characterBounds.x+(characterBounds.width/2), characterBounds.maxY()));
 		}
 	}
 	
-	public void relayStandingStatus(NaturalObject object, Rectangle platform) {
+	public boolean standingOnPlatform(NaturalObject object, Rectangle platform) {
 		Rectangle characterBounds = object.getBoundingBoxes().get(0);
-		if(characterBounds.maxY() + 1 == platform.minY() && characterBounds.maxX() >= platform.minX() && characterBounds.minX() <= platform.maxX()) {
-			((Character)object).aerial(false);
-		}
-		else {
-			((Character)object).aerial(true);
-		}
+		if(characterBounds.maxY() + 1 == platform.minY() && characterBounds.maxX() >= platform.minX() && characterBounds.minX() <= platform.maxX())
+			return true;
+		else
+			return false;
 	}
 	
 	public void gameLoop() {
@@ -123,11 +110,17 @@ public class GameEngine {
 			for(GameObject object: worldObjects) {
 				object.step();
 				if(object instanceof NaturalObject) {
+					boolean continueChecking = true;
 					debugTangles.add(object.getBoundingBoxes().get(0));
 					for(Rectangle platform: map.getBoundingBoxes()) {
 						debugTangles.add(platform);
 						rectifyPlatformCollision((NaturalObject)object, platform);
-						relayStandingStatus((NaturalObject)object, platform);
+						if(continueChecking) {
+							boolean onPlatform = standingOnPlatform((NaturalObject)object, platform);
+							((Character)object).aerial(!onPlatform);
+							if(onPlatform)
+								continueChecking = false;
+						}
 					}
 				}
 			}
