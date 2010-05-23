@@ -1,0 +1,23 @@
+<MapDescriptor>
+	<name>testmap</name>
+	<platforms>
+		<Rectangle>
+			<x>47</x>
+			<y>432</y>
+			<width>534</width>
+			<height>18</height>
+		</Rectangle>
+		<Rectangle>
+			<x>15</x>
+			<y>283</y>
+			<width>170</width>
+			<height>14</height>
+		</Rectangle>
+		<Rectangle>
+			<x>438</x>
+			<y>205</y>
+			<width>170</width>
+			<height>14</height>
+		</Rectangle>
+	</platforms>
+</MapDescriptor>

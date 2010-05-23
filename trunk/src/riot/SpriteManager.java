@@ -132,19 +132,16 @@ public class SpriteManager {
 	private Image getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
 	{
 		BufferedImage bufferedSource = (BufferedImage)source;
-		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage bufferedImage = bufferedSource.getSubimage(offsetX, offsetY, width, height);
 		
-		bufferedImage = bufferedSource.getSubimage(offsetX, offsetY, width, height);
-		int transcolor = bufferedSource.getRGB(0,0);
-		
-		for (int i = 0; i < bufferedImage.getHeight(); i++)
-		{
-			for (int j = 0; j < bufferedImage.getWidth(); j++)
-			{
-				if (bufferedImage.getRGB(j, i) == transcolor)
-					bufferedImage.setRGB(j, i, 0x8F1C1C);
-			}
-		} 
+		if(transparent) {
+			int transcolor = bufferedSource.getRGB(0,0);
+			for (int i = 0; i < bufferedImage.getHeight(); i++)
+				for (int j = 0; j < bufferedImage.getWidth(); j++)
+					if (bufferedImage.getRGB(j, i) == transcolor)
+						bufferedImage.setRGB(j, i, 0x8F1C1C);
+		}
+
 		GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
 		Image image = gc.createCompatibleImage(bufferedImage.getWidth(), bufferedImage.getHeight(), Transparency.BITMASK);
 		image.getGraphics().drawImage(bufferedImage, 0, 0, null);

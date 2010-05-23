@@ -33,7 +33,6 @@ public class NaturalObject extends AnimatedObject {
 		ignoreGravity = false;
 		location.x += ((xVelocity + xInfluence)/ 10.0);
 		location.y += ((yVelocity + yInfluence)/ 10.0);
-		steps++;
 	}
 
 	public ArrayList<Rectangle> getBoundingBoxes() {
@@ -48,7 +47,6 @@ public class NaturalObject extends AnimatedObject {
 	}
 	
 	public void setMovement(double speed, int direction) {
-		this.steps = 0;
 		double radians = Math.PI * direction / 180.0;
 		xVelocity = speed * Math.cos(radians);
 		yVelocity = speed * -Math.sin(radians);
@@ -60,7 +58,6 @@ public class NaturalObject extends AnimatedObject {
 	}
 	
 	public void setInfluence(double speed, int direction) {
-		this.steps = 0;
 		double radians = Math.PI * direction / 180.0;
 		xInfluence = speed * Math.cos(radians);
 		yInfluence = speed * -Math.sin(radians);
