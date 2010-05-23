@@ -3,8 +3,6 @@ package riot;
 import java.util.*;
 
 public class Riot {
-	
-	// Client > Server
 	public static final byte Connect		= 1;
 	public static final byte Disconnect		= 2;
 	public static final byte Establish		= 3;
@@ -16,18 +14,17 @@ public class Riot {
 	public static final byte Dodge			= 9;
 	public static final byte Shield			= 10;
 	public static final byte Direction		= 11;
-	
-	// Server > Client
 	public static final byte WorldSprites	= 12;
 	public static final byte OverlaySprites	= 13;
 	public static final byte ScreenLayout	= 14;
 	public static final byte PlayerNames	= 15;
 	public static final byte ServerName		= 16;
+	public static final byte Pause			= 17;
+	public static final byte Resume			= 18;
 	
-	// General
+	public static final boolean Left		= true;
+	public static final boolean Right		= false;
 	public static final int Port 			= 48123;
-	public static final boolean Left			= true;
-	public static final boolean Right			= false;
 
 	public static void main(String[] args) throws Exception {
 		final SpriteManager manager = new SpriteManager("sheets");
@@ -55,7 +52,7 @@ public class Riot {
 		
 		SceneProvider startScreen = new DummyTerminal(manager, line);
 		SceneWindow window = new SceneWindow(startScreen, fullscreen);
-		window.gameLoop();
+		window.drawingLoop();
 		window.dispose();
 		
 		System.exit(0);

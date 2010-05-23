@@ -4,15 +4,16 @@
 	<animations>
 		<AnimationDescriptor>
 			<animationName>idle</animationName>
-			<originX>53</originX>
+			<originX>51</originX>
 			<originY>110</originY>
 			<width>28</width>
 			<height>30</height>
-			<centerX>16</centerX>
-			<centerY>23</centerY>
+			<centerX>14</centerX>
+			<centerY>24</centerY>
 			<frames>2</frames>
 			<speed>20</speed>
 			<transparent>true</transparent>
+			<repeat>true</repeat>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>shortWalk</animationName>
@@ -21,10 +22,11 @@
 			<width>29</width>
 			<height>30</height>
 			<centerX>16</centerX>
-			<centerY>23</centerY>
+			<centerY>25</centerY>
 			<frames>5</frames>
 			<speed>5</speed>
 			<transparent>true</transparent>
+			<repeat>true</repeat>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>walk</animationName>
@@ -52,15 +54,16 @@
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>jump</animationName>
-			<originX>53</originX>
-			<originY>1037</originY>
-			<width>27</width>
-			<height>28</height>
-			<centerX>67</centerX>
-			<centerY>1051</centerY>
-			<frames>10</frames>
-			<speed>50</speed>
+			<originX>52</originX>
+			<originY>1033</originY>
+			<width>29</width>
+			<height>30</height>
+			<centerX>14</centerX>
+			<centerY>29</centerY>
+			<frames>9</frames>
+			<speed>3</speed>
 			<transparent>true</transparent>
+			<repeat>false</repeat>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>doubleJump</animationName>

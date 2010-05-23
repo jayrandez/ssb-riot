@@ -18,6 +18,10 @@ public class DummyTerminal implements SceneProvider {
 		for(int i = 0; i < 4; i++)
 			directions[i] = false;
 	}
+	
+	public void changeSpriteManager(SpriteManager manager) {
+		this.manager = manager;
+	}
 
 	public void begin() {
 		communicator = new Communicator(false);

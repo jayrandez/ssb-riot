@@ -59,14 +59,20 @@ public class Sprite {
 	}
 	
 	public void drawTo(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;
-		AffineTransform transform = new AffineTransform();
-		transform.translate(x-centerX, y-centerY);
+		AffineTransform spriteTransform = new AffineTransform();
 		if(flipped) {
-			transform.translate(width, 0);
-			transform.scale(-1, 1);
+			spriteTransform.scale(-1, 1);
+			spriteTransform.translate(-width, 0);
+			spriteTransform.translate(-(x-centerX), y-centerY);
 		}
-		g2d.drawImage(image, transform, null);
+		else {
+			spriteTransform.scale(1, 1);
+			spriteTransform.translate(x-centerX, y-centerY);
+		}
+		
+		
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.drawImage(image, spriteTransform, null);
 	}
 	
 }
