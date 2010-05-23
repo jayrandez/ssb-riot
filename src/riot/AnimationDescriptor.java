@@ -13,6 +13,7 @@ public class AnimationDescriptor {
 	public int frames;
 	public int speed;
 	public boolean transparent;
+	public boolean repeat;
 	
 	public String toString() {
 		return animationName;

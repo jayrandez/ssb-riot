@@ -8,12 +8,14 @@ public class Scene {
 	ArrayList<String> playerNames;
 	ArrayList<Sprite> worldSprites;
 	ArrayList<Sprite> overlaySprites;
+	ArrayList<Rectangle> debugTangles;
 	Size worldSize;
 	Rectangle worldView;
 	
 	// Assembly of a Scene on the Server Side
-	public Scene(String serverName, ArrayList<GameObject> worldObjects, ArrayList<GameObject> overlayObjects) {
+	public Scene(String serverName, ArrayList<GameObject> worldObjects, ArrayList<GameObject> overlayObjects, ArrayList<Rectangle> debugTangles) {
 		this.serverName = serverName;
+		this.debugTangles = debugTangles;
 		
 		worldSprites = new ArrayList<Sprite>();
 		overlaySprites = new ArrayList<Sprite>();
@@ -34,6 +36,7 @@ public class Scene {
 	public Scene(SpriteManager manager, byte[] rawData) {
 		worldSprites = new ArrayList<Sprite>();
 		overlaySprites = new ArrayList<Sprite>();
+		debugTangles = new ArrayList<Rectangle>();
 		
 		ByteArrayInputStream stream = new ByteArrayInputStream(rawData);
 		DataInputStream reader = new DataInputStream(stream);
@@ -50,6 +53,10 @@ public class Scene {
 			count = reader.readShort();
 			for(int i = 0; i < count; i++)
 				overlaySprites.add(new Sprite(manager, reader));
+			
+			count = reader.readShort();
+			for(int i = 0; i < count; i++)
+				debugTangles.add(new Rectangle(reader));
 		}
 		catch(IOException ex) {
 			ex.printStackTrace();
@@ -73,6 +80,10 @@ public class Scene {
 			for(Sprite sprite: overlaySprites)
 				sprite.writeTo(writer);
 			
+			writer.writeShort(debugTangles.size());
+			for(Rectangle rectangle: debugTangles)
+				rectangle.writeTo(writer);
+			
 			return stream.toByteArray();
 		}
 		catch(IOException ex) {
@@ -86,6 +97,10 @@ public class Scene {
 	
 	public ArrayList<Sprite> getOverlaySprites() {
 		return overlaySprites;
+	}
+	
+	public ArrayList<Rectangle> getDebugTangles() {
+		return debugTangles;
 	}
 	
 	public Size getWorldSize() {

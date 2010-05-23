@@ -7,15 +7,16 @@ public class Character extends NaturalObject {
 	boolean aerial;
 	boolean neutral;
 	boolean direction;
+	int maxJumps;
+	int currentJumps;
 	
-	boolean startedInfluencingJump;
-	
-	public Character(SpriteManager manager, String sheetName, Size size) {
+	public Character(SpriteManager manager, String sheetName, Size size, int maxJumps) {
 		super(manager, new Point(320, 450), size, 12.0);
 		this.sheetName = sheetName;
 		this.aerial = true;
 		this.direction = Riot.Right;
-		setAnimation(sheetName, "idle", false, 0);
+		this.maxJumps = maxJumps;
+		setAnimation(sheetName, "idle", 0);
 		move(-1);
 	}
 	
@@ -33,7 +34,6 @@ public class Character extends NaturalObject {
 			this.direction = Riot.Left;
 			neutral = false;
 		}
-		
 		setMovement();
 	}
 
@@ -51,7 +51,11 @@ public class Character extends NaturalObject {
 	
 	// Result of Pressing Space
 	public void jump() {
-		setMovement(160, 90);
+		if(currentJumps < maxJumps) {
+			setAnimation(sheetName, "jump", 0);
+			setMovement(160, 90);
+			currentJumps++;
+		}
 	}
 	
 	// Result of Taking Damage
@@ -65,44 +69,50 @@ public class Character extends NaturalObject {
 		super.aerial(aerial);
 		boolean before = this.aerial;
 		this.aerial = aerial;
+		
+		// We just landed on top of a platform
 		if(before == true && aerial == false) {
 			stopMovement();
 			stopInfluence();
-			startedInfluencingJump = false;
-			System.out.println("Collision");
+			currentJumps = 0;
 		}
+		
+		// The state has changed
 		if(before != aerial) {
 			setMovement();
 		}
 	}
 	
+	// Change the movement of character after controller has changed
+	// or we have switched between being aerial or on a platform
 	private void setMovement() {
-		if(!aerial) {
+		// We are in the air
+		if(aerial) {
+			// We didn't jump to get in the air, we just walked off.
+			if(currentJumps == 0)
+				stopMovement();
+			if(!neutral) {
+				// If we are in the air and holding a direction key
+				if(direction == Riot.Right)
+					setInfluence(40, 0);
+				else
+					setInfluence(40, 180);
+			}
+		}
+		// We are on a platform
+		else {
+			setFlipped(direction);
 			if(neutral == true) {
 				stopMovement();
-				setAnimation(sheetName, "idle", direction, 0);
+				setAnimation(sheetName, "idle", 0);
 			}
 			else if(direction == Riot.Right){
 				setMovement(60, 0);
-				setAnimation(sheetName, "shortWalk", direction, 0);
+				setAnimation(sheetName, "shortWalk", 0);
 			}
 			else {
 				setMovement(60, 180);
-				setAnimation(sheetName, "shortWalk", direction, 0);
-			}
-		}
-		else {
-			setAnimation(sheetName, "idle", direction, 0);
-			if(neutral == true && !startedInfluencingJump) {
-				stopInfluence();
-			}
-			else if(direction == Riot.Right) {
-				setInfluence(60, 0);
-				startedInfluencingJump = true;
-			}
-			else {
-				setInfluence(60, 180);
-				startedInfluencingJump = true;
+				setAnimation(sheetName, "shortWalk", 0);
 			}
 		}
 	}

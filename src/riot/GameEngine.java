@@ -33,7 +33,7 @@ public class GameEngine {
 			DataInputStream reader = new DataInputStream(stream);
 			switch(reader.readByte()) {
 				case Riot.Connect:
-					Character character = new Character(manager, "jigglypuff", new Size(28,32));
+					Character character = new Jigglypuff(manager);
 					players.put(message.sender, character);
 					worldObjects.add(character);
 					System.out.println("Created new character.");
@@ -112,15 +112,20 @@ public class GameEngine {
 	}
 	
 	public void gameLoop() {
+		int frameRate = 30;
 		while(true) {
 			long start = System.currentTimeMillis();
+			
+			ArrayList<Rectangle> debugTangles = new ArrayList<Rectangle>();
 
 			// Update Frame
 			Map map = (Map)worldObjects.get(0);
 			for(GameObject object: worldObjects) {
 				object.step();
 				if(object instanceof NaturalObject) {
+					debugTangles.add(object.getBoundingBoxes().get(0));
 					for(Rectangle platform: map.getBoundingBoxes()) {
+						debugTangles.add(platform);
 						rectifyPlatformCollision((NaturalObject)object, platform);
 						relayStandingStatus((NaturalObject)object, platform);
 					}
@@ -130,13 +135,13 @@ public class GameEngine {
 			// Networking Input/Output
 			Message message = communicator.receiveData();
 			handleMessage(message);
-			Scene scene = new Scene("Test Server", worldObjects, overlayObjects);
+			Scene scene = new Scene("Test Server", worldObjects, overlayObjects, debugTangles);
 			communicator.sendData(scene.serialize());
 			
 			// Pause Until Next Frame
 			long executionTime = System.currentTimeMillis() - start;
-			if(executionTime < 30) {
-				try {Thread.sleep(30 - executionTime);}
+			if(executionTime < (1000/frameRate)) {
+				try {Thread.sleep((1000/frameRate) - executionTime);}
 				catch(InterruptedException ex){}
 			}
 		}
