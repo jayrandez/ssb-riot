@@ -9,8 +9,8 @@ public abstract class AnimatedObject extends GameObject {
 	int frame;
 	int steps;
 	
-	public AnimatedObject(SpriteManager manager, Point location) {
-		super(location);
+	public AnimatedObject(GameEngine engine, SpriteManager manager, Point location) {
+		super(engine, location);
 		this.manager = manager;
 	}
 	

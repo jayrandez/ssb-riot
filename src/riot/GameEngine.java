@@ -25,7 +25,7 @@ public class GameEngine {
 		playerNames = new ArrayList<String>();
 		players = new HashMap<Socket, Character>();
 		
-		worldObjects.add(new Map(spriteManager, mapManager, "testmap"));
+		worldObjects.add(new Map(this, spriteManager, mapManager, "testmap"));
 	}
 	
 	private void handleMessage(Message message) {
@@ -35,7 +35,7 @@ public class GameEngine {
 			DataInputStream reader = new DataInputStream(stream);
 			switch(reader.readByte()) {
 				case Riot.Connect:
-					Character character = new Jigglypuff(spriteManager);
+					Character character = new Jigglypuff(this, spriteManager);
 					players.put(message.sender, character);
 					worldObjects.add(character);
 					System.out.println("New player joined the game.");
@@ -98,6 +98,10 @@ public class GameEngine {
 			return false;
 	}
 	
+	public void spawnWorldObject(GameObject object) {
+		worldObjects.add(object);
+	}
+	
 	public void gameLoop() {
 		int frameRate = 30;
 		while(true) {
@@ -122,6 +126,9 @@ public class GameEngine {
 								continueChecking = false;
 						}
 					}
+				}
+				if(object instanceof FollowerObject) {
+					debugTangles.add(object.getBoundingBoxes().get(0));
 				}
 			}
 			

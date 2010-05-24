@@ -2,7 +2,7 @@ package riot;
 
 import java.io.*;
 
-public class Rectangle {
+public class Rectangle implements Cloneable {
 	public double x;
 	public double y;
 	public double width;
@@ -80,5 +80,9 @@ public class Rectangle {
 	
 	public double area() {
 		return width * height;
+	}
+	
+	public Object clone() {
+		return new Rectangle(x, y, width, height);
 	}
 }
