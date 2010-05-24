@@ -85,4 +85,10 @@ public class Rectangle implements Cloneable {
 	public Object clone() {
 		return new Rectangle(x, y, width, height);
 	}
+	
+	public Point getCenter() {
+		double centerX = this.x + (width/2);
+		double centerY = this.y + (height/2);
+		return new Point(centerX, centerY);
+	}
 }

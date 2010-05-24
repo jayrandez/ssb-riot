@@ -85,6 +85,13 @@ public abstract class GameObject {
 	}
 	
 	/**
+	 * Returns a reference to the sprite manager.
+	 */
+	public SpriteManager getManager() {
+		return manager;
+	}
+	
+	/**
 	 * Returns the bounding box(es) representative of this GameObject
 	 */
 	public abstract ArrayList<Rectangle> getBoundingBoxes();
