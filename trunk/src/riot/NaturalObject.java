@@ -11,8 +11,8 @@ public class NaturalObject extends AnimatedObject {
 	double yInfluence;
 	boolean ignoreGravity;
 
-	public NaturalObject(SpriteManager manager, Point location, Size size, double gravity) {
-		super(manager, location);
+	public NaturalObject(GameEngine engine, SpriteManager manager, Point location, Size size, double gravity) {
+		super(engine, manager, location);
 		this.size = size;
 		this.gravity = gravity;
 		this.xVelocity = 0;
@@ -33,6 +33,7 @@ public class NaturalObject extends AnimatedObject {
 		ignoreGravity = false;
 		location.x += ((xVelocity + xInfluence)/ 10.0);
 		location.y += ((yVelocity + yInfluence)/ 10.0);
+		setLocation(location);
 	}
 
 	public ArrayList<Rectangle> getBoundingBoxes() {

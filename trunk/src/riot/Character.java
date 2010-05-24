@@ -10,8 +10,8 @@ public class Character extends NaturalObject {
 	int maxJumps;
 	int currentJumps;
 	
-	public Character(SpriteManager manager, String sheetName, Size size, int maxJumps) {
-		super(manager, new Point(323, 97), size, 12.0);
+	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps) {
+		super(engine, manager, new Point(323, 97), size, 12.0);
 		this.sheetName = sheetName;
 		this.aerial = true;
 		this.direction = Riot.Right;
@@ -38,7 +38,10 @@ public class Character extends NaturalObject {
 	}
 
 	// Result of Pressing F
-	public void attack() {}
+	public void attack() {
+		FollowerObject follower = new FollowerObject(getEngine(), this, new Size(100,50), new Size(0,0));
+		getEngine().spawnWorldObject(follower);
+	}
 	
 	// Result of Pressing D
 	public void special() {}

@@ -4,8 +4,10 @@ import java.util.*;
 
 public abstract class GameObject {
 	private Point location;
+	private GameEngine engine;
 	
-	public GameObject(Point location) {
+	public GameObject(GameEngine engine, Point location) {
+		this.engine = engine;
 		this.location = location;
 	}
 	
@@ -14,7 +16,11 @@ public abstract class GameObject {
 	}
 	
 	public Point getLocation() {
-		return location;
+		return (Point)(location.clone());
+	}
+	
+	public GameEngine getEngine() {
+		return engine;
 	}
 	
 	public abstract ArrayList<Rectangle> getBoundingBoxes();

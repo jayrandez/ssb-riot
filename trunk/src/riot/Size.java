@@ -2,7 +2,7 @@ package riot;
 
 import java.io.*;
 
-public class Size {
+public class Size implements Cloneable {
 	public double width;
 	public double height;
 	
@@ -23,5 +23,9 @@ public class Size {
 	public void writeTo(DataOutputStream stream) throws IOException {
 		stream.writeShort((int)width);
 		stream.writeShort((int)height);
+	}
+	
+	public Object clone() {
+		return new Size(width, height);
 	}
 }
