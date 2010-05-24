@@ -38,7 +38,11 @@ public class Character extends NaturalObject {
 	}
 
 	// Result of Pressing F
-	public void attack() {}
+	public void attack() {
+		if(aerial == false) {
+			new DamageObject(getEngine(), getManager(), this, new Size(50, 50), degrees, 0, 0);
+		}
+	}
 	
 	// Result of Pressing D
 	public void special() {}
