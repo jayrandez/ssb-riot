@@ -25,8 +25,8 @@ public class Scene {
 
 		ArrayList<Character> characters = new ArrayList<Character>();
 		for(GameObject object: worldObjects) {
-			if(object instanceof AnimatedObject) {
-				Sprite sprite = ((AnimatedObject)object).getSprite();
+			Sprite sprite = object.getSprite();
+			if(sprite != null) {
 				worldSprites.add(sprite);
 				if(object instanceof Map) {
 					worldSize = new Size(sprite.width, sprite.height);
