@@ -7,11 +7,18 @@ public class FollowerObject extends GameObject {
 	Size size;
 	Size offset;
 	
-	public FollowerObject(GameEngine engine, GameObject target, Size size, Size offset) {
-		super(engine, new Point(0,0));
+	public FollowerObject(GameEngine engine, SpriteManager manager, GameObject target) {
+		super(engine, manager, new Point(0,0));
+		this.target = target;
+		this.size = new Size(0, 0);
+		this.offset = new Size(0,0);
+	}
+	
+	public FollowerObject(GameEngine engine, SpriteManager manager, GameObject target, Size size) {
+		super(engine, manager, new Point(0,0));
 		this.target = target;
 		this.size = size;
-		this.offset = offset;
+		this.offset = new Size(0,0);
 	}
 
 	public ArrayList<Rectangle> getBoundingBoxes() {

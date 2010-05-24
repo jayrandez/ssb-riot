@@ -2,7 +2,7 @@ package riot;
 
 import java.util.*;
 
-public class Map extends AnimatedObject {
+public class Map extends GameObject {
 	ArrayList<Rectangle> platforms;
 
 	public Map(GameEngine engine, SpriteManager spriteManager, MapManager mapManager, String mapName) {

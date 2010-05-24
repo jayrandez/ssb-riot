@@ -9,10 +9,58 @@ import java.util.*;
 public abstract class GameObject {
 	private Point location;
 	private GameEngine engine;
+	private SpriteManager manager;
+	private AnimationDescriptor descriptor;
+	private int index;
+	private boolean flipped;
+	private int rotation;
+	private int frame;
+	private int steps;
 	
-	public GameObject(GameEngine engine, Point location) {
+	public GameObject(GameEngine engine, SpriteManager manager, Point location) {
+		this.manager = manager;
 		this.engine = engine;
 		this.location = location;
+	}
+
+	public void setAnimation(String sheetName, String animationName, int rotation) {
+		this.rotation = rotation;
+		this.index = manager.getIndex(sheetName, animationName);
+		descriptor = manager.getAnimation(index);
+		frame = 0;
+		steps = 0;
+	}
+	
+	public void setFlipped(boolean flipped) {
+		this.flipped = flipped;
+	}
+	
+	public void clearAnimation() {
+		descriptor = null;
+		frame = 0;
+		steps = 0;
+	}
+	
+	public void step() {
+		if(descriptor != null) {
+			if(steps > descriptor.speed) {
+				steps = 0;
+				frame++;
+				if(frame == descriptor.frames) {
+					if(descriptor.repeat)
+						frame = 0;
+					else
+						frame--;
+				}
+			}
+		}
+		steps++;
+	}
+	
+	public Sprite getSprite() {
+		if(descriptor == null)
+			return null;
+		return new Sprite(manager, index, frame, (int)getLocation().x, (int)getLocation().y, rotation, flipped);
 	}
 	
 	/**
@@ -40,10 +88,4 @@ public abstract class GameObject {
 	 * Returns the bounding box(es) representative of this GameObject
 	 */
 	public abstract ArrayList<Rectangle> getBoundingBoxes();
-	
-	/**
-	 * Called at a frame rate of 30hz to be used at the objects discretion
-	 * This contains the main logic of the object and update's it's state over time.
-	 */
-	public abstract void step();
 }

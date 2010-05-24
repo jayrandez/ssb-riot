@@ -2,7 +2,7 @@ package riot;
 
 import java.util.*;
 
-public class NaturalObject extends AnimatedObject {
+public class NaturalObject extends GameObject {
 	Size size;
 	double gravity;
 	double xVelocity;
@@ -17,7 +17,6 @@ public class NaturalObject extends AnimatedObject {
 		this.gravity = gravity;
 		this.xVelocity = 0;
 		this.yVelocity = 0;
-		this.steps = 0;
 		this.ignoreGravity = false;
 	}
 	
