@@ -68,4 +68,8 @@ public class NaturalObject extends AnimatedObject {
 		xInfluence = 0.0;
 		yInfluence = 0.0;
 	}
+	
+	public Size getSize() {
+		return (Size)(size.clone());
+	}
 }

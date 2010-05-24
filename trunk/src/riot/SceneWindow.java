@@ -1,12 +1,16 @@
 package riot;
 
 import java.awt.*;
-import java.awt.color.ColorSpace;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
 import javax.swing.*;
 
+/**
+ * The game's window which functions based on the concept of a SceneProvider
+ * The window, as often as possible, will ask it's set provider for a new Scene.
+ * It will then draw the scene to the window (or the screen if we are in fullscreen).
+ */
 public class SceneWindow extends JFrame implements KeyListener {
 	private static final long serialVersionUID = -6417663999978098545L;
 	
@@ -34,11 +38,14 @@ public class SceneWindow extends JFrame implements KeyListener {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		/* Remove the cursor from the window */
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int[] pixels = new int[16 * 16];
 		Image image = tk.createImage(new MemoryImageSource(16, 16, pixels, 0, 16));
 		Cursor transparentCursor = tk.createCustomCursor(image, new java.awt.Point(0, 0), "invisiblecursor");
 		setCursor(transparentCursor);
+		
+		/* Set up this window to receive keypresses and not repaint calls */
 		addKeyListener(this);
 		setIgnoreRepaint(true);
 		screenSetup();
@@ -46,6 +53,9 @@ public class SceneWindow extends JFrame implements KeyListener {
 		provider.begin();
 	}
 	
+	/**
+	 * Sets up the screen in windowed mode or fullscreen mode
+	 */
 	void screenSetup() {
 		if(fullscreen) {
 			remove(windowCanvas);
@@ -69,6 +79,9 @@ public class SceneWindow extends JFrame implements KeyListener {
 		}
 	}
 	
+	/**
+	 * The loop which requests a scene from the provider and draws it as often as possible
+	 */
 	public void drawingLoop() {
 		while(provider != null) {
 			Graphics g2d = strategy.getDrawGraphics();
@@ -82,7 +95,11 @@ public class SceneWindow extends JFrame implements KeyListener {
 		}
 	}
 	
+	/**
+	 * The rendering routine which draws a scene to the screen the same way every time
+	 */
 	public void renderScene(Graphics g2d, Scene scene) {
+		/* Recreate an accelerated image buffer for the world if one is needed. */
 		if(world == null || worldGraphics == null) {
 			Size worldSize = scene.getWorldSize();
 			GraphicsConfiguration gc = screen.getDefaultConfiguration();
@@ -92,15 +109,18 @@ public class SceneWindow extends JFrame implements KeyListener {
 			worldSwapGraphics = (Graphics2D)worldSwap.getGraphics();
 		}
 		
+		/* Get important sprite data from the scene and the server name. */
 		this.setTitle("SSB: Riot!  --  " + scene.getServerName());
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
 		ArrayList<Rectangle> debugTangles = scene.getDebugTangles();
 		worldView = scene.getWorldView();
 		
+		/* Draw all world sprites onto the world image buffer. */
 		for(Sprite sprite: worldSprites) {
 			sprite.drawTo(worldGraphics);
 		}
 		
+		/* Draw debugging rectangle information if requested. */
 		if(debugtangles) {
 			BufferedImage temp = new BufferedImage(world.getWidth(null), world.getHeight(null), BufferedImage.TYPE_BYTE_GRAY);
 			temp.getGraphics().drawImage(world, 0, 0, null);
@@ -112,14 +132,17 @@ public class SceneWindow extends JFrame implements KeyListener {
 			}
 		}
 
+		/* Draw the visible portion of the world to the screen. */
 		int x1 = (int)worldView.minX();
 		int y1 = (int)worldView.minY();
 		int x2 = (int)worldView.maxX();
 		int y2 = (int)worldView.maxY();
-
 		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
 	}
-    
+
+	/**
+	 * Distributes a key press event to the scene provider removing repeated keypresses
+	 */
     public void keyPressed(KeyEvent e) {
     	switch(e.getKeyCode()) {
     	case KeyEvent.VK_F1:
@@ -137,6 +160,9 @@ public class SceneWindow extends JFrame implements KeyListener {
     	}
     }
     
+    /**
+     * Distributes a key release event to the scene provider */
+     */
     public void keyReleased(KeyEvent e) {
     	provider.receivePress(e.getKeyCode(), false);
     	for(int i = 0; i < pressedKeys.size(); i++) {

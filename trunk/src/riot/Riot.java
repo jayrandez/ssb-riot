@@ -2,7 +2,12 @@ package riot;
 
 import java.util.*;
 
+/**
+ * The Riot class is the entry class to the game.
+ */
 public class Riot {
+	
+	/* Various constants that are used throughout the game */
 	public static final byte Connect		= 1;
 	public static final byte Disconnect		= 2;
 	public static final byte Establish		= 3;
@@ -21,14 +26,19 @@ public class Riot {
 	public static final byte ServerName		= 16;
 	public static final byte Pause			= 17;
 	public static final byte Resume			= 18;
-	
 	public static final boolean Left		= true;
 	public static final boolean Right		= false;
 	public static final int Port 			= 48123;
 
+	/**
+	 * The main function creates a SceneWindow (the game's window) and creates the starting provider
+	 * to go with it as well as loading up spritesheets and maps. For now, we're just starting and
+	 * connecting to local servers.
+	 */
 	public static void main(String[] args) throws Exception {
 		final SpriteManager spriteManager = new SpriteManager("sheets");
 		final MapManager mapManager = new MapManager("maps");
+		
 		Scanner scanner = new Scanner(System.in);
 		String line = "";
 		
@@ -37,6 +47,7 @@ public class Riot {
 		if(line.equals("") || line.equals("Y") || line.equals("y")) {
 			new Thread() {
 				public void run() {
+					/* Create a game server in a new thread. */
 					new GameEngine(spriteManager, mapManager).gameLoop();
 				}
 			}.start();
@@ -48,6 +59,7 @@ public class Riot {
 		if(line.equals(""))
 			line = "localhost";
 		
+		/* Create the first provider, add it to the game window, and begin. */
 		SceneProvider startScreen = new DummyTerminal(spriteManager, line);
 		SceneWindow window = new SceneWindow(startScreen);
 		window.drawingLoop();

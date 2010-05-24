@@ -38,10 +38,7 @@ public class Character extends NaturalObject {
 	}
 
 	// Result of Pressing F
-	public void attack() {
-		FollowerObject follower = new FollowerObject(getEngine(), this, new Size(100,50), new Size(0,0));
-		getEngine().spawnWorldObject(follower);
-	}
+	public void attack() {}
 	
 	// Result of Pressing D
 	public void special() {}
