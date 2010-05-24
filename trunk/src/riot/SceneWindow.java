@@ -161,7 +161,7 @@ public class SceneWindow extends JFrame implements KeyListener {
     }
     
     /**
-     * Distributes a key release event to the scene provider */
+     * Distributes a key release event to the scene provider
      */
     public void keyReleased(KeyEvent e) {
     	provider.receivePress(e.getKeyCode(), false);
