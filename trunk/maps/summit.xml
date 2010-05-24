@@ -1,4 +1,35 @@
 <MapDescriptor>
 	<name>summit</name>
-	<platforms></platforms>
+		<platforms>
+		<Rectangle>
+			<x>160</x>
+			<y>475</y>
+			<width>470</width>
+			<height>17</height>
+		</Rectangle>
+		<Rectangle>
+			<x>0</x>
+			<y>534</y>
+			<width>126</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>497</x>
+			<y>262</y>
+			<width>152</width>
+			<height>16</height>
+		</Rectangle>
+		<Rectangle>
+			<x>140</x>
+			<y>137</y>
+			<width>266</width>
+			<height>13</height>
+		</Rectangle>
+		<Rectangle>
+			<x>83</x>
+			<y>267</y>
+			<width>148</width>
+			<height>13</height>
+		</Rectangle>
+	</platforms>
 </MapDescriptor>
