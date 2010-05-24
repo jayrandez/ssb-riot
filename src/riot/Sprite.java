@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.io.*;
 
+/**
+ * The class representing all facets of an individual sprite of an animation
+ */
 public class Sprite {
 	public int index;
 	public int frame;
@@ -33,6 +36,9 @@ public class Sprite {
 		this.image = manager.getImage(index, frame);
 	}
 	
+	/**
+	 * Creates the sprite from a network data stream
+	 */
 	public Sprite(SpriteManager manager, DataInputStream stream) throws IOException {
 		this.index = stream.readShort();
 		this.frame = stream.readShort();
@@ -49,6 +55,9 @@ public class Sprite {
 		this.image = manager.getImage(index, frame);
 	}
 	
+	/**
+	 * Serialize the sprite for transport over the network
+	 */
 	public void writeTo(DataOutputStream stream) throws IOException {
 		stream.writeShort(index);
 		stream.writeShort(frame);
@@ -58,6 +67,9 @@ public class Sprite {
 		stream.writeBoolean(flipped);
 	}
 	
+	/**
+	 * Draw the sprite on the given graphics context
+	 */
 	public void drawTo(Graphics g) {
 		AffineTransform spriteTransform = new AffineTransform();
 		if(flipped) {

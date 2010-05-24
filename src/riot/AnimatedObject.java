@@ -15,7 +15,6 @@ public abstract class AnimatedObject extends GameObject {
 	}
 	
 	public void setAnimation(String sheetName, String animationName, int rotation) {
-		this.flipped = flipped;
 		this.rotation = rotation;
 		this.index = manager.getIndex(sheetName, animationName);
 		descriptor = manager.getAnimation(index);

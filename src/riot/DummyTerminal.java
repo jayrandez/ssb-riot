@@ -4,6 +4,12 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * A SceneProvider which functions by connecting to an SSB game server and directing
+ * the scene for each frame to the game window. The DummyTerminal is completely passive in that
+ * it does not manage or construct a scene or perform any game logic, it simply redirects what
+ * the server gives it into the game window.
+ */
 public class DummyTerminal implements SceneProvider {
 	SpriteManager manager;
 	ArrayList<GameObject> gameObjects;
@@ -18,11 +24,10 @@ public class DummyTerminal implements SceneProvider {
 		for(int i = 0; i < 4; i++)
 			directions[i] = false;
 	}
-	
-	public void changeSpriteManager(SpriteManager manager) {
-		this.manager = manager;
-	}
 
+	/**
+	 * Sets up the connection with the server for the first time
+	 */
 	public void begin() {
 		communicator = new Communicator(false);
 		communicator.addOutgoing(hostname);
@@ -37,11 +42,17 @@ public class DummyTerminal implements SceneProvider {
 		}
 	}
 	
+	/**
+	 * Retrieves a scene from the server and relays it to the client's SceneWindow
+	 */
 	public Scene nextScene() {
 		Message message = communicator.receiveData();
 		return new Scene(manager, message.data);
 	}
 	
+	/**
+	 * Receives keyboard input and if it is the right kind, send it to the server
+	 */
 	public void receivePress(int code, boolean pressed) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		DataOutputStream writer = new DataOutputStream(stream);
@@ -92,9 +103,13 @@ public class DummyTerminal implements SceneProvider {
 		}
 	}
 	
+	/**
+	 * Converts combination of arrow keys to a direction in degrees
+	 */
 	private void writeDirection(DataOutputStream writer) throws IOException {
-		// I'm sure there's a better way to do this mathematically.
-		//directions numbered at right arrow, numbered counterclockwise.
+		/* I'm sure there's a better way to do this mathematically.
+		 * Directions are numbered starting at right arrow, numbered counterclockwise.
+		 */
 		
 		int degrees = -1;
 		if(directions[0] && directions[1]) {

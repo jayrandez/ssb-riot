@@ -4,6 +4,11 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/**
+ * The server side class that runs an actual game of SSB
+ * This handles all connections, steps and manages all game objects, and takes control
+ * of various other game aspects such as collisions, rounds, spawning, and deaths.
+ */
 public class GameEngine {
 	Communicator communicator;
 	ArrayList<GameObject> worldObjects;
@@ -28,6 +33,9 @@ public class GameEngine {
 		worldObjects.add(new Map(this, spriteManager, mapManager, "testmap"));
 	}
 	
+	/**
+	 * Parses messages coming from clients and redirects them to those clients' characters
+	 */
 	private void handleMessage(Message message) {
 		try {
 			Character referral = players.get(message.sender);
@@ -71,18 +79,21 @@ public class GameEngine {
 		}
 	}
 	
+	/**
+	 * Corrects a character who has collided into a map platform by moving it to the edge.
+	 */
 	public void rectifyPlatformCollision(NaturalObject object, Rectangle platform) {
 		Rectangle characterBounds = object.getBoundingBoxes().get(0);
 		if(characterBounds.overlaps(platform)) {
-			// If we hit the left side
+			/* Check if we hit the left side. */
 			if(characterBounds.minX() < platform.minX() && characterBounds.minY() > platform.minY())
 				while(characterBounds.overlaps(platform))
 					characterBounds.x = characterBounds.x - 1.0;
-			// If we hit the right side
+			/* Check if we hit the right side. */
 			else if(characterBounds.maxX() > platform.maxX() && characterBounds.minY() > platform.minY())
 				while(characterBounds.overlaps(platform))
 					characterBounds.x = characterBounds.x + 1.0;
-			// If we hit the top or bottom
+			/* Check if we hit the top or bottom. */
 			else
 				while(characterBounds.overlaps(platform))
 					characterBounds.y = characterBounds.y - 1.0;
@@ -90,6 +101,9 @@ public class GameEngine {
 		}
 	}
 	
+	/**
+	 * Detects whether the character is standing on the platform by checking if its one pixel above
+	 */
 	public boolean standingOnPlatform(NaturalObject object, Rectangle platform) {
 		Rectangle characterBounds = object.getBoundingBoxes().get(0);
 		if(characterBounds.maxY() + 1 == platform.minY() && characterBounds.maxX() >= platform.minX() && characterBounds.minX() <= platform.maxX())
@@ -98,10 +112,25 @@ public class GameEngine {
 			return false;
 	}
 	
+	/**
+	 * Puts a previously created object into the world
+	 */
 	public void spawnWorldObject(GameObject object) {
 		worldObjects.add(object);
 	}
 	
+	/**
+	 * Removes an object from the world
+	 */
+	public void removeWorldObject(GameObject object) {
+		worldObjects.remove(object);
+	}
+	
+	/**
+	 * The major logic loop in the program which iterates at a frame rate of 30 fps.
+	 * This steps all of the objects, checking for collisions and major events, and sending
+	 * each frame to all of the clients to be drawn by their DummyTerminals.
+	 */
 	public void gameLoop() {
 		int frameRate = 30;
 		while(true) {
@@ -109,7 +138,7 @@ public class GameEngine {
 			
 			ArrayList<Rectangle> debugTangles = new ArrayList<Rectangle>();
 
-			// Update Frame
+			/* Step all objects handling collisions and round events. */
 			Map map = (Map)worldObjects.get(0);
 			for(GameObject object: worldObjects) {
 				object.step();
@@ -132,13 +161,13 @@ public class GameEngine {
 				}
 			}
 			
-			// Networking Input/Output
+			/* Handle networking aspects (input / output). */
 			Message message = communicator.receiveData();
 			handleMessage(message);
 			Scene scene = new Scene("Test Server", worldObjects, overlayObjects, debugTangles);
 			communicator.sendData(scene.serialize());
 			
-			// Pause Until Next Frame
+			/* Pause until the next frame. */
 			long executionTime = System.currentTimeMillis() - start;
 			if(executionTime < (1000/frameRate)) {
 				try {Thread.sleep((1000/frameRate) - executionTime);}

@@ -2,6 +2,9 @@ package riot;
 
 import java.net.*;
 
+/**
+ * A message transmitted over the TCP connection
+ */
 public class Message {
 	public Socket sender;
 	public byte[] data;
