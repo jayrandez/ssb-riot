@@ -40,7 +40,7 @@ public class Character extends NaturalObject {
 	// Result of Pressing F
 	public void attack() {
 		if(aerial == false) {
-			FollowerObject damager = new FollowerObject(getEngine(), getManager(), this, new Size(50, 50));
+			DamageObject damager = new DamageObject(getEngine(), getManager(), this, getSize(), 270, 30, 100);
 			getEngine().spawnWorldObject(damager);
 		}
 	}
