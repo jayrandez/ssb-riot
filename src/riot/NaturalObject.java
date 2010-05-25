@@ -71,4 +71,16 @@ public class NaturalObject extends GameObject {
 	public Size getSize() {
 		return (Size)(size.clone());
 	}
+	
+	public double getGravity() {
+		return gravity;
+	}
+	
+	public double getVelocityX() {
+		return xVelocity;
+	}
+	
+	public double getVelocityY() {
+		return yVelocity;
+	}
 }
