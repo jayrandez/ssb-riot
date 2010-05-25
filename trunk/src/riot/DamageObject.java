@@ -18,44 +18,51 @@ public class DamageObject extends FollowerObject
 		hitLength = hit;
 		damageAmount = dmg;
 		dmgSize = s;
-		super.setLocation(new Point (character.getLocation().x, character.getLocation().y - character.getBoundingBoxes().get(0).y/2));
+		rotateOffset();
 	}
 	
 	//rotates the origin point of the DamageObject based on the degrees offset it is given
-	public void setOffset()
+	public void rotateOffset()
 	{
+		GameObject target = getTarget();
+		double offsetY = -target.getBoundingBoxes().get(0).height/2;
+		double offsetX = 0;
+		
 		if(direction == 0)
 		{
-			super.setLocation(new Point(this.getLocation().x , this.getLocation().y - dmgSize.height /2 ));
+			offsetX = 0;
+			offsetY += offsetY;
 		}
 		else if(direction == 45)
 		{
-			super.setLocation(new Point(this.getLocation().x, this.getLocation().y - dmgSize.height));
+			offsetX = 0;
+			offsetY += offsetY * 2;
 		}
 		else if(direction == 90)
 		{
-			super.setLocation(new Point(this.getLocation().x - dmgSize.width / 2, this.getLocation().y - dmgSize.height));
+			offsetX = (int) - target.getBoundingBoxes().get(0).width/2;
+			offsetY += offsetY * 2;
 		}
 		else if(direction == 135)
 		{
-			super.setLocation(new Point(this.getLocation().x - dmgSize.width, this.getLocation().y - dmgSize.height));
+			offsetX = (int) - target.getBoundingBoxes().get(0).width;
+			offsetY += offsetY * 2;
 		}
 		else if(direction == 180)
 		{
-			super.setLocation(new Point(this.getLocation().x - dmgSize.width, this.getLocation().y - dmgSize.height / 2));
+			offsetX = (int) - target.getBoundingBoxes().get(0).width;
+			offsetY += offsetY;
 		}
 		else if(direction == 225)
 		{
-			super.setLocation(new Point(this.getLocation().x - dmgSize.width, this.getLocation().y));
+			offsetX = (int) - target.getBoundingBoxes().get(0).width;
 		}
 		else if(direction == 270)
 		{
-			super.setLocation(new Point(this.getLocation().x - dmgSize.width / 2, this.getLocation().y));
+			offsetX = (int) - target.getBoundingBoxes().get(0).width/2;
 		}
-		else if(direction == 315)
-		{
-			super.setLocation(new Point(this.getLocation().x, this.getLocation().y));
-		}
+		
+		super.setOffset(new Size(offsetX, offsetY));
 	}
 
 	//causes the character that comes in contact with the DamageObject to take damage
