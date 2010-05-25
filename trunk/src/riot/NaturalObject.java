@@ -3,7 +3,6 @@ package riot;
 import java.util.*;
 
 public class NaturalObject extends GameObject {
-	Size size;
 	double gravity;
 	double xVelocity;
 	double yVelocity;
@@ -12,8 +11,7 @@ public class NaturalObject extends GameObject {
 	boolean ignoreGravity;
 
 	public NaturalObject(GameEngine engine, SpriteManager manager, Point location, Size size, double gravity) {
-		super(engine, manager, location);
-		this.size = size;
+		super(engine, manager, location, size);
 		this.gravity = gravity;
 		this.xVelocity = 0;
 		this.yVelocity = 0;
@@ -36,8 +34,8 @@ public class NaturalObject extends GameObject {
 	}
 
 	public ArrayList<Rectangle> getBoundingBoxes() {
-		double width = size.width;
-		double height = size.height;
+		double width = getSize().width;
+		double height = getSize().height;
 		double left = getLocation().x - (width / 2);
 		double top = getLocation().y - height + 1;
 		Rectangle bounds = new Rectangle(left, top, width, height);
@@ -66,10 +64,6 @@ public class NaturalObject extends GameObject {
 	public void stopInfluence() {
 		xInfluence = 0.0;
 		yInfluence = 0.0;
-	}
-	
-	public Size getSize() {
-		return (Size)(size.clone());
 	}
 	
 	public double getGravity() {

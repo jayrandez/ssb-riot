@@ -8,6 +8,7 @@ import java.util.*;
  */
 public abstract class GameObject {
 	private Point location;
+	private Size size;
 	private GameEngine engine;
 	private SpriteManager manager;
 	private AnimationDescriptor descriptor;
@@ -17,18 +18,23 @@ public abstract class GameObject {
 	private int frame;
 	private int steps;
 	
-	public GameObject(GameEngine engine, SpriteManager manager, Point location) {
+	public GameObject(GameEngine engine, SpriteManager manager, Point location, Size size) {
 		this.manager = manager;
 		this.engine = engine;
 		this.location = location;
+		this.size = size;
 	}
 
-	public void setAnimation(String sheetName, String animationName, int rotation) {
+	public void setAnimation(String sheetName, String animationName) {
 		this.rotation = rotation;
 		this.index = manager.getIndex(sheetName, animationName);
 		descriptor = manager.getAnimation(index);
 		frame = 0;
 		steps = 0;
+	}
+	
+	public void setRotation(int rotation) {
+		this.rotation = rotation;
 	}
 	
 	public void setFlipped(boolean flipped) {
@@ -78,17 +84,24 @@ public abstract class GameObject {
 	}
 	
 	/**
-	 * Returns a reference to the game engine.
+	 * Returns a reference to the game engine
 	 */
 	public GameEngine getEngine() {
 		return engine;
 	}
 	
 	/**
-	 * Returns a reference to the sprite manager.
+	 * Returns a reference to the sprite manager
 	 */
 	public SpriteManager getManager() {
 		return manager;
+	}
+	
+	/**
+	 * Returns a copy of the objects size
+	 */
+	public Size getSize() {
+		return (Size)size.clone();
 	}
 	
 	/**
