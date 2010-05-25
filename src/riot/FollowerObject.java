@@ -34,4 +34,12 @@ public class FollowerObject extends GameObject {
 		targetLoc.y += offset.height;
 		this.setLocation(targetLoc);
 	}
+	
+	public void setOffset(Size offset) {
+		this.offset = offset;
+	}
+	
+	public GameObject getTarget() {
+		return target;
+	}
 }
