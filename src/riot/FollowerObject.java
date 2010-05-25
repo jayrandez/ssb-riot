@@ -7,15 +7,8 @@ public class FollowerObject extends GameObject {
 	Size size;
 	Size offset;
 	
-	public FollowerObject(GameEngine engine, SpriteManager manager, GameObject target) {
-		super(engine, manager, new Point(0,0));
-		this.target = target;
-		this.size = new Size(0, 0);
-		this.offset = new Size(0,0);
-	}
-	
 	public FollowerObject(GameEngine engine, SpriteManager manager, GameObject target, Size size) {
-		super(engine, manager, new Point(0,0));
+		super(engine, manager, new Point(0,0), size);
 		this.target = target;
 		this.size = size;
 		this.offset = new Size(0,0);

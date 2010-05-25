@@ -9,14 +9,18 @@ public class Character extends NaturalObject {
 	boolean direction;
 	int maxJumps;
 	int currentJumps;
+	boolean justSpawned;
+	SpawnPlatform platform;
 	
-	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps) {
+	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps, SpawnPlatform platform) {
 		super(engine, manager, new Point(323, 97), size, 12.0);
+		this.platform = platform;
 		this.sheetName = sheetName;
 		this.aerial = true;
 		this.direction = Riot.Right;
 		this.maxJumps = maxJumps;
-		setAnimation(sheetName, "idle", 0);
+		this.justSpawned = true;
+		setAnimation(sheetName, "idle");
 		move(-1);
 	}
 	
@@ -33,6 +37,9 @@ public class Character extends NaturalObject {
 		else if(degrees > 90 && degrees < 270) {
 			this.direction = Riot.Left;
 			neutral = false;
+		}
+		if(justSpawned) {
+			platform.dropCharacter();
 		}
 		setMovement();
 	}
@@ -57,7 +64,7 @@ public class Character extends NaturalObject {
 	// Result of Pressing Space
 	public void jump() {
 		if(currentJumps < maxJumps) {
-			setAnimation(sheetName, "jump", 0);
+			setAnimation(sheetName, "jump");
 			setMovement(160, 90);
 			currentJumps++;
 		}
@@ -109,15 +116,15 @@ public class Character extends NaturalObject {
 			setFlipped(direction);
 			if(neutral == true) {
 				stopMovement();
-				setAnimation(sheetName, "idle", 0);
+				setAnimation(sheetName, "idle");
 			}
 			else if(direction == Riot.Right){
 				setMovement(60, 0);
-				setAnimation(sheetName, "shortWalk", 0);
+				setAnimation(sheetName, "shortWalk");
 			}
 			else {
 				setMovement(60, 180);
-				setAnimation(sheetName, "shortWalk", 0);
+				setAnimation(sheetName, "shortWalk");
 			}
 		}
 	}

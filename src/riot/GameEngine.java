@@ -34,6 +34,13 @@ public class GameEngine {
 	}
 	
 	/**
+	 * Returns a reference to the rounds map (assumed to be first element)
+	 */
+	public Map getMap() {
+		return (Map)worldObjects.get(0);
+	}
+	
+	/**
 	 * Parses messages coming from clients and redirects them to those clients' characters
 	 */
 	private void handleMessage(Message message) {
@@ -43,9 +50,12 @@ public class GameEngine {
 			DataInputStream reader = new DataInputStream(stream);
 			switch(reader.readByte()) {
 				case Riot.Connect:
-					Character character = new Jigglypuff(this, spriteManager);
+					SpawnPlatform platform = new SpawnPlatform(this, spriteManager);
+					Character character = new Jigglypuff(this, spriteManager, platform);
+					platform.setCharacter(character);
 					players.put(message.sender, character);
 					worldObjects.add(character);
+					worldObjects.add(platform);
 					System.out.println("New player joined the game.");
 					break;
 				case Riot.Disconnect:
@@ -142,9 +152,8 @@ public class GameEngine {
 			Map map = (Map)worldObjects.get(0);
 			for(GameObject object: worldObjects) {
 				object.step();
-				if(object instanceof NaturalObject) {
+				if(object instanceof Character) {
 					boolean continueChecking = true;
-					debugTangles.add(object.getBoundingBoxes().get(0));
 					for(Rectangle platform: map.getBoundingBoxes()) {
 						debugTangles.add(platform);
 						rectifyPlatformCollision((NaturalObject)object, platform);
@@ -156,8 +165,8 @@ public class GameEngine {
 						}
 					}
 				}
-				if(object instanceof FollowerObject) {
-					debugTangles.add(object.getBoundingBoxes().get(0));
+				for(Rectangle rect: object.getBoundingBoxes()) {
+					debugTangles.add(rect);
 				}
 			}
 			

@@ -1,5 +1,7 @@
 package riot;
 
+import java.io.DataInputStream;
+
 /**
  * The descriptor class for a sprite animation which describes the animations frames
  * or otherwise every facet of the animation
@@ -22,5 +24,9 @@ public class AnimationDescriptor {
 	
 	public String toString() {
 		return animationName;
+	}
+
+	public Size getSize() {
+		return new Size(width, height);
 	}
 }

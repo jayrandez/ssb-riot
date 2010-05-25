@@ -1,0 +1,19 @@
+<SheetDescriptor>
+	<sheetName>miscsprites</sheetName>
+	<imageFile>extrastuff.png</imageFile>
+	<animations>
+		<AnimationDescriptor>
+			<animationName>spawnplatform</animationName>
+			<originX>0</originX>
+			<originY>0</originY>
+			<width>69</width>
+			<height>52</height>
+			<centerX>34</centerX>
+			<centerY>41</centerY>
+			<frames>2</frames>
+			<speed>10</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+	</animations>
+</SheetDescriptor>
