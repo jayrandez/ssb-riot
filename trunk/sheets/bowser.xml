@@ -11,7 +11,7 @@
 			<centerX>59</centerX>
 			<centerY>154</centerY>
 			<frames>6</frames>
-			<speed>50</speed>
+			<speed>200</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
