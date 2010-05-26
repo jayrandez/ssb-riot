@@ -1,88 +1,129 @@
 <SheetDescriptor>
-	<sheetName>DonkeyKong</sheetName>
+	<sheetName>donkeykong</sheetName>
 	<imageFile>dk2.gif</imageFile>
 	<animations>
 		<AnimationDescriptor>
 			<animationName>idle</animationName>
-			<originX>11</originX>
-			<originY>7</originY>
-			<width>30</width>
-			<height>34</height>
-			<centerX>26</centerX>
-			<centerY>24</centerY>
-			<frames>2</frames>
+			<originX>10</originX>
+			<originY>6</originY>
+			<width>32</width>
+			<height>35</height>
+			<centerX>16</centerX>
+			<centerY>35</centerY>
+			<frames>1</frames>
+			<speed>20</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>shortWalk</animationName>
+			<originX>13</originX>
+			<originY>56</originY>
+			<width>34</width>
+			<height>32</height>
+			<centerX>17</centerX>
+			<centerY>32</centerY>
+			<frames>5</frames>
+			<speed>5</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>walk</animationName>
+			<originX>13</originX>
+			<originY>56</originY>
+			<width>34</width>
+			<height>32</height>
+			<centerX>17</centerX>
+			<centerY>32</centerY>
+			<frames>5</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>move</animationName>
-			<originX>11</originX>
-			<originY>47</originY>
-			<width>28</width>
-			<height>30</height>
-			<centerX>25</centerX>
-			<centerY>62</centerY>
-			<frames>6</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-		<AnimationDescriptor>
-			<animationName>attack</animationName>
-			<originX>37</originX>
-			<originY>82</originY>
-			<width>30</width>
-			<height>34</height>
-			<centerX>52</centerX>
-			<centerY>99</centerY>
-			<frames>7</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-		<AnimationDescriptor>
-			<animationName>dodge</animationName>
-			<originX>6</originX>
-			<originY>260</originY>
-			<width>27</width>
-			<height>28</height>
-			<centerX>41</centerX>
-			<centerY>274</centerY>
-			<frames>4</frames>
+			<animationName>run</animationName>
+			<originX>13</originX>
+			<originY>56</originY>
+			<width>34</width>
+			<height>32</height>
+			<centerX>17</centerX>
+			<centerY>32</centerY>
+			<frames>5</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>jump</animationName>
-			<originX>3</originX>
-			<originY>302</originY>
-			<width>36</width>
-			<height>33</height>
-			<centerX>21</centerX>
-			<centerY>319</centerY>
-			<frames>2</frames>
+			<originX>10</originX>
+			<originY>248</originY>
+			<width>44</width>
+			<height>50</height>
+			<centerX>22</centerX>
+			<centerY>50</centerY>
+			<frames>4</frames>
+			<speed>3</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>doubleJump</animationName>
+			<originX>10</originX>
+			<originY>248</originY>
+			<width>44</width>
+			<height>50</height>
+			<centerX>22</centerX>
+			<centerY>50</centerY>
+			<frames>4</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+			<repeat>false</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>dodge</animationName>
+			<originX>10</originX>
+			<originY>191</originY>
+			<width>49</width>
+			<height>54</height>
+			<centerX>25</centerX>
+			<centerY>54</centerY>
+			<frames>6</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>special</animationName>
 			<originX>10</originX>
-			<originY>180</originY>
-			<width>28</width>
-			<height>28</height>
-			<centerX>24</centerX>
-			<centerY>194</centerY>
-			<frames>12</frames>
+			<originY>133</originY>
+			<width>42</width>
+			<height>50</height>
+			<centerX>21</centerX>
+			<centerY>50</centerY>
+			<frames>6</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
+			<repeat>true</repeat>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>shield</animationName>
-			<originX>3</originX>
-			<originY>521</originY>
-			<width>39</width>
+			<originX>10</originX>
+			<originY>302</originY>
+			<width>44</width>
 			<height>37</height>
-			<centerX>23</centerX>
-			<centerY>540</centerY>
+			<centerX>22</centerX>
+			<centerY>37</centerY>
 			<frames>4</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>punch</animationName>
+			<originX>10</originX>
+			<originY>94</originY>
+			<width>34</width>
+			<height>36</height>
+			<centerX>17</centerX>
+			<centerY>36</centerY>
+			<frames>6</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>

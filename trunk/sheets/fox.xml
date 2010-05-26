@@ -1,91 +1,131 @@
 <SheetDescriptor>
-	<sheetName>Fox</sheetName>
+	<sheetName>fox</sheetName>
 	<imageFile>fox.png</imageFile>
 	<animations>
 		<AnimationDescriptor>
 			<animationName>idle</animationName>
 			<originX>18</originX>
-			<originY>213</originY>
-			<width>27</width>
-			<height>39</height>
-			<centerX>31</centerX>
-			<centerY>233</centerY>
-			<frames>6</frames>
+			<originY>36</originY>
+			<width>35</width>
+			<height>50</height>
+			<centerX>18</centerX>
+			<centerY>50</centerY>
+			<frames>3</frames>
+			<speed>20</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>shortWalk</animationName>
+			<originX>8</originX>
+			<originY>109</originY>
+			<width>54</width>
+			<height>44</height>
+			<centerX>27</centerX>
+			<centerY>44</centerY>
+			<frames>3</frames>
+			<speed>5</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>walk</animationName>
+			<originX>8</originX>
+			<originY>109</originY>
+			<width>54</width>
+			<height>44</height>
+			<centerX>27</centerX>
+			<centerY>44</centerY>
+			<frames>3</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>move</animationName>
-			<originX>20</originX>
-			<originY>298</originY>
-			<width>43</width>
-			<height>34</height>
-			<centerX>42</centerX>
-			<centerY>319</centerY>
+			<animationName>run</animationName>
+			<originX>8</originX>
+			<originY>109</originY>
+			<width>54</width>
+			<height>44</height>
+			<centerX>27</centerX>
+			<centerY>44</centerY>
 			<frames>10</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>jump</animationName>
-			<originX>13</originX>
-			<originY>388</originY>
-			<width>32</width>
-			<height>35</height>
-			<centerX>29</centerX>
-			<centerY>406</centerY>
+			<originX>10</originX>
+			<originY>175</originY>
+			<width>49</width>
+			<height>49</height>
+			<centerX>25</centerX>
+			<centerY>49</centerY>
+			<frames>9</frames>
+			<speed>3</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>doubleJump</animationName>
+			<originX>10</originX>
+			<originY>175</originY>
+			<width>49</width>
+			<height>49</height>
+			<centerX>25</centerX>
+			<centerY>49</centerY>
 			<frames>9</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>dodge</animationName>
-			<originX>601</originX>
-			<originY>1176</originY>
-			<width>39</width>
-			<height>31</height>
-			<centerX>620</centerX>
-			<centerY>1191</centerY>
-			<frames>4</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-		<AnimationDescriptor>
-			<animationName>special</animationName>
-			<originX>16</originX>
-			<originY>1943</originY>
-			<width>31</width>
-			<height>38</height>
-			<centerX>31</centerX>
-			<centerY>1962</centerY>
+			<originX>24</originX>
+			<originY>182</originY>
+			<width>44</width>
+			<height>47</height>
+			<centerX>22</centerX>
+			<centerY>24</centerY>
 			<frames>5</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
+			<animationName>special</animationName>
+			<originX>10</originX>
+			<originY>294</originY>
+			<width>47</width>
+			<height>46</height>
+			<centerX>24</centerX>
+			<centerY>46</centerY>
+			<frames>5</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
 			<animationName>shield</animationName>
-			<originX>259</originX>
-			<originY>1518</originY>
-			<width>32</width>
-			<height>34</height>
-			<centerX>275</centerX>
-			<centerY>1535</centerY>
+			<originX>9</originX>
+			<originY>408</originY>
+			<width>48</width>
+			<height>50</height>
+			<centerX>24</centerX>
+			<centerY>50</centerY>
 			<frames>9</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
+			<repeat>true</repeat>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>attack</animationName>
-			<originX>404</originX>
-			<originY>656</originY>
-			<width>28</width>
-			<height>40</height>
-			<centerX>418</centerX>
-			<centerY>676</centerY>
-			<frames>7</frames>
+			<animationName>punch</animationName>
+			<originX>10</originX>
+			<originY>239</originY>
+			<width>48</width>
+			<height>51</height>
+			<centerX>24</centerX>
+			<centerY>51</centerY>
+			<frames>4</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
-		
 	</animations>
 </SheetDescriptor>
