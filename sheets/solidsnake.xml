@@ -66,18 +66,6 @@
 			<repeat>true</repeat>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>doubleJump</animationName>
-			<originX>50</originX>
-			<originY>1110</originY>
-			<width>27</width>
-			<height>28</height>
-			<centerX>64</centerX>
-			<centerY>1124</centerY>
-			<frames>14</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-		<AnimationDescriptor>
 			<animationName>dodge</animationName>
 			<originX>24</originX>
 			<originY>182</originY>
@@ -88,7 +76,6 @@
 			<frames>5</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
-
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>special</animationName>

@@ -169,11 +169,19 @@ public class SpriteManager {
 	private Image getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
 	{
 		BufferedImage bufferedSource = (BufferedImage)source;
-		BufferedImage bufferedImage = bufferedSource.getSubimage(offsetX, offsetY, width, height);
+		BufferedImage bufferedImage = null;
+		try {
+			bufferedImage = bufferedSource.getSubimage(offsetX, offsetY, width, height);
+		}
+		catch(RasterFormatException ex) {
+			System.out.println("Problem with getting subimage at: (" + offsetX + ", " + offsetY + ")");
+			ex.printStackTrace();
+			System.exit(0);
+		}
 		
 		/* Make the sprite transparent */
 		if(transparent) {
-			int transcolor = bufferedSource.getRGB(0,0);
+			int transcolor = bufferedImage.getRGB(0,0);
 			for (int i = 0; i < bufferedImage.getHeight(); i++)
 				for (int j = 0; j < bufferedImage.getWidth(); j++)
 					if (bufferedImage.getRGB(j, i) == transcolor)

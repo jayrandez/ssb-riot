@@ -17,8 +17,10 @@ public class SpawnPlatform extends NaturalObject {
 		if(getLocation().x > getEngine().getMap().getSize().width) {
 			setMovement(10, 180);
 		}
-		if(character != null) 
+		if(character != null) {
 			character.setLocation(getLocation());
+			character.setMovement(0,0);
+		}
 	}
 	
 	public void setCharacter(Character character) {
