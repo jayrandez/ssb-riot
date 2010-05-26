@@ -20,12 +20,15 @@ public class GameEngine {
 	ArrayList<Damager> damagers;
 	ArrayList<Rectangle> platforms;
 	
+	boolean protectConcurrent;
+	
 	public GameEngine(SpriteManager spriteManager, MapManager mapManager) {
 		this.spriteManager = spriteManager;
 		this.mapManager = mapManager;
 		
 		communicator = new Communicator(true);
 		communicator.acceptIncoming();
+		protectConcurrent = false;
 		
 		players = new HashMap<Socket, Character>();
 		worldObjects = new ArrayList<GameObject>();
@@ -178,7 +181,8 @@ public class GameEngine {
 			
 			/* Step all objects handling collisions and round events. */
 			ArrayList<Rectangle> debugTangles = new ArrayList<Rectangle>();
-			for(GameObject object: worldObjects) {
+			for(int i = 0; i < worldObjects.size(); i++) {
+				GameObject object = worldObjects.get(i);
 				object.step();
 				if(object instanceof Character) {
 					boolean onPlatform = false;
@@ -191,8 +195,10 @@ public class GameEngine {
 					}
 					for(Damager damager: damagers) {
 						if(object.getBoundingBox().overlaps(damager.getBoundingBox())) {
-							damager.wasUsed();
-							((Character)object).damage(damager);
+							if(object != damager.getTarget()) {
+								damager.wasUsed();
+								((Character)object).damage(damager);
+							}
 						}
 					}
 					((Character)object).aerial(!onPlatform);

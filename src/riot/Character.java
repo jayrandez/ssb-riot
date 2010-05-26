@@ -11,6 +11,7 @@ public class Character extends NaturalObject {
 	int currentJumps;
 	boolean justSpawned;
 	SpawnPlatform platform;
+	//ArrayList<Player> players;
 	
 	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps, SpawnPlatform platform) {
 		super(engine, manager, new Point(323, 97), size, 12.0);
@@ -55,6 +56,8 @@ public class Character extends NaturalObject {
 				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 0, 30);
 			else
 				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 180, 30);
+			
+			damager.setLifetime(5);
 			getEngine().spawnWorldObject(damager);
 		}
 	}
