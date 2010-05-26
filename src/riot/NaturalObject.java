@@ -33,15 +33,13 @@ public class NaturalObject extends GameObject {
 		setLocation(location);
 	}
 
-	public ArrayList<Rectangle> getBoundingBoxes() {
+	public Rectangle getBoundingBox() {
 		double width = getSize().width;
 		double height = getSize().height;
 		double left = getLocation().x - (width / 2);
 		double top = getLocation().y - height + 1;
 		Rectangle bounds = new Rectangle(left, top, width, height);
-		ArrayList<Rectangle> send = new ArrayList<Rectangle>();
-		send.add(bounds);
-		return send;
+		return bounds;
 	}
 	
 	public void setMovement(double speed, int direction) {

@@ -13,14 +13,7 @@ public class FollowerObject extends GameObject {
 		this.size = size;
 		this.offset = new Size(0,0);
 	}
-
-	public ArrayList<Rectangle> getBoundingBoxes() {
-		Point loc = getLocation();
-		ArrayList<Rectangle> send = new ArrayList<Rectangle>();
-		send.add(new Rectangle(loc.x, loc.y, size.width, size.height));
-		return send;
-	}
-
+	
 	public void step() {
 		Point targetLoc = target.getLocation();
 		targetLoc.x += offset.width;

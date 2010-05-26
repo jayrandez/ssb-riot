@@ -106,5 +106,7 @@ public abstract class GameObject {
 	/**
 	 * Returns the bounding box(es) representative of this GameObject
 	 */
-	public abstract ArrayList<Rectangle> getBoundingBoxes();
+	public Rectangle getBoundingBox() {
+		return new Rectangle(location, size);
+	}
 }

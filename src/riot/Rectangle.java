@@ -8,6 +8,13 @@ public class Rectangle implements Cloneable {
 	public double width;
 	public double height;
 	
+	public Rectangle(Point origin, Size size) {
+		this.x = origin.x;
+		this.y = origin.y;
+		this.width = size.width;
+		this.height = size.height;
+	}
+	
 	public Rectangle(double x, double y, double width, double height) {
 		this.x = x;
 		this.y = y;
@@ -84,11 +91,5 @@ public class Rectangle implements Cloneable {
 	
 	public Object clone() {
 		return new Rectangle(x, y, width, height);
-	}
-	
-	public Point getCenter() {
-		double centerX = this.x + (width/2);
-		double centerY = this.y + (height/2);
-		return new Point(centerX, centerY);
 	}
 }
