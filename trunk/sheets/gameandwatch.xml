@@ -5,11 +5,11 @@
 		<AnimationDescriptor>
 			<animationName>idle</animationName>
 			<originX>64</originX>
-			<originY>91</originY>
+			<originY>93</originY>
 			<width>40</width>
-			<height>42</height>
+			<height>38</height>
 			<centerX>20</centerX>
-			<centerY>42</centerY>
+			<centerY>38</centerY>
 			<frames>4</frames>
 			<speed>20</speed>
 			<transparent>true</transparent>
