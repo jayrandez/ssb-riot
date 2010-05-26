@@ -6,6 +6,7 @@ public class Damager extends FollowerObject
 	private boolean wasUsed;
 	private int lifetime;
 	private int steps;
+	private int degrees;
 	
 	//creates a DamageObject with a offset (direction), a range (hitLength), a damage amount (damageAmount), and a size (dmgSize)
 	//default location created at center of the character (offset of 315)
@@ -16,6 +17,7 @@ public class Damager extends FollowerObject
 		chooseOffset(degrees);
 		this.steps = 0;
 		this.lifetime = -1;
+		this.degrees = degrees;
 	}
 	
 	//rotates the origin point of the DamageObject based on the degrees offset it is given
@@ -78,5 +80,9 @@ public class Damager extends FollowerObject
 			getEngine().removeWorldObject(this);
 		}
 		steps++;
+	}
+	
+	public int getDirection() {
+		return degrees;
 	}
 }

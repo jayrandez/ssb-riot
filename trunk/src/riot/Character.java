@@ -11,7 +11,7 @@ public class Character extends NaturalObject {
 	int currentJumps;
 	boolean justSpawned;
 	SpawnPlatform platform;
-	//ArrayList<Player> players;
+	int damageTaken;
 	
 	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps, SpawnPlatform platform) {
 		super(engine, manager, new Point(323, 97), size, 12.0);
@@ -23,6 +23,7 @@ public class Character extends NaturalObject {
 		this.justSpawned = true;
 		setAnimation(sheetName, "idle");
 		move(-1);
+		damageTaken = 0;
 	}
 	
 	// Result of Altering Arrow Keys
@@ -56,8 +57,6 @@ public class Character extends NaturalObject {
 				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 0, 30);
 			else
 				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 180, 30);
-			
-			damager.setLifetime(5);
 			getEngine().spawnWorldObject(damager);
 		}
 	}
@@ -83,7 +82,24 @@ public class Character extends NaturalObject {
 	}
 	
 	// Result of Taking Damage
-	public void damage(Damager damager) {}
+	public void damage(Damager damager) 
+	{
+		/*accumulates amount of damage
+		damageTaken += damager.getDamage();
+		//sets the speed equal to the damage taken (100 damage = x2 influence of walking)
+		double speed = damageTaken * .8;
+		System.out.println(speed);
+		
+		//gets offset angle
+		int angle = damager.getDirection();
+		System.out.println(angle);
+		
+		//accumulates by 5 degrees for each 50 damage taken
+		angle += (int)	damageTaken / 50;
+		
+		//sets the movement
+		setMovement(speed, angle);*/
+	}
 
 	// Result of Going Out of Bounds
 	public void death(int speed, int direction) {}
