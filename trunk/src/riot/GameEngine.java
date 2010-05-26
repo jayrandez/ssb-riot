@@ -11,12 +11,13 @@ import java.util.*;
  */
 public class GameEngine {
 	Communicator communicator;
-	ArrayList<GameObject> worldObjects;
-	ArrayList<GameObject> overlayObjects;
-	ArrayList<String> playerNames;
 	SpriteManager spriteManager;
 	MapManager mapManager;
+	
 	HashMap<Socket, Character> players;
+	ArrayList<GameObject> worldObjects;
+	ArrayList<GameObject> overlayObjects;
+	ArrayList<Damager> damagers;
 	
 	public GameEngine(SpriteManager spriteManager, MapManager mapManager) {
 		this.spriteManager = spriteManager;
@@ -25,10 +26,10 @@ public class GameEngine {
 		communicator = new Communicator(true);
 		communicator.acceptIncoming();
 		
+		players = new HashMap<Socket, Character>();
 		worldObjects = new ArrayList<GameObject>();
 		overlayObjects = new ArrayList<GameObject>();
-		playerNames = new ArrayList<String>();
-		players = new HashMap<Socket, Character>();
+		damagers = new ArrayList<Damager>();
 		
 		worldObjects.add(new Map(this, spriteManager, mapManager, "testmap"));
 	}
@@ -127,6 +128,9 @@ public class GameEngine {
 	 */
 	public void spawnWorldObject(GameObject object) {
 		worldObjects.add(object);
+		if(object instanceof Damager) {
+			damagers.add((Damager)object);
+		}
 	}
 	
 	/**
@@ -134,6 +138,19 @@ public class GameEngine {
 	 */
 	public void removeWorldObject(GameObject object) {
 		worldObjects.remove(object);
+		if(object instanceof Damager) {
+			damagers.remove((Damager)object);
+		}
+	}
+	
+	/**
+	 * Handles networking aspects (input / output)
+	 */
+	public void updateNetwork(ArrayList<Rectangle> debugTangles) {
+		Message message = communicator.receiveData();
+		handleMessage(message);
+		Scene scene = new Scene("Test Server", worldObjects, overlayObjects, debugTangles);
+		communicator.sendData(scene.serialize());
 	}
 	
 	/**
@@ -142,46 +159,43 @@ public class GameEngine {
 	 * each frame to all of the clients to be drawn by their DummyTerminals.
 	 */
 	public void gameLoop() {
-		int frameRate = 30;
+		
+		// THIS FUNCTION IS REALLY BOTHERING ME. There is too much class intimacy and a
+		// nasty huge instanceof conditional. SOMEONE THINK OF A STRICTLY POLYMORPHIC SOLUTION
 		while(true) {
 			long start = System.currentTimeMillis();
 			
-			ArrayList<Rectangle> debugTangles = new ArrayList<Rectangle>();
-
 			/* Step all objects handling collisions and round events. */
+			ArrayList<Rectangle> debugTangles = new ArrayList<Rectangle>();
 			Map map = (Map)worldObjects.get(0);
 			for(GameObject object: worldObjects) {
 				object.step();
 				if(object instanceof Character) {
-					boolean continueChecking = true;
+					boolean onPlatform = false;
 					for(Rectangle platform: map.getBoundingBoxes()) {
-						debugTangles.add(platform);
 						rectifyPlatformCollision((NaturalObject)object, platform);
-						if(continueChecking) {
-							boolean onPlatform = standingOnPlatform((NaturalObject)object, platform);
-							((Character)object).aerial(!onPlatform);
-							if(onPlatform)
-								continueChecking = false;
+						if(standingOnPlatform((NaturalObject)object, platform)) {
+							onPlatform = true;
+							break;
 						}
 					}
+					for(Damager damager: damagers) {
+						if(object.getBoundingBoxes().get(0).overlaps(damager.getBoundingBoxes().get(0))) {
+							damager.wasUsed();
+							((Character)object).damage(damager);
+						}
+					}
+					((Character)object).aerial(!onPlatform);
 				}
 				for(Rectangle rect: object.getBoundingBoxes()) {
 					debugTangles.add(rect);
 				}
 			}
-			
-			/* Handle networking aspects (input / output). */
-			Message message = communicator.receiveData();
-			handleMessage(message);
-			Scene scene = new Scene("Test Server", worldObjects, overlayObjects, debugTangles);
-			communicator.sendData(scene.serialize());
+			updateNetwork(debugTangles);
 			
 			/* Pause until the next frame. */
-			long executionTime = System.currentTimeMillis() - start;
-			if(executionTime < (1000/frameRate)) {
-				try {Thread.sleep((1000/frameRate) - executionTime);}
-				catch(InterruptedException ex){}
-			}
+			try {Thread.sleep(30 - System.currentTimeMillis() + start);}
+			catch(Exception ex){}
 		}
 	}
 }

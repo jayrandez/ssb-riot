@@ -26,7 +26,6 @@ public abstract class GameObject {
 	}
 
 	public void setAnimation(String sheetName, String animationName) {
-		this.rotation = rotation;
 		this.index = manager.getIndex(sheetName, animationName);
 		descriptor = manager.getAnimation(index);
 		frame = 0;

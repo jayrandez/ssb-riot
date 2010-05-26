@@ -100,7 +100,7 @@ public class SceneWindow extends JFrame implements KeyListener {
 	 */
 	public void renderScene(Graphics g2d, Scene scene) {
 		/* Recreate an accelerated image buffer for the world if one is needed. */
-		if(world == null || worldGraphics == null) {
+		if(world == null) {
 			Size worldSize = scene.getWorldSize();
 			GraphicsConfiguration gc = screen.getDefaultConfiguration();
 			world = gc.createCompatibleImage((int)worldSize.width, (int)worldSize.height, Transparency.BITMASK);
@@ -110,7 +110,7 @@ public class SceneWindow extends JFrame implements KeyListener {
 		}
 		
 		/* Get important sprite data from the scene and the server name. */
-		this.setTitle("SSB: Riot!  --  " + scene.getServerName());
+		this.setTitle("SSB: Riot!  -  " + scene.getServerName());
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
 		ArrayList<Rectangle> debugTangles = scene.getDebugTangles();
 		worldView = scene.getWorldView();

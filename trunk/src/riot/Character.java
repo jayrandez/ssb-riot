@@ -46,8 +46,15 @@ public class Character extends NaturalObject {
 
 	// Result of Pressing F
 	public void attack() {
+		/* Create a charging attack */
 		if(aerial == false) {
-			DamageObject damager = new DamageObject(getEngine(), getManager(), this, getSize(), 270, 30, 100);
+			Damager damager;
+			if(degrees != -1)
+				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), degrees, 30);
+			else if(direction == Riot.Right)
+				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 0, 30);
+			else
+				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 180, 30);
 			getEngine().spawnWorldObject(damager);
 		}
 	}
@@ -71,7 +78,7 @@ public class Character extends NaturalObject {
 	}
 	
 	// Result of Taking Damage
-	public void damage(int damage) {}
+	public void damage(Damager damager) {}
 
 	// Result of Going Out of Bounds
 	public void death(int speed, int direction) {}
