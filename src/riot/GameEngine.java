@@ -38,18 +38,6 @@ public class GameEngine {
 		
 		spawnWorldObject(new Map(this, spriteManager, mapManager, "testmap"));
 	}
-	public Vector VectorSum(Character charact, double x, double y, double time)
-	{
-		double deltaVx = 0;
-		double deltaVy = 0;
-		double Vxo = charact.getVelocityX();
-		double Vyo = charact.getVelocityY();
-		double Ay = charact.getGravity();
-		Point point = charact.getLocation();
-		deltaVx = (x - point.x) / time - Vxo;
-		deltaVy = (y - point.y - (.5 * Ay * (time * time))) / time - Vyo;
-		return Vector.fromComponents(deltaVx, deltaVy);
-	}
 	
 	public Map getMap() {
 		return (Map)worldObjects.get(0);
@@ -129,6 +117,14 @@ public class GameEngine {
 			return true;
 		else
 			return false;
+	}
+	
+	public void addOverlayObject(GameObject object) {
+		overlayObjects.add(object);
+	}
+	
+	public void removeOverlayObject(GameObject object) {
+		overlayObjects.remove(object);
 	}
 	
 	/**
