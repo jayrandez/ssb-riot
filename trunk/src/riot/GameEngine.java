@@ -18,6 +18,7 @@ public class GameEngine {
 	ArrayList<GameObject> worldObjects;
 	ArrayList<GameObject> overlayObjects;
 	ArrayList<Damager> damagers;
+	ArrayList<Rectangle> platforms;
 	
 	public GameEngine(SpriteManager spriteManager, MapManager mapManager) {
 		this.spriteManager = spriteManager;
@@ -30,17 +31,15 @@ public class GameEngine {
 		worldObjects = new ArrayList<GameObject>();
 		overlayObjects = new ArrayList<GameObject>();
 		damagers = new ArrayList<Damager>();
+		platforms = new ArrayList<Rectangle>();
 		
-		worldObjects.add(new Map(this, spriteManager, mapManager, "testmap"));
+		spawnWorldObject(new Map(this, spriteManager, mapManager, "testmap"));
 	}
 	
-	/**
-	 * Returns a reference to the rounds map (assumed to be first element)
-	 */
 	public Map getMap() {
 		return (Map)worldObjects.get(0);
 	}
-	
+
 	/**
 	 * Parses messages coming from clients and redirects them to those clients' characters
 	 */
@@ -94,20 +93,14 @@ public class GameEngine {
 	 * Corrects a character who has collided into a map platform by moving it to the edge.
 	 */
 	public void rectifyPlatformCollision(NaturalObject object, Rectangle platform) {
-		Rectangle characterBounds = object.getBoundingBoxes().get(0);
+		Rectangle characterBounds = object.getBoundingBox();
 		if(characterBounds.overlaps(platform)) {
-			/* Check if we hit the left side. */
 			if(characterBounds.minX() < platform.minX() && characterBounds.minY() > platform.minY())
-				while(characterBounds.overlaps(platform))
-					characterBounds.x = characterBounds.x - 1.0;
-			/* Check if we hit the right side. */
+				characterBounds.x -= platform.minX() - characterBounds.minX() + 1;
 			else if(characterBounds.maxX() > platform.maxX() && characterBounds.minY() > platform.minY())
-				while(characterBounds.overlaps(platform))
-					characterBounds.x = characterBounds.x + 1.0;
-			/* Check if we hit the top or bottom. */
+				characterBounds.x += characterBounds.maxX() - platform.maxX() + 1;
 			else
-				while(characterBounds.overlaps(platform))
-					characterBounds.y = characterBounds.y - 1.0;
+				characterBounds.y -= characterBounds.maxY() - platform.minY() + 1;
 			object.setLocation(new Point(characterBounds.x+(characterBounds.width/2), characterBounds.maxY()));
 		}
 	}
@@ -116,7 +109,7 @@ public class GameEngine {
 	 * Detects whether the character is standing on the platform by checking if its one pixel above
 	 */
 	public boolean standingOnPlatform(NaturalObject object, Rectangle platform) {
-		Rectangle characterBounds = object.getBoundingBoxes().get(0);
+		Rectangle characterBounds = object.getBoundingBox();
 		if(characterBounds.maxY() + 1 == platform.minY() && characterBounds.maxX() >= platform.minX() && characterBounds.minX() <= platform.maxX())
 			return true;
 		else
@@ -131,6 +124,9 @@ public class GameEngine {
 		if(object instanceof Damager) {
 			damagers.add((Damager)object);
 		}
+		if(object instanceof Map) {
+			platforms.addAll(((Map)object).getPlatforms());
+		}
 	}
 	
 	/**
@@ -140,6 +136,9 @@ public class GameEngine {
 		worldObjects.remove(object);
 		if(object instanceof Damager) {
 			damagers.remove((Damager)object);
+		}
+		if(object instanceof Map) {
+			platforms.clear();
 		}
 	}
 	
@@ -167,12 +166,11 @@ public class GameEngine {
 			
 			/* Step all objects handling collisions and round events. */
 			ArrayList<Rectangle> debugTangles = new ArrayList<Rectangle>();
-			Map map = (Map)worldObjects.get(0);
 			for(GameObject object: worldObjects) {
 				object.step();
 				if(object instanceof Character) {
 					boolean onPlatform = false;
-					for(Rectangle platform: map.getBoundingBoxes()) {
+					for(Rectangle platform: platforms) {
 						rectifyPlatformCollision((NaturalObject)object, platform);
 						if(standingOnPlatform((NaturalObject)object, platform)) {
 							onPlatform = true;
@@ -180,17 +178,16 @@ public class GameEngine {
 						}
 					}
 					for(Damager damager: damagers) {
-						if(object.getBoundingBoxes().get(0).overlaps(damager.getBoundingBoxes().get(0))) {
+						if(object.getBoundingBox().overlaps(damager.getBoundingBox())) {
 							damager.wasUsed();
 							((Character)object).damage(damager);
 						}
 					}
 					((Character)object).aerial(!onPlatform);
 				}
-				for(Rectangle rect: object.getBoundingBoxes()) {
-					debugTangles.add(rect);
-				}
+				debugTangles.add(object.getBoundingBox());
 			}
+			debugTangles.addAll(platforms);
 			updateNetwork(debugTangles);
 			
 			/* Pause until the next frame. */

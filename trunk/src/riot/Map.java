@@ -11,7 +11,7 @@ public class Map extends GameObject {
 		platforms = mapManager.platformsIn(mapName);
 	}
 
-	public ArrayList<Rectangle> getBoundingBoxes() {
+	public ArrayList<Rectangle> getPlatforms() {
 		return platforms;
 	}
 }
