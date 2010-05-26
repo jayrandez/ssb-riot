@@ -24,6 +24,7 @@
 			<centerY>246</centerY>
 			<frames>6</frames>
 			<speed>50</speed>
+			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>run</animationName>

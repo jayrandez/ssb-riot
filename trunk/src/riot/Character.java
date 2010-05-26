@@ -70,6 +70,8 @@ public class Character extends NaturalObject {
 	
 	// Result of Pressing Space
 	public void jump() {
+		if(aerial && currentJumps == 0)
+			currentJumps++;
 		if(currentJumps < maxJumps) {
 			setAnimation(sheetName, "jump");
 			setMovement(160, 90);
