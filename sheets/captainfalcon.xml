@@ -3,7 +3,7 @@
 	<imageFile>captainfalcon1.gif</imageFile>
 	<animations>
 		<AnimationDescriptor>
-			<animationName>stand</animationName>
+			<animationName>idle</animationName>
 			<originX>37</originX>
 			<originY>24</originY>
 			<width>45</width>
@@ -15,7 +15,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>taunt</animationName>
+			<animationName>shield</animationName>
 			<originX>161</originX>
 			<originY>12</originY>
 			<width>99</width>
@@ -27,7 +27,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>run</animationName>
+			<animationName>shortWalk</animationName>
 			<originX>307</originX>
 			<originY>118</originY>
 			<width>70</width>
@@ -39,7 +39,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>falconpunch</animationName>
+			<animationName>punch</animationName>
 			<originX>47</originX>
 			<originY>113</originY>
 			<width>53</width>
@@ -75,7 +75,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>rapidboostair</animationName>
+			<animationName>jump</animationName>
 			<originX>325</originX>
 			<originY>306</originY>
 			<width>54</width>
