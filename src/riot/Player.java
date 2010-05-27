@@ -10,25 +10,34 @@ public class Player {
 	private Character character;
 	private Socket socket;
 	private SpawnPlatform platform;
+	private SpriteManager manager;
+	private GameEngine engine;
 	
-	public Player(int lives, Socket socket)
+	public Player(GameEngine engine, int lives, Socket socket, SpriteManager manager)
 	{
+		this.engine = engine;
+		this.manager = manager;
 		this.lives = lives;
 		this.socket = socket;
+		SpawnPlatform platform = new SpawnPlatform(engine, manager);
+		character = new Jigglypuff(engine, manager, platform);
+		platform.setCharacter(character);
+		engine.spawnWorldObject(platform);
+		engine.spawnWorldObject(character);
 	}
 	
 	public void died()
 	{
 		lives--;
-	}
-	public SpawnPlatform respawn(){
 		if(lives != 0)
-		{
-			platform.setCharacter(this.getCharacter());
-			return platform;
-		}
-		else
-			return null;
+			respawn();
+	}
+	public void respawn(){
+		SpawnPlatform platform = new SpawnPlatform(engine, manager);
+		character = new Jigglypuff(engine, manager, platform);
+		platform.setCharacter(character);
+		engine.spawnWorldObject(platform);
+		engine.spawnWorldObject(character);
 	}
 	
 	public Character getCharacter()

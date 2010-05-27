@@ -59,7 +59,7 @@ public class GameEngine {
 			DataInputStream reader = new DataInputStream(stream);
 			switch(reader.readByte()) {
 				case Riot.Connect:
-					Player player = new Player(1, message.sender);
+					Player player = new Player(this, 1, message.sender, spriteManager);
 					players.add(player);
 					System.out.println("New player joined the game.");
 					break;
@@ -69,8 +69,9 @@ public class GameEngine {
 					System.out.println("Player left the game.");
 					break;
 				default:
-					referral.handleMessage(message);
-				
+					if(referral != null) {
+						referral.handleMessage(message);
+					}
 			}
 		}
 		catch(IOException ex) {
@@ -165,38 +166,39 @@ public class GameEngine {
 			ArrayList<Rectangle> debugTangles = new ArrayList<Rectangle>();
 			for(int i = 0; i < worldObjects.size(); i++) {
 				GameObject object = worldObjects.get(i);
-				object.step();
-				if(object instanceof Character) {
-					boolean onPlatform = false;
-					for(Rectangle platform: platforms) {
-						rectifyPlatformCollision((NaturalObject)object, platform);
-						if(standingOnPlatform((NaturalObject)object, platform)) {
-							onPlatform = true;
-							break;
-						}
-					}
-					for(Damager damager: damagers) {
-						if(object.getBoundingBox().overlaps(damager.getBoundingBox())) {
-							if(object != damager.getTarget()) {
-								damager.wasUsed();
-								((Character)object).damage(damager);
+				if(object != null) {
+					object.step();
+					if(object instanceof Character) {
+						boolean onPlatform = false;
+						for(Rectangle platform: platforms) {
+							rectifyPlatformCollision((NaturalObject)object, platform);
+							if(standingOnPlatform((NaturalObject)object, platform)) {
+								onPlatform = true;
+								break;
 							}
 						}
-					}
-					((Character)object).aerial(!onPlatform);
-					if(((Character)object).getBoundingBox().overlaps(((Map)object).getBoundingBox()) == false)
-						{
-							for(Player player : players)
-							{
-								if(player.getCharacter() == ((Character)object))
-								{
-									player.died();
-									worldObjects.add(player.respawn());
+						for(Damager damager: damagers) {
+							if(object.getBoundingBox().overlaps(damager.getBoundingBox())) {
+								if(object != damager.getTarget()) {
+									damager.wasUsed();
+									((Character)object).damage(damager);
 								}
 							}
 						}
+						((Character)object).aerial(!onPlatform);
+						if(((Character)object).getBoundingBox().overlaps(getMap().getBoundingBox()) == false)
+							{
+								for(Player player : players)
+								{
+									if(player.getCharacter() == ((Character)object))
+									{
+										player.died();
+									}
+								}
+							}
+					}
+					debugTangles.add(object.getBoundingBox());
 				}
-				debugTangles.add(object.getBoundingBox());
 			}
 			debugTangles.addAll(platforms);
 			updateNetwork(debugTangles);
