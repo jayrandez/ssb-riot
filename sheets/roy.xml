@@ -6,82 +6,83 @@
 			<animationName>idle</animationName>
 			<originX>89</originX>
 			<originY>24</originY>
-			<width>34</width>
-			<height>32</height>
-			<centerX>106</centerX>
-			<centerY>40</centerY>
+			<width>35</width>
+			<height>36</height>
+			<centerX>18</centerX>
+			<centerY>36</centerY>
 			<frames>1</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>move</animationName>
-			<originX>46</originX>
-			<originY>80</originY>
-			<width>31</width>
-			<height>31</height>
-			<centerX>62</centerX>
-			<centerY>96</centerY>
+			<animationName>shortWalk</animationName>
+			<originX>47</originX>
+			<originY>81</originY>
+			<width>33</width>
+			<height>32</height>
+			<centerX>17</centerX>
+			<centerY>32</centerY>
 			<frames>3</frames>
-			<speed>50</speed>
+			<speed>5</speed>
 			<transparent>true</transparent>
+			<repeat>true</repeat>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>attack</animationName>
-			<originX>49</originX>
-			<originY>165</originY>
-			<width>40</width>
-			<height>29</height>
-			<centerX>69</centerX>
-			<centerY>180</centerY>
+			<originX>1</originX>
+			<originY>128</originY>
+			<width>57</width>
+			<height>43</height>
+			<centerX>29</centerX>
+			<centerY>43</centerY>
 			<frames>6</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>jump</animationName>
-			<originX>133</originX>
-			<originY>251</originY>
+			<originX>177</originX>
+			<originY>245</originY>
 			<width>38</width>
-			<height>29</height>
-			<centerX>152</centerX>
-			<centerY>266</centerY>
-			<frames>2</frames>
+			<height>42</height>
+			<centerX>19</centerX>
+			<centerY>42</centerY>
+			<frames>1</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>dodge</animationName>
-			<originX>364</originX>
-			<originY>29</originY>
+			<originX>405</originX>
+			<originY>31</originY>
 			<width>34</width>
-			<height>24</height>
-			<centerX>381</centerX>
-			<centerY>41</centerY>
+			<height>26</height>
+			<centerX>17</centerX>
+			<centerY>26</centerY>
 			<frames>1</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>special</animationName>
-			<originX>15</originX>
-			<originY>883</originY>
-			<width>34</width>
-			<height>34</height>
-			<centerX>32</centerX>
-			<centerY>900</centerY>
-			<frames>19</frames>
+			<originX>1</originX>
+			<originY>938</originY>
+			<width>84</width>
+			<height>59</height>
+			<centerX>42</centerX>
+			<centerY>59</centerY>
+			<frames>9</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>shield</animationName>
-			<originX>169</originX>
+			<originX>167</originX>
 			<originY>26</originY>
-			<width>28</width>
+			<width>31</width>
 			<height>33</height>
-			<centerX>183</centerX>
-			<centerY>43</centerY>
+			<centerX>16</centerX>
+			<centerY>33</centerY>
 			<frames>1</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
