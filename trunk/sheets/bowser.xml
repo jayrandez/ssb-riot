@@ -1,5 +1,5 @@
 <SheetDescriptor>
-	<sheetName>Bowser</sheetName>
+	<sheetName>bowser</sheetName>
 	<imageFile>bowser.gif</imageFile>
 	<animations>
 		<AnimationDescriptor>
@@ -15,7 +15,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>walk</animationName>
+			<animationName>shortWalk</animationName>
 			<originX>67</originX>
 			<originY>212</originY>
 			<width>67</width>
