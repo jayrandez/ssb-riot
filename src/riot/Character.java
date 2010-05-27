@@ -86,19 +86,20 @@ public class Character extends NaturalObject {
 	{
 		/*accumulates amount of damage
 		damageTaken += damager.getDamage();
-		//sets the speed equal to the damage taken (100 damage = x2 influence of walking)
-		double speed = damageTaken * .8;
+		//sets the speed equal to the damage taken (100 damage = influence of walking)
+		double speed = damageTaken * .4;
 		System.out.println(speed);
 		
 		//gets offset angle
-		int angle = damager.getDirection();
-		System.out.println(angle);
+		int angle = damager.getDirection(); //- 360;
+		
 		
 		//accumulates by 5 degrees for each 50 damage taken
-		angle += (int)	damageTaken / 50;
+		//angle += (int)	damageTaken / 50 * 5;
+		System.out.println(angle);
 		
 		//sets the movement
-		setMovement(speed, angle);*/
+		setMovement(-speed, angle);*/
 	}
 
 	// Result of Going Out of Bounds
