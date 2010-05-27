@@ -101,9 +101,14 @@ public class Character extends NaturalObject {
 		//sets the movement
 		setMovement(-speed, angle);*/
 	}
-
 	// Result of Going Out of Bounds
-	public void death(int speed, int direction) {}
+	public void death(int speed, int direction) {
+		stopMovement();
+		
+		
+		
+		platform.setCharacter(this);
+	}
 	
 	// Step Function Indicating State (Grounded/Aerial)
 	public void aerial(boolean aerial) {

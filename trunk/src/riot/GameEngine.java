@@ -14,7 +14,7 @@ public class GameEngine {
 	SpriteManager spriteManager;
 	MapManager mapManager;
 	
-	HashMap<Socket, Character> players;
+	ArrayList<Player> players;
 	ArrayList<GameObject> worldObjects;
 	ArrayList<GameObject> overlayObjects;
 	ArrayList<Damager> damagers;
@@ -26,11 +26,10 @@ public class GameEngine {
 		this.spriteManager = spriteManager;
 		this.mapManager = mapManager;
 		
+		players = new ArrayList<Player>();
 		communicator = new Communicator(true);
 		communicator.acceptIncoming();
 		protectConcurrent = false;
-		
-		players = new HashMap<Socket, Character>();
 		worldObjects = new ArrayList<GameObject>();
 		overlayObjects = new ArrayList<GameObject>();
 		damagers = new ArrayList<Damager>();
@@ -48,17 +47,20 @@ public class GameEngine {
 	 */
 	private void handleMessage(Message message) {
 		try {
-			Character referral = players.get(message.sender);
+			Player referral = null;
+			for(Player player: players) {
+				if(player.getSocket().equals(message.sender))
+				{
+					referral = player;
+					break;
+				}
+			}
 			ByteArrayInputStream stream = new ByteArrayInputStream(message.data);
 			DataInputStream reader = new DataInputStream(stream);
 			switch(reader.readByte()) {
 				case Riot.Connect:
-					SpawnPlatform platform = new SpawnPlatform(this, spriteManager);
-					Character character = new Jigglypuff(this, spriteManager, platform);
-					platform.setCharacter(character);
-					players.put(message.sender, character);
-					worldObjects.add(character);
-					worldObjects.add(platform);
+					Player player = new Player(1, message.sender);
+					players.add(player);
 					System.out.println("New player joined the game.");
 					break;
 				case Riot.Disconnect:
@@ -66,25 +68,9 @@ public class GameEngine {
 					worldObjects.remove(referral);
 					System.out.println("Player left the game.");
 					break;
-				case Riot.Direction:
-					int degrees = reader.readInt();
-					referral.move(degrees);
-					break;
-				case Riot.Attack:
-					referral.attack();
-					break;
-				case Riot.Dodge:
-					referral.dodge();
-					break;
-				case Riot.Jump:
-					referral.jump();
-					break;
-				case Riot.Special:
-					referral.special();
-					break;
-				case Riot.Shield:
-					referral.shield();
-					break;
+				default:
+					referral.handleMessage(message);
+				
 			}
 		}
 		catch(IOException ex) {
@@ -198,6 +184,17 @@ public class GameEngine {
 						}
 					}
 					((Character)object).aerial(!onPlatform);
+					if(((Character)object).getBoundingBox().overlaps(((Map)object).getBoundingBox()) == false)
+						{
+							for(Player player : players)
+							{
+								if(player.getCharacter() == ((Character)object))
+								{
+									player.died();
+									worldObjects.add(player.respawn());
+								}
+							}
+						}
 				}
 				debugTangles.add(object.getBoundingBox());
 			}
