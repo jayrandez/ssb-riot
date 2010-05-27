@@ -12,6 +12,7 @@ public class Character extends NaturalObject {
 	boolean justSpawned;
 	SpawnPlatform platform;
 	int damageTaken;
+	boolean knockedUp;
 	
 	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps, SpawnPlatform platform) {
 		super(engine, manager, new Point(323, 97), size, 12.0);
@@ -84,30 +85,48 @@ public class Character extends NaturalObject {
 	// Result of Taking Damage
 	public void damage(Damager damager) 
 	{
-		/*accumulates amount of damage
+		//accumulates amount of damage
 		damageTaken += damager.getDamage();
 		//sets the speed equal to the damage taken (100 damage = influence of walking)
 		double speed = damageTaken * .4;
-		System.out.println(speed);
+		int angle = 0;
 		
 		//gets offset angle
-		int angle = damager.getDirection(); //- 360;
-		
-		
-		//accumulates by 5 degrees for each 50 damage taken
-		//angle += (int)	damageTaken / 50 * 5;
-		System.out.println(angle);
-		
+		if (direction == false)
+		{
+			angle = 180 - damager.getDirection();
+			
+			
+			angle -= damageTaken / 50;
+			if (angle == 180 || angle == 0)
+				setMovement(speed, angle);
+			else
+			{
+				setMovement(speed, angle);
+				knockedUp = true;
+			}
+		}
+		else
+		{
+			angle = damager.getDirection() - 180;
+			angle += damageTaken / 50;
+			
+			if (angle == 180 || angle == 0)
+				setMovement(speed, angle);
+			else
+			{
+				setMovement(speed, angle);
+				knockedUp = true;
+			}
+		}
+
 		//sets the movement
-		setMovement(-speed, angle);*/
+		setMovement(speed, angle);
 	}
 	// Result of Going Out of Bounds
 	public void death(int speed, int direction) {
 		stopMovement();
-		
-		
-		
-		platform.setCharacter(this);
+		damageTaken = 0;
 	}
 	
 	// Step Function Indicating State (Grounded/Aerial)
@@ -134,8 +153,8 @@ public class Character extends NaturalObject {
 	private void setMovement() {
 		// We are in the air
 		if(aerial) {
-			// We didn't jump to get in the air, we just walked off.
-			if(currentJumps == 0)
+			// We didn't jump to get in the air, we just walked off or we hit by damage
+			if(currentJumps == 0 && !knockedUp)
 				stopMovement();
 			if(!neutral) {
 				// If we are in the air and holding a direction key
@@ -161,5 +180,6 @@ public class Character extends NaturalObject {
 				setAnimation(sheetName, "shortWalk");
 			}
 		}
+		knockedUp = false;
 	}
 }
