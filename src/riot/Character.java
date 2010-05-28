@@ -100,7 +100,7 @@ public class Character extends NaturalObject {
 			angle = 180 - damager.getDirection();
 			angle -= damageTaken / 50;
 			
-			setMovement(speed, angle);
+			setMovement(-speed, angle);
 			knockedUp = true;
 		}
 		else
@@ -108,7 +108,7 @@ public class Character extends NaturalObject {
 			angle = damager.getDirection() - 180;
 			angle += damageTaken / 50;
 			
-			setMovement(speed, angle);
+			setMovement(-speed, angle);
 			knockedUp = true;
 		}
 	}
