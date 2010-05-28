@@ -19,6 +19,7 @@ public class Player {
 	private GameEngine engine;
 	private Timer timer;
 	private int playerNumber;
+	private boolean dead = false;
 	
 	public Player(GameEngine engine, int lives, Socket socket, SpriteManager spriteManager, FontManager fontManager, int playerNumber)
 	{
@@ -34,20 +35,21 @@ public class Player {
 		platform.setCharacter(character);
 		engine.spawnWorldObject(platform);
 		engine.spawnWorldObject(character);
-		
 		timer = new Timer(3000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				respawn();
 				timer.stop();
+				dead = false;
 			}
 		});
 	}
 	
 	public void died()
 	{
+		dead = true;
 		lives--;
 		if(lives != 0) {
 			engine.removeWorldObject(character);
+			respawn();
 			timer.start();
 		}
 	}
@@ -73,32 +75,35 @@ public class Player {
 	}
 	
 	public void handleMessage(Message message)
-	{
-		try{
-		ByteArrayInputStream stream = new ByteArrayInputStream(message.data);
-		DataInputStream reader = new DataInputStream(stream);
-		switch(reader.readByte()) {
-			case Riot.Direction:
-				int degrees = reader.readInt();
-				character.move(degrees);
-				break;
-			case Riot.Attack:
-				character.attack();
-				break;
-			case Riot.Dodge:
-				character.dodge();
-				break;
-			case Riot.Jump:
-				character.jump();
-				break;
-			case Riot.Special:
-				character.special();
-				break;
-			case Riot.Shield:
-				character.shield();
-				break;
+	{	
+		if(dead == false)
+		{
+			try{
+				ByteArrayInputStream stream = new ByteArrayInputStream(message.data);
+				DataInputStream reader = new DataInputStream(stream);
+				switch(reader.readByte()) {
+					case Riot.Direction:
+						int degrees = reader.readInt();
+						character.move(degrees);
+						break;
+					case Riot.Attack:
+						character.attack();
+						break;
+					case Riot.Dodge:
+						character.dodge();
+						break;
+					case Riot.Jump:
+						character.jump();
+						break;
+					case Riot.Special:
+						character.special();
+						break;
+					case Riot.Shield:
+						character.shield();
+						break;
+				}
+			}catch(Exception ex){}
 		}
-		}catch(Exception ex){}
 	}
 }
 
