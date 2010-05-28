@@ -128,7 +128,13 @@ public class SpriteManager {
 					int width = animation.width;
 					int height = animation.height;
 					boolean transparent = animation.transparent;
-					Image subImage = getSubimage(sheetImage, offsetX, offsetY, width, height, transparent);
+					Image subImage = null;
+					try {
+						subImage = getSubimage(sheetImage, offsetX, offsetY, width, height, transparent);
+					}
+					catch(Exception ex) {
+						System.out.println("Problem with: " + sheet.sheetName);
+					}
 					frames.add(subImage);
 				}
 				
@@ -166,7 +172,7 @@ public class SpriteManager {
 	 * The sprites are stored in graphics card memory as accelerated images for faster drawing.
 	 * Will make the sprite transparent if necessary
 	 */
-	private Image getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) 
+	private Image getSubimage(Image source, int offsetX, int offsetY, int width, int height, boolean transparent) throws Exception
 	{
 		BufferedImage bufferedSource = (BufferedImage)source;
 		BufferedImage bufferedImage = null;
@@ -176,7 +182,7 @@ public class SpriteManager {
 		catch(RasterFormatException ex) {
 			System.out.println("Problem with getting subimage at: (" + offsetX + ", " + offsetY + ")");
 			ex.printStackTrace();
-			System.exit(0);
+			throw new Exception();
 		}
 		
 		/* Make the sprite transparent */
