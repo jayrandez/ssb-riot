@@ -28,7 +28,7 @@
 			<repeat>true</repeat>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>attack</animationName>
+			<animationName>punch</animationName>
 			<originX>1</originX>
 			<originY>128</originY>
 			<width>57</width>
@@ -36,7 +36,7 @@
 			<centerX>29</centerX>
 			<centerY>43</centerY>
 			<frames>6</frames>
-			<speed>50</speed>
+			<speed>1</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
