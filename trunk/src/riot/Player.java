@@ -31,7 +31,7 @@ public class Player {
 		this.socket = socket;
 		this.playerNumber = playerNumber;
 		SpawnPlatform platform = new SpawnPlatform(engine, spriteManager);
-		character = new Jigglypuff(engine, spriteManager, platform);
+		character = new Jigglypuff(engine, spriteManager, platform, this);
 		platform.setCharacter(character);
 		engine.spawnWorldObject(platform);
 		engine.spawnWorldObject(character);
@@ -41,6 +41,10 @@ public class Player {
 				dead = false;
 			}
 		});
+	}
+	
+	public FontManager getFontManager() {
+		return fontManager;
 	}
 	
 	public void died()
@@ -55,7 +59,7 @@ public class Player {
 	}
 	public void respawn(){
 		SpawnPlatform platform = new SpawnPlatform(engine, spriteManager);
-		character = new Jigglypuff(engine, spriteManager, platform);
+		character = new Jigglypuff(engine, spriteManager, platform, this);
 		platform.setCharacter(character);
 		engine.spawnWorldObject(platform);
 		engine.spawnWorldObject(character);
