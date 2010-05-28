@@ -85,6 +85,7 @@ public class Damager extends FollowerObject
 			else
 				character.setAnimation(character.sheetName, "shortWalk");
 			getEngine().removeWorldObject(this);
+			character.damager = null;
 		}
 		steps++;
 	}
