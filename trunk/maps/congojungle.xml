@@ -44,6 +44,30 @@
 			<height>14</height>
 		</Rectangle>
 		<Rectangle>
+			<x>427</x>
+			<y>307</y>
+			<width>71</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>467</x>
+			<y>291</y>
+			<width>71</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>310</x>
+			<y>310</y>
+			<width>71</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>271</x>
+			<y>300</y>
+			<width>71</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
 			<x>458</x>
 			<y>299</y>
 			<width>71</width>
@@ -136,6 +160,84 @@
 		<Rectangle>
 			<x>220</x>
 			<y>94</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>532</x>
+			<y>96</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>542</x>
+			<y>98</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>552</x>
+			<y>100</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>562</x>
+			<y>102</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>572</x>
+			<y>104</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>582</x>
+			<y>104</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>592</x>
+			<y>106</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>602</x>
+			<y>108</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>612</x>
+			<y>110</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>622</x>
+			<y>112</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>632</x>
+			<y>114</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>642</x>
+			<y>116</y>
+			<width>18</width>
+			<height>19</height>
+		</Rectangle>
+		<Rectangle>
+			<x>652</x>
+			<y>118</y>
 			<width>18</width>
 			<height>19</height>
 		</Rectangle>
