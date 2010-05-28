@@ -77,7 +77,9 @@ public class Damager extends FollowerObject
 	
 	public void step() {
 		super.step();
-		if(wasUsed || steps == lifetime) {
+		if (wasUsed == true)
+			damage = 0;
+		if(steps == lifetime) {
 			if (character.degrees == -1)
 				character.setAnimation(character.sheetName, "idle");
 			else
@@ -85,7 +87,6 @@ public class Damager extends FollowerObject
 			getEngine().removeWorldObject(this);
 		}
 		steps++;
-		System.out.println(steps);
 	}
 	
 	public int getDirection() {
