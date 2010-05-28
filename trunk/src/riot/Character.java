@@ -79,7 +79,7 @@ public class Character extends NaturalObject {
 	public void jump() {
 		if(currentJumps < maxJumps) {
 			setAnimation(sheetName, "jump");
-			setMovement(160, 90);
+			setMovement(140, 90);
 			currentJumps++;
 		}
 	}
