@@ -62,19 +62,19 @@ public class Character extends NaturalObject {
 	// Result of Pressing F
 	public void attack() {
 		/* Create a charging attack */
-		if(aerial == false) {
-			Damager damager;
-			if(degrees != -1)
-				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), degrees, 30);
-			else if(direction == Riot.Right)
-				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 0, 30);
-			else
-				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 180, 30);
-			getEngine().spawnWorldObject(damager);
-			damager.setLifetime(20);
-			damager.step();
-			
-			setAnimation(this.sheetName, "punch");
+		if (damager == null)
+		{
+			if(aerial == false) {
+				if(direction == Riot.Right)
+					damager = new Damager(getEngine(), getManager(), this, new Size(28,28), 0, 30);
+				else if (direction == Riot.Left)
+					damager = new Damager(getEngine(), getManager(), this, new Size(28,28), 180, 30);
+				getEngine().spawnWorldObject(damager);
+				damager.setLifetime(20);
+				damager.step();
+				
+				setAnimation(this.sheetName, "punch");
+			}
 		}
 	}
 	
