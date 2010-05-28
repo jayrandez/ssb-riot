@@ -59,6 +59,10 @@ public class Character extends NaturalObject {
 			else
 				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 180, 30);
 			getEngine().spawnWorldObject(damager);
+			damager.setLifetime(20);
+			damager.step();
+			
+			setAnimation(this.sheetName, "punch");
 		}
 	}
 	
@@ -87,41 +91,28 @@ public class Character extends NaturalObject {
 	{
 		//accumulates amount of damage
 		damageTaken += damager.getDamage();
-		//sets the speed equal to the damage taken (100 damage = influence of walking)
+		//sets the speed equal to the damage taken (100 damage = speed of walking)
 		double speed = damageTaken * .4;
 		int angle = 0;
 		
-		//gets offset angle
+		//determines which way character faces and adjusts
+		//angle according to that direction
 		if (direction == false)
 		{
 			angle = 180 - damager.getDirection();
-			
-			
 			angle -= damageTaken / 50;
-			if (angle == 180 || angle == 0)
-				setMovement(speed, angle);
-			else
-			{
-				setMovement(speed, angle);
-				knockedUp = true;
-			}
+			
+			setMovement(speed, angle);
+			knockedUp = true;
 		}
 		else
 		{
 			angle = damager.getDirection() - 180;
 			angle += damageTaken / 50;
 			
-			if (angle == 180 || angle == 0)
-				setMovement(speed, angle);
-			else
-			{
-				setMovement(speed, angle);
-				knockedUp = true;
-			}
+			setMovement(speed, angle);
+			knockedUp = true;
 		}
-
-		//sets the movement
-		setMovement(speed, angle);
 	}
 	// Result of Going Out of Bounds
 	public void death(int speed, int direction) {
@@ -152,9 +143,10 @@ public class Character extends NaturalObject {
 	// or we have switched between being aerial or on a platform
 	private void setMovement() {
 		// We are in the air
+		
 		if(aerial) {
 			// We didn't jump to get in the air, we just walked off or we hit by damage
-			if(currentJumps == 0 && !knockedUp)
+			if(currentJumps == 0 && knockedUp == false)
 				stopMovement();
 			if(!neutral) {
 				// If we are in the air and holding a direction key
@@ -169,15 +161,15 @@ public class Character extends NaturalObject {
 			setFlipped(direction);
 			if(neutral == true) {
 				stopMovement();
-				setAnimation(sheetName, "idle");
+					setAnimation(sheetName, "idle");
 			}
 			else if(direction == Riot.Right){
 				setMovement(60, 0);
-				setAnimation(sheetName, "shortWalk");
+					setAnimation(sheetName, "shortWalk");
 			}
 			else {
 				setMovement(60, 180);
-				setAnimation(sheetName, "shortWalk");
+					setAnimation(sheetName, "shortWalk");
 			}
 		}
 		knockedUp = false;
