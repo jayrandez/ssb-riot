@@ -37,6 +37,13 @@ public class Scene {
 			}
 		}
 		
+		for(GameObject object: overlayObjects) {
+			Sprite sprite = object.getSprite();
+			if(sprite != null) {
+				overlaySprites.add(sprite);
+			}
+		}
+
 		Rectangle boundingBox = bestFit(characters, worldSize, 175);
 		worldView = bestView(boundingBox, worldSize);
 	}
@@ -109,7 +116,7 @@ public class Scene {
 	/**
 	 * Constructs a scene from data that has been transmitted over the network
 	 */
-	public Scene(SpriteManager manager, byte[] rawData) {
+	public Scene(SpriteManager spriteManager, FontManager fontManager, byte[] rawData) {
 		worldSprites = new ArrayList<Sprite>();
 		overlaySprites = new ArrayList<Sprite>();
 		debugTangles = new ArrayList<Rectangle>();
@@ -125,11 +132,17 @@ public class Scene {
 			
 			int count = reader.readShort();
 			for(int i = 0; i < count; i++)
-				worldSprites.add(new Sprite(manager, reader));
+				if(reader.readByte() == Riot.StandardSprite)
+					worldSprites.add(new Sprite(spriteManager, reader));
+				else
+					worldSprites.add(new TextSprite(fontManager, reader));
 
 			count = reader.readShort();
 			for(int i = 0; i < count; i++)
-				overlaySprites.add(new Sprite(manager, reader));
+				if(reader.readByte() == Riot.StandardSprite)
+					overlaySprites.add(new Sprite(spriteManager, reader));
+				else
+					overlaySprites.add(new TextSprite(fontManager, reader));
 			
 			count = reader.readShort();
 			for(int i = 0; i < count; i++)

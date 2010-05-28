@@ -112,6 +112,7 @@ public class SceneWindow extends JFrame implements KeyListener {
 		/* Get important sprite data from the scene and the server name. */
 		this.setTitle("SSB: Riot!  -  " + scene.getServerName());
 		ArrayList<Sprite> worldSprites = scene.getWorldSprites();
+		ArrayList<Sprite> overlaySprites = scene.getOverlaySprites();
 		ArrayList<Rectangle> debugTangles = scene.getDebugTangles();
 		worldView = scene.getWorldView();
 		
@@ -137,7 +138,12 @@ public class SceneWindow extends JFrame implements KeyListener {
 		int y1 = (int)worldView.minY();
 		int x2 = (int)worldView.maxX();
 		int y2 = (int)worldView.maxY();
-		g2d.drawImage(world, 0, 0, 639, 479, x1, y1, x2, y2, null);
+		g2d.drawImage(world, 0, 0, 640, 480, x1, y1, x2, y2, null);
+		
+		/* Draw all overlay sprites onto the world image buffer. */
+		for(Sprite sprite: overlaySprites) {
+			sprite.drawTo(g2d);
+		}
 	}
 
 	/**

@@ -15,7 +15,7 @@ public class Character extends NaturalObject {
 	boolean knockedUp;
 	
 	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps, SpawnPlatform platform) {
-		super(engine, manager, new Point(323, 97), size, 12.0);
+		super(engine, manager, new Point(323, 97), size, 8.0);
 		this.platform = platform;
 		this.sheetName = sheetName;
 		this.aerial = true;
@@ -77,8 +77,6 @@ public class Character extends NaturalObject {
 	
 	// Result of Pressing Space
 	public void jump() {
-		if(aerial && currentJumps == 0)
-			currentJumps++;
 		if(currentJumps < maxJumps) {
 			setAnimation(sheetName, "jump");
 			setMovement(160, 90);
@@ -146,8 +144,10 @@ public class Character extends NaturalObject {
 		
 		if(aerial) {
 			// We didn't jump to get in the air, we just walked off or we hit by damage
-			if(currentJumps == 0 && knockedUp == false)
+			if(currentJumps == 0 && knockedUp == false) {
 				stopMovement();
+				currentJumps++;
+			}
 			if(!neutral) {
 				// If we are in the air and holding a direction key
 				if(direction == Riot.Right)

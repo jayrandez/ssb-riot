@@ -15,6 +15,13 @@ public class Rectangle implements Cloneable {
 		this.height = size.height;
 	}
 	
+	public Rectangle(java.awt.Rectangle javaRect) {
+		x = javaRect.x;
+		y = javaRect.y;
+		width = javaRect.width;
+		height = javaRect.height;
+	}
+	
 	public Rectangle(double x, double y, double width, double height) {
 		this.x = x;
 		this.y = y;
