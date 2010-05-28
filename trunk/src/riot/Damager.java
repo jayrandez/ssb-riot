@@ -7,13 +7,14 @@ public class Damager extends FollowerObject
 	private int lifetime;
 	private int steps;
 	private int degrees;
-	
+	private Character character;
 	//creates a DamageObject with a offset (direction), a range (hitLength), a damage amount (damageAmount), and a size (dmgSize)
 	//default location created at center of the character (offset of 315)
 	public Damager(GameEngine engine, SpriteManager manager, GameObject character, Size size, int degrees, int damage)
 	{
 		super(engine, manager, character, size);
 		this.damage = damage;
+		this.character = (Character) character;
 		chooseOffset(degrees);
 		this.steps = 0;
 		this.lifetime = -1;
@@ -77,9 +78,14 @@ public class Damager extends FollowerObject
 	public void step() {
 		super.step();
 		if(wasUsed || steps == lifetime) {
+			if (character.degrees == -1)
+				character.setAnimation(character.sheetName, "idle");
+			else
+				character.setAnimation(character.sheetName, "shortWalk");
 			getEngine().removeWorldObject(this);
 		}
 		steps++;
+		System.out.println(steps);
 	}
 	
 	public int getDirection() {

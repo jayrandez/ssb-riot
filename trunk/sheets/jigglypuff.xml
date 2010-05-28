@@ -81,10 +81,10 @@
 			<animationName>punch</animationName>
 			<originX>47</originX>
 			<originY>387</originY>
-			<width>27</width>
-			<height>28</height>
+			<width>26</width>
+			<height>27</height>
 			<centerX>60</centerX>
-			<centerY>401</centerY>
+			<centerY>414</centerY>
 			<frames>8</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
