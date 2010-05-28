@@ -46,6 +46,10 @@ public class GameEngine {
 		addOverlayObject(label3);
 	}
 	
+	public int numberPlayers() {
+		return players.size();
+	}
+	
 	public Map getMap() {
 		return (Map)worldObjects.get(0);
 	}
@@ -66,7 +70,7 @@ public class GameEngine {
 			DataInputStream reader = new DataInputStream(stream);
 			switch(reader.readByte()) {
 				case Riot.Connect:
-					Player player = new Player(this, 1, message.sender, spriteManager, fontManager);
+					Player player = new Player(this, 1, message.sender, spriteManager, fontManager, players.size());
 					players.add(player);
 					System.out.println("New player joined the game.");
 					break;

@@ -18,14 +18,17 @@ public class Player {
 	private FontManager fontManager;
 	private GameEngine engine;
 	private Timer timer;
+	private int playerNumber;
 	
-	public Player(GameEngine engine, int lives, Socket socket, SpriteManager spriteManager, FontManager fontManager)
+	public Player(GameEngine engine, int lives, Socket socket, SpriteManager spriteManager, FontManager fontManager, int playerNumber)
 	{
+		System.out.println("Player Number: " + playerNumber);
 		this.engine = engine;
 		this.spriteManager = spriteManager;
 		this.fontManager = fontManager;
 		this.lives = lives;
 		this.socket = socket;
+		this.playerNumber = playerNumber;
 		SpawnPlatform platform = new SpawnPlatform(engine, spriteManager);
 		character = new Jigglypuff(engine, spriteManager, platform);
 		platform.setCharacter(character);
@@ -63,6 +66,10 @@ public class Player {
 	public Socket getSocket()
 	{
 		return socket;
+	}
+	
+	public int getPlayerNumber() {
+		return playerNumber;
 	}
 	
 	public void handleMessage(Message message)
