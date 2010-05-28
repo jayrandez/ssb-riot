@@ -1,0 +1,11 @@
+<MapDescriptor>
+	<name>fdb</name>
+	<platforms>
+		<Rectangle>
+			<x>80</x>
+			<y>206</y>
+			<width>542</width>
+			<height>28</height>
+		</Rectangle>
+	</platforms>
+</MapDescriptor>
