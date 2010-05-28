@@ -1,6 +1,6 @@
 <SheetDescriptor>
 	<sheetName>jigglypuff</sheetName>
-	<imageFile>jigglypuff2.png</imageFile>
+	<imageFile>jigglypuff3.PNG</imageFile>
 	<animations>
 		<AnimationDescriptor>
 			<animationName>idle</animationName>
@@ -79,14 +79,14 @@
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>punch</animationName>
-			<originX>47</originX>
-			<originY>387</originY>
-			<width>26</width>
+			<originX>45</originX>
+			<originY>415</originY>
+			<width>36</width>
 			<height>27</height>
-			<centerX>60</centerX>
-			<centerY>414</centerY>
+			<centerX>18</centerX>
+			<centerY>27</centerY>
 			<frames>8</frames>
-			<speed>50</speed>
+			<speed>2</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 	</animations>
