@@ -4,14 +4,14 @@
 	<animations>
 		<AnimationDescriptor>
 			<animationName>idle</animationName>
-			<originX>20</originX>
+			<originX>14</originX>
 			<originY>122</originY>
-			<width>78</width>
-			<height>63</height>
-			<centerX>39</centerX>
-			<centerY>63</centerY>
+			<width>87</width>
+			<height>66</height>
+			<centerX>44</centerX>
+			<centerY>66</centerY>
 			<frames>6</frames>
-			<speed>5</speed>
+			<speed>15</speed>
 			<transparent>true</transparent>
 			<repeat>true</repeat>
 		</AnimationDescriptor>
@@ -28,7 +28,7 @@
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
-			<animationName>attack</animationName>
+			<animationName>punch</animationName>
 			<originX>6</originX>
 			<originY>518</originY>
 			<width>90</width>
@@ -36,7 +36,7 @@
 			<centerX>45</centerX>
 			<centerY>77</centerY>
 			<frames>7</frames>
-			<speed>50</speed>
+			<speed>1</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
@@ -65,14 +65,14 @@
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>shortWalk</animationName>
-			<originX>24</originX>
-			<originY>308</originY>
-			<width>68</width>	
-			<height>61</height>
-			<centerX>34</centerX>
-			<centerY>31</centerY>
+			<originX>21</originX>
+			<originY>210</originY>
+			<width>73</width>	
+			<height>74</height>
+			<centerX>37</centerX>
+			<centerY>74</centerY>
 			<frames>6</frames>
-			<speed>50</speed>
+			<speed>5</speed>
 			<transparent>true</transparent>
 			<repeat>true</repeat>
 		</AnimationDescriptor>
