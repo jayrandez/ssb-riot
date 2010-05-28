@@ -8,35 +8,73 @@
 			<originY>122</originY>
 			<width>78</width>
 			<height>63</height>
-			<centerX>59</centerX>
-			<centerY>154</centerY>
+			<centerX>39</centerX>
+			<centerY>63</centerY>
 			<frames>6</frames>
-			<speed>200</speed>
+			<speed>5</speed>
+			<transparent>true</transparent>
+			<repeat>true</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>jump</animationName>
+			<originX>9</originX>
+			<originY>404</originY>
+			<width>71</width>
+			<height>72</height>
+			<centerX>36</centerX>
+			<centerY>72</centerY>
+			<frames>6</frames>
+			<speed>5</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>attack</animationName>
+			<originX>6</originX>
+			<originY>518</originY>
+			<width>90</width>
+			<height>77</height>
+			<centerX>45</centerX>
+			<centerY>77</centerY>
+			<frames>7</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>shield</animationName>
+			<originX>663</originX>
+			<originY>718</originY>
+			<width>96</width>
+			<height>57</height>
+			<centerX>48</centerX>
+			<centerY>57</centerY>
+			<frames>1</frames>
+			<speed>50</speed>
+			<transparent>true</transparent>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>dodge</animationName>
+			<originX>630</originX>
+			<originY>325</originY>
+			<width>64</width>
+			<height>60</height>
+			<centerX>32</centerX>
+			<centerY>60</centerY>
+			<frames>4</frames>
+			<speed>5</speed>
 			<transparent>true</transparent>
 		</AnimationDescriptor>
 		<AnimationDescriptor>
 			<animationName>shortWalk</animationName>
-			<originX>67</originX>
-			<originY>212</originY>
-			<width>67</width>
-			<height>67</height>
-			<centerX>101</centerX>
-			<centerY>246</centerY>
-			<frames>6</frames>
-			<speed>50</speed>
-			<transparent>true</transparent>
-		</AnimationDescriptor>
-		<AnimationDescriptor>
-			<animationName>run</animationName>
 			<originX>24</originX>
 			<originY>308</originY>
 			<width>68</width>	
 			<height>61</height>
-			<centerX>58</centerX>
-			<centerY>339</centerY>
+			<centerX>34</centerX>
+			<centerY>31</centerY>
 			<frames>6</frames>
 			<speed>50</speed>
 			<transparent>true</transparent>
+			<repeat>true</repeat>
 		</AnimationDescriptor>
 	</animations>
 </SheetDescriptor>
