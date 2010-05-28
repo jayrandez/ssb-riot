@@ -37,7 +37,7 @@ public class GameEngine {
 		damagers = new ArrayList<Damager>();
 		platforms = new ArrayList<Rectangle>();
 		
-		spawnWorldObject(new Map(this, spriteManager, mapManager, "testmap"));
+		spawnWorldObject(new Map(this, spriteManager, mapManager, "summit"));
 		Label label1 = new Label(this, fontManager, new Point(0, 30), "Header", "Games");
 		Label label2 = new Label(this, fontManager, new Point(0, 50), "BodyText", "Local Game");
 		Label label3 = new Label(this, fontManager, new Point(80, 450), "DamageMeter", "240%");
