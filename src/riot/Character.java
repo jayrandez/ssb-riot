@@ -13,9 +13,11 @@ public class Character extends NaturalObject {
 	SpawnPlatform platform;
 	int damageTaken;
 	boolean knockedUp;
+	Player player;
+	Label playerLabel;
 	Damager damager;
 	
-	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps, SpawnPlatform platform) {
+	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps, SpawnPlatform platform, Player player) {
 		super(engine, manager, new Point(323, 97), size, 8.0);
 		this.platform = platform;
 		this.sheetName = sheetName;
@@ -23,10 +25,19 @@ public class Character extends NaturalObject {
 		this.direction = Riot.Right;
 		this.maxJumps = maxJumps;
 		this.justSpawned = true;
+		this.player = player;
 		setAnimation(sheetName, "idle");
 		move(-1);
 		damageTaken = 0;
+		int numPlayers = engine.numberPlayers() + 2;
+		int playerID = player.getPlayerNumber() + 1;
+		int xorsomthing = 640 / numPlayers * playerID;
+		Point point = new Point(xorsomthing, 450);
+		playerLabel = new Label(engine, player.getFontManager(), point, "DamageMeter");
+		playerLabel.setText("" + damageTaken + "%");
+		engine.addOverlayObject(playerLabel);
 	}
+
 	
 	// Result of Altering Arrow Keys
 	public void move(int degrees) {
@@ -51,22 +62,19 @@ public class Character extends NaturalObject {
 	// Result of Pressing F
 	public void attack() {
 		/* Create a charging attack */
-		if (damager == null)
-		{
-			if(aerial == false) {
-				if (degrees == 180 || degrees == 0 || degrees == -1)
-				{
-					if(direction == Riot.Right)
-						damager = new Damager(getEngine(), getManager(), this, new Size(28,28), 0, 30);
-					else if (direction == Riot.Left)
-						damager = new Damager(getEngine(), getManager(), this, new Size(28,28), 180, 30);
-					getEngine().spawnWorldObject(damager);
-					damager.setLifetime(20);
-					damager.step();
-					
-					setAnimation(this.sheetName, "punch");
-				}
-			}
+		if(aerial == false) {
+			Damager damager;
+			if(degrees != -1)
+				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), degrees, 30);
+			else if(direction == Riot.Right)
+				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 0, 30);
+			else
+				damager = new Damager(getEngine(), getManager(), this, new Size(50,50), 180, 30);
+			getEngine().spawnWorldObject(damager);
+			damager.setLifetime(20);
+			damager.step();
+			
+			setAnimation(this.sheetName, "punch");
 		}
 	}
 	
@@ -104,7 +112,7 @@ public class Character extends NaturalObject {
 			angle = 180 - damager.getDirection();
 			angle -= damageTaken / 50;
 			
-			setMovement(-speed, angle);
+			setMovement(speed, angle);
 			knockedUp = true;
 		}
 		else
@@ -112,9 +120,10 @@ public class Character extends NaturalObject {
 			angle = damager.getDirection() - 180;
 			angle += damageTaken / 50;
 			
-			setMovement(-speed, angle);
+			setMovement(speed, angle);
 			knockedUp = true;
 		}
+		playerLabel.setText("" + damageTaken + "%");
 	}
 	// Result of Going Out of Bounds
 	public void death(int speed, int direction) {
