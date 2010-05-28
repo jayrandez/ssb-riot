@@ -54,5 +54,18 @@
 			<transparent>false</transparent>
 			<repeat>false</repeat>
 		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>fdb</animationName>
+			<originX>0</originX>
+			<originY>1842</originY>
+			<width>698</width>
+			<height>442</height>
+			<centerX>0</centerX>
+			<centerY>0</centerY>
+			<frames>1</frames>
+			<speed>1</speed>
+			<transparent>false</transparent>
+			<repeat>false</repeat>
+		</AnimationDescriptor>
 	</animations>
 </SheetDescriptor>
