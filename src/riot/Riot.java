@@ -26,8 +26,12 @@ public class Riot {
 	public static final byte ServerName		= 16;
 	public static final byte Pause			= 17;
 	public static final byte Resume			= 18;
+	public static final byte StandardSprite = 19;
+	public static final byte TextSprite		= 20;
 	public static final boolean Left		= true;
 	public static final boolean Right		= false;
+	public static final boolean LeftAlign 	= false;
+	public static final boolean CenterAlign = true;
 	public static final int Port 			= 48123;
 
 	/**
@@ -38,6 +42,7 @@ public class Riot {
 	public static void main(String[] args) throws Exception {
 		final SpriteManager spriteManager = new SpriteManager("sheets");
 		final MapManager mapManager = new MapManager("maps");
+		final FontManager fontManager = new FontManager("fonts");
 		
 		Scanner scanner = new Scanner(System.in);
 		String line = "";
@@ -48,7 +53,7 @@ public class Riot {
 			new Thread() {
 				public void run() {
 					/* Create a game server in a new thread. */
-					new GameEngine(spriteManager, mapManager).gameLoop();
+					new GameEngine(spriteManager, mapManager, fontManager).gameLoop();
 				}
 			}.start();
 		}
@@ -60,7 +65,7 @@ public class Riot {
 			line = "localhost";
 		
 		/* Create the first provider, add it to the game window, and begin. */
-		SceneProvider startScreen = new DummyTerminal(spriteManager, line);
+		SceneProvider startScreen = new DummyTerminal(spriteManager, fontManager, line);
 		SceneWindow window = new SceneWindow(startScreen);
 		window.drawingLoop();
 		window.dispose();

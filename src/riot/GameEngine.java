@@ -13,6 +13,7 @@ public class GameEngine {
 	Communicator communicator;
 	SpriteManager spriteManager;
 	MapManager mapManager;
+	FontManager fontManager;
 	
 	ArrayList<Player> players;
 	ArrayList<GameObject> worldObjects;
@@ -22,9 +23,10 @@ public class GameEngine {
 	
 	boolean protectConcurrent;
 	
-	public GameEngine(SpriteManager spriteManager, MapManager mapManager) {
+	public GameEngine(SpriteManager spriteManager, MapManager mapManager, FontManager fontManager) {
 		this.spriteManager = spriteManager;
 		this.mapManager = mapManager;
+		this.fontManager = fontManager;
 		
 		players = new ArrayList<Player>();
 		communicator = new Communicator(true);
@@ -36,6 +38,12 @@ public class GameEngine {
 		platforms = new ArrayList<Rectangle>();
 		
 		spawnWorldObject(new Map(this, spriteManager, mapManager, "testmap"));
+		Label label1 = new Label(this, fontManager, new Point(0, 30), "Header", "Games");
+		Label label2 = new Label(this, fontManager, new Point(0, 50), "BodyText", "Local Game");
+		Label label3 = new Label(this, fontManager, new Point(80, 450), "DamageMeter", "240%");
+		addOverlayObject(label1);
+		addOverlayObject(label2);
+		addOverlayObject(label3);
 	}
 	
 	public Map getMap() {
@@ -49,8 +57,7 @@ public class GameEngine {
 		try {
 			Player referral = null;
 			for(Player player: players) {
-				if(player.getSocket().equals(message.sender))
-				{
+				if(player.getSocket().equals(message.sender)) {
 					referral = player;
 					break;
 				}
@@ -59,7 +66,7 @@ public class GameEngine {
 			DataInputStream reader = new DataInputStream(stream);
 			switch(reader.readByte()) {
 				case Riot.Connect:
-					Player player = new Player(this, 1, message.sender, spriteManager);
+					Player player = new Player(this, 1, message.sender, spriteManager, fontManager);
 					players.add(player);
 					System.out.println("New player joined the game.");
 					break;

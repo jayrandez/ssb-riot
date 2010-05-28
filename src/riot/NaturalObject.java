@@ -1,7 +1,5 @@
 package riot;
 
-import java.util.*;
-
 public class NaturalObject extends GameObject {
 	double gravity;
 	double xVelocity;

@@ -20,6 +20,10 @@ public class Sprite {
 	public int height;
 	public Image image;
 	
+	public Sprite() {
+		image = null;
+	}
+	
 	public Sprite(SpriteManager manager, int index, int frame, int x, int y, int rotation, boolean flipped) {
 		this.index = index;
 		this.frame = frame;
@@ -59,6 +63,7 @@ public class Sprite {
 	 * Serialize the sprite for transport over the network
 	 */
 	public void writeTo(DataOutputStream stream) throws IOException {
+		stream.writeByte(Riot.StandardSprite);
 		stream.writeShort(index);
 		stream.writeShort(frame);
 		stream.writeShort(x);

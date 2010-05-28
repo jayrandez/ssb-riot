@@ -11,15 +11,17 @@ import java.util.*;
  * the server gives it into the game window.
  */
 public class DummyTerminal implements SceneProvider {
-	SpriteManager manager;
+	SpriteManager spriteManager;
+	FontManager fontManager;
 	ArrayList<GameObject> gameObjects;
 	Communicator communicator;
 	boolean[] directions;
 	String hostname;
 	
-	public DummyTerminal(SpriteManager manager, String hostname) {
+	public DummyTerminal(SpriteManager spriteManager, FontManager fontManager, String hostname) {
 		this.hostname = hostname;
-		this.manager = manager;
+		this.spriteManager = spriteManager;
+		this.fontManager = fontManager;
 		directions = new boolean[4];
 		for(int i = 0; i < 4; i++)
 			directions[i] = false;
@@ -47,7 +49,7 @@ public class DummyTerminal implements SceneProvider {
 	 */
 	public Scene nextScene() {
 		Message message = communicator.receiveData();
-		return new Scene(manager, message.data);
+		return new Scene(spriteManager, fontManager, message.data);
 	}
 	
 	/**
