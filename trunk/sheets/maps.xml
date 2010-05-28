@@ -5,7 +5,7 @@
 		<AnimationDescriptor>
 			<animationName>testmap</animationName>
 			<originX>0</originX>
-			<originY>0</originY>
+			<originY>0</originY>	
 			<width>640</width>
 			<height>480</height>
 			<centerX>0</centerX>
@@ -21,6 +21,32 @@
 			<originY>480</originY>
 			<width>750</width>
 			<height>563</height>
+			<centerX>0</centerX>
+			<centerY>0</centerY>
+			<frames>1</frames>
+			<speed>1</speed>
+			<transparent>false</transparent>
+			<repeat>false</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>yoshi'sisland</animationName>
+			<originX>0</originX>
+			<originY>1044</originY>
+			<width>604</width>
+			<height>404</height>
+			<centerX>0</centerX>
+			<centerY>0</centerY>
+			<frames>1</frames>
+			<speed>1</speed>
+			<transparent>false</transparent>
+			<repeat>false</repeat>
+		</AnimationDescriptor>
+		<AnimationDescriptor>
+			<animationName>congojungle</animationName>
+			<originX>0</originX>
+			<originY>1449</originY>
+			<width>767</width>
+			<height>390</height>
 			<centerX>0</centerX>
 			<centerY>0</centerY>
 			<frames>1</frames>
