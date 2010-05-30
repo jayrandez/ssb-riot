@@ -13,6 +13,18 @@
 			<centered>true</centered>
 		</FontDescriptor>
 		<FontDescriptor>
+			<fontName>DamageMeterRed</fontName>
+			<fileName>comicshaded.ttf</fileName>
+			<size>40</size>
+			<color>
+				<red>255</red>
+				<green>0</green>
+				<blue>0</blue>
+				<alpha>255</alpha>
+			</color>
+			<centered>true</centered>
+		</FontDescriptor>
+		<FontDescriptor>
 			<fontName>Header</fontName>
 			<fileName>comic.ttf</fileName>
 			<size>32</size>
