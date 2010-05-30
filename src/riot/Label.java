@@ -22,6 +22,10 @@ public class Label extends GameObject {
 		this.centered = Riot.LeftAlign;
 	}
 
+	public void setFont(String font) {
+		this.index = manager.getIndex(font);
+	}
+	
 	public void setText(String text) {
 		this.text = text;
 	}

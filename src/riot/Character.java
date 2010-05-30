@@ -1,21 +1,31 @@
 package riot;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
 public class Character extends NaturalObject {
 
+	// About Me
 	String sheetName;
+	Player player;
+	Label damageMeter;
+	SpawnPlatform platform;
+	
+	// Movement Information
 	int degrees;
 	boolean aerial;
 	boolean neutral;
 	boolean direction;
+	
+	// Action Limitations
+	Timer stunTimer;
 	int maxJumps;
 	int currentJumps;
-	boolean justSpawned;
-	SpawnPlatform platform;
+	boolean stunned;
 	int damageTaken;
-	boolean knockedUp;
-	Player player;
-	Label playerLabel;
-	Damager damager;
+	
 	
 	public Character(GameEngine engine, SpriteManager manager, String sheetName, Size size, int maxJumps, SpawnPlatform platform, Player player) {
 		super(engine, manager, new Point(323, 97), size, 8.0);
@@ -24,20 +34,24 @@ public class Character extends NaturalObject {
 		this.aerial = true;
 		this.direction = Riot.Right;
 		this.maxJumps = maxJumps;
-		this.justSpawned = true;
 		this.player = player;
 		setAnimation(sheetName, "idle");
 		move(-1);
 		damageTaken = 0;
-		int numPlayers = engine.numberPlayers() + 2;
-		int playerID = player.getPlayerNumber() + 1;
-		int xorsomthing = 640 / numPlayers * playerID;
-		Point point = new Point(xorsomthing, 450);
-		playerLabel = new Label(engine, player.getFontManager(), point, "DamageMeter");
-		playerLabel.setText("" + damageTaken + "%");
-		engine.addOverlayObject(playerLabel);
+		
+		stunTimer = new Timer(0, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				stunned = false;
+				stunTimer.stop();
+				damageMeter.setFont("DamageMeter");
+				setMovement();
+			}
+		});
 	}
-
+	
+	public void setDamageMeter(Label damageMeter) {
+		this.damageMeter = damageMeter;
+	}
 	
 	// Result of Altering Arrow Keys
 	public void move(int degrees) {
@@ -53,27 +67,27 @@ public class Character extends NaturalObject {
 			this.direction = Riot.Left;
 			neutral = false;
 		}
-		if(justSpawned) {
-			platform.dropCharacter();
-		}
+		platform.dropCharacter();
 		setMovement();
 	}
 
 	// Result of Pressing F
 	public void attack() {
-		/* Create a charging attack */
-		if (damager == null)
-		{
+		if(!stunned) {
+			Damager damager = null;
 			if(aerial == false) {
+				int damage = (neutral) ? (15) : (35);
 				if(direction == Riot.Right)
-					damager = new Damager(getEngine(), getManager(), this, new Size(28,28), 0, 30);
+					damager = new Damager(getEngine(), getManager(), this, new Size(28,28), 0, damage);
 				else if (direction == Riot.Left)
-					damager = new Damager(getEngine(), getManager(), this, new Size(28,28), 180, 30);
+					damager = new Damager(getEngine(), getManager(), this, new Size(28,28), 180, damage);
 				getEngine().spawnWorldObject(damager);
 				damager.setLifetime(20);
-				damager.step();
-				
 				setAnimation(this.sheetName, "punch");
+				stun(20);
+			}
+			else {
+				// Aerial Attack (Ugh)
 			}
 		}
 	}
@@ -99,38 +113,31 @@ public class Character extends NaturalObject {
 	// Result of Taking Damage
 	public void damage(Damager damager) 
 	{
-		//accumulates amount of damage
-		damageTaken += damager.getDamage();
-		//sets the speed equal to the damage taken (100 damage = speed of walking)
-		double speed = damageTaken * .4;
-		int angle = 0;
+		double speedMultiplier = 0.0;
+		double angleMultiplier = 13.0;
+		double stunTimeMultiplier = 10.0;
+		double initialAngle = 20;
 		
-		//determines which way character faces and adjusts
-		//angle according to that direction
-		if (direction == false)
-		{
-			angle = 180 - damager.getDirection();
-			angle -= damageTaken / 50;
-			
-			setMovement(speed, angle);
-			knockedUp = true;
-		}
-		else
-		{
-			angle = damager.getDirection() - 180;
-			angle += damageTaken / 50;
-			
-			setMovement(speed, angle);
-			knockedUp = true;
-		}
-		playerLabel.setText("" + damageTaken + "%");
+		damageTaken += damager.getDamage();
+		if(damageMeter != null)
+			damageMeter.setText("" + damageTaken + "%");
+		
+		double speed = 100 + damageTaken * speedMultiplier;
+		int angle = damager.getDirection();
+		if(!aerial)
+			if(angle > 0 && angle < 180)
+				angle = makeUpwards(angle);
+		if(angle == 180)
+			angle -= initialAngle + damageTaken / angleMultiplier;
+		else if(angle == 0)
+			angle += initialAngle + damageTaken / angleMultiplier;
+		setMovement(speed, angle);
+		
+		stun((int)(damager.getDamage() * stunTimeMultiplier));
+		
+		System.out.println("I'm hit! Angle: " + angle + " Speed: " + speed);
 	}
-	// Result of Going Out of Bounds
-	public void death(int speed, int direction) {
-		stopMovement();
-		damageTaken = 0;
-	}
-	
+
 	// Step Function Indicating State (Grounded/Aerial)
 	public void aerial(boolean aerial) {
 		super.aerial(aerial);
@@ -154,37 +161,54 @@ public class Character extends NaturalObject {
 	// or we have switched between being aerial or on a platform
 	private void setMovement() {
 		// We are in the air
-		
-		if(aerial) {
-			// We didn't jump to get in the air, we just walked off or we hit by damage
-			if(currentJumps == 0 && knockedUp == false) {
-				stopMovement();
-				currentJumps++;
+		if(!stunned) {
+			if(aerial) {
+				// We didn't jump to get in the air, we just walked off or we hit by damage
+				if(currentJumps == 0) {
+					stopMovement();
+					currentJumps++;
+				}
+				if(!neutral) {
+					// If we are in the air and holding a direction key
+					if(direction == Riot.Right)
+						setInfluence(40, 0);
+					else
+						setInfluence(40, 180);
+				}
 			}
-			if(!neutral) {
-				// If we are in the air and holding a direction key
-				if(direction == Riot.Right)
-					setInfluence(40, 0);
-				else
-					setInfluence(40, 180);
-			}
-		}
-		// We are on a platform
-		else {
-			setFlipped(direction);
-			if(neutral == true) {
-				stopMovement();
-					setAnimation(sheetName, "idle");
-			}
-			else if(direction == Riot.Right){
-				setMovement(60, 0);
-					setAnimation(sheetName, "shortWalk");
-			}
+			// We are on a platform
 			else {
-				setMovement(60, 180);
-					setAnimation(sheetName, "shortWalk");
+				setFlipped(direction);
+				if(neutral == true) {
+					stopMovement();
+						setAnimation(sheetName, "idle");
+				}
+				else if(direction == Riot.Right){
+					setMovement(60, 0);
+						setAnimation(sheetName, "shortWalk");
+				}
+				else {
+					setMovement(60, 180);
+						setAnimation(sheetName, "shortWalk");
+				}
 			}
 		}
-		knockedUp = false;
+	}
+	
+	void stun(int millis) {
+		stunTimer.setDelay(millis);
+		stunTimer.start();
+		stunned = true;
+		damageMeter.setFont("DamageMeterRed");
+	}
+	
+	int makeUpwards(int angle) {
+		if(angle == 270)
+			return 90;
+		if(angle == 225)
+			return 135;
+		if(angle == 315)
+			return 45;
+		return 0;
 	}
 }

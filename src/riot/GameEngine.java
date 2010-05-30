@@ -40,10 +40,8 @@ public class GameEngine {
 		spawnWorldObject(new Map(this, spriteManager, mapManager, "summit"));
 		Label label1 = new Label(this, fontManager, new Point(0, 30), "Header", "Games");
 		Label label2 = new Label(this, fontManager, new Point(0, 50), "BodyText", "Local Game");
-		Label label3 = new Label(this, fontManager, new Point(80, 450), "DamageMeter", "240%");
 		addOverlayObject(label1);
 		addOverlayObject(label2);
-		addOverlayObject(label3);
 	}
 	
 	public int numberPlayers() {
@@ -73,6 +71,10 @@ public class GameEngine {
 					Player player = new Player(this, 1, message.sender, spriteManager, fontManager, players.size());
 					players.add(player);
 					System.out.println("New player joined the game.");
+					for(int i = 0; i < players.size(); i++) {
+						Player current = players.get(i);
+						current.updateHudArrangement(players.size(), i);
+					}
 					break;
 				case Riot.Disconnect:
 					players.remove(message.sender);

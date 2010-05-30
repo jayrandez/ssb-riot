@@ -13,13 +13,13 @@ public class Player {
 	private int lives;
 	private Character character;
 	private Socket socket;
-	private SpawnPlatform platform;
 	private SpriteManager spriteManager;
 	private FontManager fontManager;
 	private GameEngine engine;
 	private Timer timer;
 	private int playerNumber;
 	private boolean dead = false;
+	private Label damageMeter;
 	
 	public Player(GameEngine engine, int lives, Socket socket, SpriteManager spriteManager, FontManager fontManager, int playerNumber)
 	{
@@ -43,6 +43,19 @@ public class Player {
 		});
 	}
 	
+	public void updateHudArrangement(int numPlayers, int playerNum) {
+		engine.removeOverlayObject(damageMeter);
+		numPlayers++;
+		playerNum++;
+		int xPos = 640 / numPlayers * playerNum;
+		damageMeter = new Label(engine, fontManager, new Point(xPos, 450), "DamageMeter", "0%");
+		engine.addOverlayObject(damageMeter);
+		character.setDamageMeter(damageMeter);
+		// Draw damage
+		// Draw sprite
+		// Draw stock
+	}
+	
 	public FontManager getFontManager() {
 		return fontManager;
 	}
@@ -63,6 +76,8 @@ public class Player {
 		platform.setCharacter(character);
 		engine.spawnWorldObject(platform);
 		engine.spawnWorldObject(character);
+		damageMeter.setText("0%");
+		character.setDamageMeter(damageMeter);
 	}
 	
 	public Character getCharacter()
