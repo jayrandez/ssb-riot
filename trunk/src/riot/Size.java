@@ -28,4 +28,8 @@ public class Size implements Cloneable {
 	public Object clone() {
 		return new Size(width, height);
 	}
+	
+	public String toString() {
+		return "(" + width + "x" + height + ")";
+	}
 }
