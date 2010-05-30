@@ -72,6 +72,14 @@ public class Rectangle implements Cloneable {
 
 	}
 	
+	public Rectangle stretched(int widthChange, int heightChange) {
+		double newX = this.x - (widthChange/2);
+		double newWidth = this.width + (widthChange);
+		double newY = this.y - (heightChange/2);
+		double newHeight = this.height + (heightChange);
+		return new Rectangle(newX, newY, newWidth, newHeight);
+	}
+	
 	public void forceRatio(double ratio) {
 		double currentRatio = width / height;
 		if(currentRatio > ratio)
@@ -98,5 +106,9 @@ public class Rectangle implements Cloneable {
 	
 	public Object clone() {
 		return new Rectangle(x, y, width, height);
+	}
+	
+	public String toString() {
+		return "[" + new Point(x, y) + ", " + new Size(width, height) + "]";
 	}
 }

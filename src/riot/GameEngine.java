@@ -99,9 +99,9 @@ public class GameEngine {
 		Rectangle characterBounds = object.getBoundingBox();
 		if(characterBounds.overlaps(platform)) {
 			if(characterBounds.minX() < platform.minX() && characterBounds.minY() > platform.minY())
-				characterBounds.x -= platform.minX() - characterBounds.minX() + 1;
+				characterBounds.x -= characterBounds.maxX() - platform.minX() + 1;
 			else if(characterBounds.maxX() > platform.maxX() && characterBounds.minY() > platform.minY())
-				characterBounds.x += characterBounds.maxX() - platform.maxX() + 1;
+				characterBounds.x += platform.maxX() - characterBounds.minX() + 1;
 			else
 				characterBounds.y -= characterBounds.maxY() - platform.minY() + 1;
 			object.setLocation(new Point(characterBounds.x+(characterBounds.width/2), characterBounds.maxY()));
@@ -199,12 +199,14 @@ public class GameEngine {
 							}
 						}
 						((Character)object).aerial(!onPlatform);
-						if(((Character)object).getBoundingBox().overlaps(getMap().getBoundingBox()) == false)
-							{
-								for(Player player : players)
-								{
-									if(player.getCharacter() == ((Character)object))
-									{
+						Rectangle allowedBounds = getMap().getBoundingBox().stretched(500, 500);
+						
+						System.out.println(getMap().getBoundingBox());
+						System.out.println(allowedBounds);
+						
+						if(!object.getBoundingBox().overlaps(allowedBounds)) {
+								for(Player player : players) {
+									if(player.getCharacter() == ((Character)object)) {
 										player.died();
 									}
 								}

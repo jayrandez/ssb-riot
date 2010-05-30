@@ -84,7 +84,7 @@ public class Character extends NaturalObject {
 				getEngine().spawnWorldObject(damager);
 				damager.setLifetime(20);
 				setAnimation(this.sheetName, "punch");
-				stun(20);
+				stun(750);
 			}
 			else {
 				// Aerial Attack (Ugh)
@@ -113,10 +113,12 @@ public class Character extends NaturalObject {
 	// Result of Taking Damage
 	public void damage(Damager damager) 
 	{
-		double speedMultiplier = 0.0;
-		double angleMultiplier = 13.0;
-		double stunTimeMultiplier = 10.0;
-		double initialAngle = 20;
+		// If you want to change the dynamics of damage you should
+		// probably  just look into changing these constants.
+		final double speedMultiplier = 0.0;
+		final double angleMultiplier = 13.0;
+		final double stunTimeMultiplier = 40.0;
+		final double initialAngle = 30;
 		
 		damageTaken += damager.getDamage();
 		if(damageMeter != null)
@@ -196,6 +198,7 @@ public class Character extends NaturalObject {
 	}
 	
 	void stun(int millis) {
+		stunTimer.setInitialDelay(millis);
 		stunTimer.setDelay(millis);
 		stunTimer.start();
 		stunned = true;
