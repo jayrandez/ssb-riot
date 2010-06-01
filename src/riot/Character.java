@@ -115,7 +115,7 @@ public class Character extends NaturalObject {
 	{
 		// If you want to change the dynamics of damage you should
 		// probably  just look into changing these constants.
-		final double speedMultiplier = 0.0;
+		final double speedMultiplier = .75;
 		final double angleMultiplier = 13.0;
 		final double stunTimeMultiplier = 40.0;
 		final double initialAngle = 30;
@@ -214,4 +214,6 @@ public class Character extends NaturalObject {
 			return 45;
 		return 0;
 	}
+	
+
 }
