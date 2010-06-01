@@ -23,6 +23,7 @@ public class Player {
 	
 	public Player(GameEngine engine, int lives, Socket socket, SpriteManager spriteManager, FontManager fontManager, int playerNumber)
 	{
+		Riot r = new Riot();
 		System.out.println("Player Number: " + playerNumber);
 		this.engine = engine;
 		this.spriteManager = spriteManager;
@@ -31,7 +32,7 @@ public class Player {
 		this.socket = socket;
 		this.playerNumber = playerNumber;
 		SpawnPlatform platform = new SpawnPlatform(engine, spriteManager);
-		character = new Jigglypuff(engine, spriteManager, platform, this);
+		character = new Jigglypuff(engine, spriteManager, platform, this, r.getCharacterName());
 		platform.setCharacter(character);
 		engine.spawnWorldObject(platform);
 		engine.spawnWorldObject(character);
@@ -71,8 +72,9 @@ public class Player {
 		}
 	}
 	public void respawn(){
+		Riot r = new Riot();
 		SpawnPlatform platform = new SpawnPlatform(engine, spriteManager);
-		character = new Jigglypuff(engine, spriteManager, platform, this);
+		character = new Jigglypuff(engine, spriteManager, platform, this, r.getCharacterName());
 		platform.setCharacter(character);
 		engine.spawnWorldObject(platform);
 		engine.spawnWorldObject(character);

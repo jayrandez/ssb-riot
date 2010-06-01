@@ -39,6 +39,7 @@ public class Riot {
 	 * to go with it as well as loading up spritesheets and maps. For now, we're just starting and
 	 * connecting to local servers.
 	 */
+	public static String characterName;
 	public static void main(String[] args) throws Exception {
 		final SpriteManager spriteManager = new SpriteManager("sheets");
 		final MapManager mapManager = new MapManager("maps");
@@ -46,7 +47,6 @@ public class Riot {
 		
 		Scanner scanner = new Scanner(System.in);
 		String line = "";
-		
 		System.out.print("\nStart a server at localhost? [Y/n] ");
 		line = scanner.nextLine();
 		if(line.equals("") || line.equals("Y") || line.equals("y")) {
@@ -63,6 +63,8 @@ public class Riot {
 		System.out.println();
 		if(line.equals(""))
 			line = "localhost";
+		System.out.print("\nChoose your character: ");
+		characterName = scanner.nextLine().toString();
 		
 		/* Create the first provider, add it to the game window, and begin. */
 		SceneProvider startScreen = new DummyTerminal(spriteManager, fontManager, line);
@@ -71,5 +73,8 @@ public class Riot {
 		window.dispose();
 		
 		System.exit(0);
+	}
+	public String getCharacterName(){
+		return characterName;
 	}
 }
