@@ -92,6 +92,8 @@ public class SceneWindow extends JFrame implements KeyListener {
 			    strategy.show();
 			}
 			this.requestFocus();
+			
+			this.provider = provider.nextProvider();
 		}
 	}
 	

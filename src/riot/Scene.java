@@ -22,6 +22,8 @@ public class Scene {
 		
 		worldSprites = new ArrayList<Sprite>();
 		overlaySprites = new ArrayList<Sprite>();
+		
+		worldSize = new Size(640, 480);
 
 		ArrayList<Character> characters = new ArrayList<Character>();
 		for(GameObject object: worldObjects) {
@@ -30,6 +32,7 @@ public class Scene {
 				worldSprites.add(sprite);
 				if(object instanceof Map) {
 					worldSize = new Size(sprite.width, sprite.height);
+					System.out.println(worldSize);
 				}
 			}
 			if(object instanceof Character) {

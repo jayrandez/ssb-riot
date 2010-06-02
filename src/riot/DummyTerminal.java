@@ -141,4 +141,8 @@ public class DummyTerminal implements SceneProvider {
 		writer.writeByte(Riot.Direction);
 		writer.writeInt(degrees);
 	}
+	
+	public SceneProvider nextProvider() {
+		return this;
+	}
 }
