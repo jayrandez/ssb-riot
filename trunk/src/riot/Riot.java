@@ -66,14 +66,16 @@ public class Riot {
 		System.out.print("\nChoose your character: ");
 		characterName = scanner.nextLine().toString();
 		
-		/* Create the first provider, add it to the game window, and begin. */
-		SceneProvider startScreen = new DummyTerminal(spriteManager, fontManager, line);
+		System.out.println("you said line: " + line);
+		
+		SceneProvider startScreen = new SplashScreen(spriteManager, fontManager, line);
 		SceneWindow window = new SceneWindow(startScreen);
 		window.drawingLoop();
 		window.dispose();
 		
 		System.exit(0);
 	}
+	
 	public String getCharacterName(){
 		return characterName;
 	}
